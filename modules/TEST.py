@@ -15,65 +15,314 @@ def buildGoalsArray(numberOfGoals):
 def buildSubGoalsArray(numberOfSubGoals):
 	pass
 
-
 '''TESTING OBJECTS'''
 def testGoal():
-	goal1 = Goal(1, "Water the Plants", "Gardening", 1, "01012019")
-	print(goal1.getId())
-	print(goal1.getName())
-	print(goal1.getCategory())
-	print(goal1.getPriority())
-	print(goal1.getStartDate())
+	#TEST 1
+	try:
+		#build test here
+		goal1 = Goal(1, "Water the Plants", "Gardening", 1, "01012019")
+		print(goal1.getId())
+		print(goal1.getName())
+		print(goal1.getCategory())
+		print(goal1.getPriority())
+		print(goal1.getStartDate())
 
-	if(goal1.isComplete()):
-		print(goa11.getFinishDate())
-	else:
-		print("Incomplete")
+		if(goal1.isComplete()):
+			print(goa11.getFinishDate())
+		else:
+			print("Incomplete")
 
-	goal1.completeGoal("0202019")
+		goal1.completeGoal("0202019")
 
-	if(goal1.isComplete()):
-		print(goal1.getFinishDate())
-	else:
-		print("Incomplete")
+		if(goal1.isComplete()):
+			print(goal1.getFinishDate())
+		else:
+			print("Incomplete")
+		print("***************GOAL TEST 1: SUCCESS***************\n")
+	except:
+		print("***************GOAL TEST 1: FAIL***************\n")
 
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************GOAL TEST 2: SUCCESS***************\n")
+	except:
+		print("***************GOAL TEST 2: FAIL***************")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************GOAL TEST 3: SUCCESS***************\n")
+	except:
+		print("***************GOAL TEST 3: FAIL***************\n")
+	
 
 def testSubGoal():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************SUBGOAL TEST 1: SUCCESS***************\n")
+	except:
+		print("***************SUBGOAL TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************SUBGOAL TEST 2: SUCCESS***************\n")
+	except:
+		print("***************SUBGOAL TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************SUBGOAL TEST 3: SUCCESS***************\n")
+	except:
+		print("***************SUBGOAL TEST 3: FAIL***************\n")
 
 def testStatus():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************STATUS TEST 1: SUCCESS***************\n")
+	except:
+		print("***************STATUS TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************STATUS TEST 2: SUCCESS***************\n")
+	except:
+		print("***************STATUS TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************STATUS TEST 3: SUCCESS***************\n")
+	except:
+		print("***************STATUS TEST 3: FAIL***************\n")
 
 '''TESTING MODULES'''
 def testFileManager():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************FILEMANAGER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************FILEMANAGER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************FILEMANAGER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************FILEMANAGER TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************FILEMANAGER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************FILEMANAGER TEST 3: FAIL***************\n")
 
 def testGoalManager():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************GOALMANAGER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************GOALMANAGER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************GOALMANAGER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************GOALMANAGER TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************GOALMANAGER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************GOALMANAGER TEST 3: FAIL***************\n")
 
 def testSubGoalManager():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************SUBGOALMANAGER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************SUBGOALMANAGER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************SUBGOALMANAGER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************SUBGOALMANAGER TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************SUBGOALMANAGER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************SUBGOALMANAGER TEST 3: FAIL***************\n")
 
 def testEffortTracker():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************EFFORTTRACKER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************EFFORTTRACKER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************EFFORTTRACKER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************EFFORTTRACKER TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************EFFORTTRACKER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************EFFORTTRACKER TEST 3: FAIL***************\n")
 
 def testActiveTimer():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************ACTIVETIMER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************ACTIVETIMER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************ACTIVETIMER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************GOAL TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************ACTIVETIMER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************ACTIVETIMER TEST 3: FAIL***************\n")
 
 def testSortManager():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************SORTMANAGER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************SORTMANAGER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************SORTMANAGER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************GOAL TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************SORTMANAGER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************SORTMANAGER TEST 3: FAIL***************\n")
 
 def testProgressTracker():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************PROGRESSTRACKER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************PROGRESSTRACKER TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************PROGRESSTRACKER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************PROGRESSTRACKER TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************PROGRESSTRACKER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************PROGRESSTRACKER TEST 3: FAIL***************\n")
 
 def testAnalysisViewer():
-	pass
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************ANALYSISVIEWER TEST 1: SUCCESS***************\n")
+	except:
+		print("***************ANALYSISVIEWER TEST 1: FAIL***************\n")
 
-def testAnalysisViewer():
-	pass
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************ANALYSISVIEWER TEST 2: SUCCESS***************\n")
+	except:
+		print("***************ANALYSISVIEWER TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************ANALYSISVIEWER TEST 3: SUCCESS***************\n")
+	except:
+		print("***************ANALYSISVIEWER TEST 3: FAIL***************\n")
 
 def main():
+	testGoal()
+	testSubGoal()
+	testStatus()
 
+	testFileManager()
+	testGoalManager()
+	testSubGoalManager()
+	testEffortTracker()
+	testActiveTimer()
+	testSortManager()
+	testProgressTracker()
+	testAnalysisViewer()
 
 if __name__ == '__main__':
 	main()
