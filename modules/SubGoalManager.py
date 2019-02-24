@@ -9,14 +9,12 @@ from Status import Status as Status
 
 class SubGoalManager(object):
 	"""CONSTRUCTOR FOR SUBGOALMANAGER"""
-	def __init__(self, _currSGID):
-		self.currSGID = _currSGID #current subgoal id
+	def __init__(self):
+		pass
 
 	"""METHODS FOR SUBGOALMANAGER"""
-	def addSubGoal(self, _subGoalList, _subGoalInformation):
-		#use _subGoalInformation and _currSGID to create new SubGoal object
-
-		#change _currSGID to be a bigger ID (not previously seen)
+	def addSubGoal(self, _subGoalList, _sgid, _subGoalInformation):
+		#use _subGoalInformation and _sgid to create new SubGoal object
 
 		#append new SubGoal object to _subGoalList
 
@@ -44,8 +42,6 @@ class SubGoalManager(object):
 		return _subGoal #returns the updated subgoal
 
 	"""GETTERS FOR SUBGOALMANAGER"""
-	def getCurrSGID():
-		return self.currSGID
 
 	"""SETTERS FOR SUBGOALMANAGER"""
 		

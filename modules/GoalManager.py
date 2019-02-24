@@ -9,14 +9,12 @@ from Status import Status as Status
 
 class GoalManager(object):
 	"""CONSTRUCTOR FOR GOALMANAGER"""
-	def __init__(self, _currGID):
-		self.currGID = _currGID #current goal id
+	def __init__(self):
+		pass
 
 	"""METHODS FOR GOALMANAGER"""
-	def addGoal(self, _goalList, _goalInformation):
-		#use _goalInformation and _currGID to create new Goal object
-
-		#change _currGID to be a bigger ID (not previously seen)
+	def addGoal(self, _goalList, _gid, _goalInformation):
+		#use _goalInformation and _gid to create new Goal object
 
 		#append new Goal object to _goalList
 
@@ -44,8 +42,7 @@ class GoalManager(object):
 		return _goal #returns the updated goal
 
 	"""GETTERS FOR GOALMANAGER"""
-	def getCurrGID():
-		return self.currGID #returns the current Goal ID
+
 
 	"""SETTERS FOR GOALMANAGER"""
 	
