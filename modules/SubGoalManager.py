@@ -24,6 +24,7 @@ class SubGoalManager(object):
 
 	def editSubGoal(self, _subGoal, _subGoalInformation):
 		#use _subGoalInformation to update _subGoal
+		#_subGoalInformation contains {name, category, priority}
 
 		#return _subGoal
 		pass

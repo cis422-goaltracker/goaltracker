@@ -24,6 +24,7 @@ class GoalManager(object):
 
 	def editGoal(self, _goal, _goalInformation):
 		#use _goalInformation to update _goal
+		#_goalInformation contains {name, category, priority}
 
 		#return _goal
 		pass
