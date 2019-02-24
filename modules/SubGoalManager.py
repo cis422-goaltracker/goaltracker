@@ -5,6 +5,7 @@
 """
 
 from SubGoal import SubGoal as SubGoal
+from Status import Status as Status
 
 class SubGoalManager(object):
 	"""CONSTRUCTOR FOR SUBGOALMANAGER"""
@@ -35,7 +36,7 @@ class SubGoalManager(object):
 
 		#remove subGoal from _subGoalList
 
-		#return _subGoalList
+		#return _subGoalList and DSG Status
 		pass
 
 	def completeSubGoal(self, _subGoal, _finishDate):

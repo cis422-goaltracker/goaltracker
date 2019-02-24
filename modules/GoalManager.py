@@ -5,6 +5,7 @@
 """
 
 from Goal import Goal as Goal
+from Status import Status as Status
 
 class GoalManager(object):
 	"""CONSTRUCTOR FOR GOALMANAGER"""
@@ -35,7 +36,7 @@ class GoalManager(object):
 
 		#remove goal from _goalList
 
-		#return _goalList
+		#return _goalList and DG Status
 		pass
 
 	def completeGoal(self, _goal, _finishDate):
