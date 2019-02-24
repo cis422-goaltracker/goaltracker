@@ -13,7 +13,7 @@ class Goal(object):
 		self.name = _name #sets the name to the passed name
 		self.category = _category #sets the category to the passed category
 		self.priority = _priority #sets the priority to the passed priority
-		self.startDate = startDate #sets the start date to the passed start date
+		self.startDate = _startDate #sets the start date to the passed start date
 		self.finishDate = None #defaults finish date to null
 		self.effortTracker = {} #defaults effort tracker to empty dictionary
 		self.subGoals = [] #defaults subl goals to empty list
