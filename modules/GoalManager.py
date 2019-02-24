@@ -15,6 +15,7 @@ class GoalManager(object):
 	"""METHODS FOR GOALMANAGER"""
 	def addGoal(self, _goalList, _gid, _goalInformation):
 		#use _goalInformation and _gid to create new Goal object
+		#_goalInformation contains {name, category, priority, startdate}
 
 		#append new Goal object to _goalList
 

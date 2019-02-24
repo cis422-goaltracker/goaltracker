@@ -15,6 +15,7 @@ class SubGoalManager(object):
 	"""METHODS FOR SUBGOALMANAGER"""
 	def addSubGoal(self, _subGoalList, _sgid, _subGoalInformation):
 		#use _subGoalInformation and _sgid to create new SubGoal object
+		#subGoalInformation includes {name, startdate}
 
 		#append new SubGoal object to _subGoalList
 
