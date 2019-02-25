@@ -14,15 +14,11 @@ class GoalManager(object):
 		pass
 
 	"""METHODS FOR GOALMANAGER"""
-	def addGoal(self, _model, _goalInformation, _startDate): #FUNCTION NEEDS TO BE BUILT
+	def addGoal(self, _model, _goalInformation, _startDate):
 		goalList = _model.getGoalList() #retrieves goalList from the model
 		gid = _model.getNewGID() #retreieves a new goal id from the model
-
-		#use _goalInformation and gid to create new Goal object
-		#_goalInformation contains {name, category, priority}
-
-		#append new Goal object to goalList
-
+		goal = Goal(gid, _goalInformation, _startDate) #create new Goal object using _goalInformation
+		goalList.append(goal) #append new Goal to goalList
 		_model.setGoalList(goalList) #sets the updated goallist in the model
 		return _model #returns the model
 
@@ -34,11 +30,9 @@ class GoalManager(object):
 
 	def deleteGoal(self, _gid, _model, _goal): #FUNCTION NEEDS TO BE BUILT
 		goalList = _model.getGoalList() #gets the goallist from the model
-
-		#find goal with matching id in goalList
-
-		#remove goal from _goalList
-
+		for index, goal in enumerate(goalList): #cycles through goal list
+			if goal.getId() == _gid: #if goal's id matches _gid
+				goalList.pop(index) #remove subGoal from the list
 		_model.setGoalList(goalList) #sets the updated goallist in the model
 		return _model #returns the model
 
