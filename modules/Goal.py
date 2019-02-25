@@ -8,18 +8,22 @@ from SubGoal import SubGoal as SubGoal
 
 class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _startDate):
+	def __init__(self, _id, _goalInformation, _startDate, _anticipatedFinishDate):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
 		self.priority = _goalInformation["priority"] #integer
 		self.startDate = _startDate #DateTime
+		self.anticipatedFinishDate = _anticipatedFinishDate #DateTime
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of date-elapsedtime pairs
 		self.subGoals = [] #list of SubGoals
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
+	def rescheduleGoal(self, _anticipatedFinishDate):
+		self.anticipatedFinishDate = _anticipatedFinishDate #sets the anticipated finish date to the new anticipated finishd date
+
 	def updateGoal(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name
 		self.category = _goalInformation["category"] #sets the category to the passed category
@@ -30,6 +34,9 @@ class Goal(object):
 
 	def isComplete(self):
 		return self.finishDate != None #if finish date is not null, it is complete
+
+	def isOverDue(self, _currentDate):
+		return self.anticipatedFinishDate < _currentDate #if current date is greater than anticipated finish date, its overdue
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _date, _elapsedtime):
@@ -53,6 +60,9 @@ class Goal(object):
 
 	def getStartDate(self):
 		return self.startDate #returns the Goal Start Date
+
+	def getAnticipatedFinishDate(self):
+		return self.anticipatedFinishDate #returns the Goal Anticipated Finish Date
 
 	def getFinishDate(self):
 		return self.finishDate #returns the Goal Finish Date
