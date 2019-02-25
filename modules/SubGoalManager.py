@@ -14,15 +14,11 @@ class SubGoalManager(object):
 		pass
 
 	"""METHODS FOR SUBGOALMANAGER"""
-	def addSubGoal(self, _gid, _model, _subGoalInformation, _startDate): #FUNCTION NEEDS TO BE BUILT
+	def addSubGoal(self, _gid, _model, _subGoalInformation, _startDate):
 		subGoalList = _model.getSubGoalList(_gid) #gets the subgoal list from the model using the goal id
 		sgid = _model.getNewSGID() #gets a new subgoal id from the model
-
-		#use _subGoalInformation and sgid to create new SubGoal object
-		#subGoalInformation includes {name}
-
-		#append new SubGoal object to subGoalList
-
+		subGoal = SubGoal(sgid, _subGoalInformation, _startDate) #create new SubGoal object using _subGoalInformation
+		subGoalList.append(subGoal) #append new SubGoal to subGoalList
 		_model.setSubGoalList(subGoalList) #sets the updated subgoallist in the model
 		return _model #returns model
 
@@ -34,11 +30,9 @@ class SubGoalManager(object):
 
 	def deleteSubGoal(self, _gid, _sgid, _model): #FUNCTION NEEDS TO BE BUILT
 		subGoalList = _model.getSubGoalList(_gid) #retrieves subgoal from model using goal id
-
-		#find subGoal with matching id in subGoalList
-
-		#remove subGoal from _subGoalList
-
+		for index, subGoal in enumerate(subGoalList): #cycles through subgoal list
+			if subGoal.getId() == _sgid: #if subGoal's id matches _sgid
+				subGoalList.pop(index)#remove subGoal from the list
 		_model.setSubGoalList(_gid, subGoalList) #sets the updated subgoallist in the model using the goal id
 		return _model #returns model
 
