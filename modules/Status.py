@@ -15,7 +15,7 @@ class Status(object):
 			4: "IO ERROR - INVALIDFILENAME", #file write error
 			5: "DG ERROR - GOALNOTFOUND", #delete goal error
 			6: "DSG ERROR - SUBGOALNOTFOUND" #delete subgoal error
-		}
+		} #dictionary
 
 	"""METHODS FOR STATUS"""
 

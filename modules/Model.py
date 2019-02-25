@@ -11,61 +11,69 @@ from Status import Status as Status
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
 	def __init__(self, _goalList, _currGID, _currSGID, _effortTrackingData):
-		self.goalList = _goalList
-		self.currGID = _currGID
-		self.currSGID = _currSGID
-		self.effortTrackingData = _effortTrackingData
+		self.goalList = _goalList #list of goal objects
+		self.currGID = _currGID #integer
+		self.currSGID = _currSGID #integer
+		self.effortTrackingData = _effortTrackingData #dictionary goalid-starttime pairs
 
 	"""METHODS FOR MODELVIEW"""
 	'''GOAL OPERATIONS'''
-	def getGoal(self, _gid): #FUNCTION NEEDS TO BE BUILT
-		#cycles through goalList
-		#if current goal's id is _gid, return goal
-		#if not found, raise a goal not found error
-		pass
+	def getGoal(self, _gid):
+		for goal in self.goalList: #cycles through goal list
+			if goal.getId() == _gid: #if current goal's id matches _gid
+				return goal #return the goal
+		return None #if not found, return Null
 
-	def setGoal(self, _goal): #FUNCTION NEEDS TO BE BUILT
-		#cycles through goalList
-		#if current goal's id is _goal's id, replace goal with _goal
-		#if not found, raise a goal not found error
-		pass
+	def setGoal(self, _goal):
+		for index, goal in enumerate(self.goalList): #cycles through goalList
+			if goal.getId() == _goal.getId(): #if current goal's id matches _goal's id
+				self.goalList[index] = _goal #replace goal with _goal
+
+	'''SUBGOALLIST OPERATIONS'''
+	def getSubGoalList(self, _gid):
+		for goal in self.goalList: #cycle through goalList
+			if goal.getId() == _gid: #if current goal's id matches _gid
+				return goal.getSubGoals() #return goal's subgoal list
+		return None #if not found return Null
+
+	def setSubGoalList(self, _gid, _subGoalList):
+		for goal in self.goalList: #cycles through goalList
+			if goal.getId() == _gid: #if current goal's id matches _goal's id
+				goal.setSubGoals(_subGoalList) #replace subGoals with new _subGoalList
 
 	'''SUBGOAL OPERATIONS'''
-	def getSubGoal(self, _gid, _sgid): #FUNCTION NEEDS TO BE BUILT
-		#cycles through goalList
-		#if current goal's id is _gid, cycle through subgoals
-		#if subgoal's id is _sgid, return subgoal
-		#if not found, raise a subgoal not found error
-		pass
+	def getSubGoal(self, _gid, _sgid):
+		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
+		if subGoals != None: #if subgoals is not null
+			for subGoal in subGoals: #cycles through subgoals
+				if subGoal.getId() == _sgid: #if subgoal's id matches _sgid
+					return subGoal #return subgoal
+			return None #return null if subgoal not found
+		else:
+			return None #return null if goal not found
 
-	def setSubGoal(self, _gid, _subgoal): #FUNCTION NEEDS TO BE BUILT
+	def setSubGoal(self, _gid, _subGoal):
+		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
+		if subGoals != None: #if subGoals is not null
+			for index, subGoal in eumerate(subGoals): #cycles through subgoals
+				if subGoal.getId() == _subGoal.getId(): #if subGoal's id matches _subGoal's id
+					subGoals[index] = _subGoal #replaces subGoal with _subGoal in subGoals
+					self.setSubGoalList(_gid, subGoals) #set subGoalList in goal with updated GoalList
+		else:
+			return None #returns null if goal not found
 		#cycles through goalList, if current goal's id is _gid, then cycle through subgoals
 		#if current subgoal's id is _subgoal's id, replace subgoal with _subgoal
 		#if not found, raise a subgoal not found error
 		pass
 
-	'''SUBGOALLIST OPERATIONS'''
-	def getSubGoalList(self, _gid): #FUNCTION NEEDS TO BE BUILT
-		#cycles through goalList
-		#if current goal's id is _gid, return the subgoal list of that goal
-		pass
-
-	def setSubGoalList(self, _gid, _subgoalList): #FUNCTION NEEDS TO BE BUILT
-		#cycles through goalList
-		#if current goal's id is _gid, set the subgoallist to _subGoalList
-
-		pass
-
 	'''GID AND SGID OPERATIONS'''
-	def getNewGID(self): #FUNCTION NEEDS TO BE BUILT
-		#increment _currGID
-		#return _currGID
-		pass
+	def getNewGID(self):
+		self.currGID = self.currGID + 1 #increments current goal id
+		return self.currGID #returns current goal id
 
-	def getNewSGID(self): #FUNCTION NEEDS TO BE BUILT
-		#increment _currSGID
-		#return _currSGID
-		pass
+	def getNewSGID(self):
+		self.currSGID = self.currSGID + 1 # increments current subgoal id
+		return self.currSGID #returns current subgoal id
 
 	"""GETTERS FOR MODELVIEW"""
 	def getGoalList(self):

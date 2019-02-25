@@ -9,14 +9,14 @@ from SubGoal import SubGoal as SubGoal
 class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
 	def __init__(self, _id, _goalInformation, _startDate):
-		self.id = _id #sets the id to the passed id
-		self.name = _goalInformation["name"] #sets the name to the passed name
-		self.category = _goalInformation["category"] #sets the category to the passed category
-		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
-		self.startDate = _startDate #sets the start date to the passed start date
-		self.finishDate = None #defaults finish date to null
-		self.effortTracker = {} #defaults effort tracker to empty dictionary
-		self.subGoals = [] #defaults subl goals to empty list
+		self.id = _id #integer
+		self.name = _goalInformation["name"] #string
+		self.category = _goalInformation["category"] #string
+		self.priority = _goalInformation["priority"] #integer
+		self.startDate = _startDate #DateTime
+		self.finishDate = None #DateTime/Null
+		self.effortTracker = {} #dictionary of date-elapsedtime pairs
+		self.subGoals = [] #list of SubGoals
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
@@ -31,14 +31,12 @@ class Goal(object):
 	def isComplete(self):
 		return self.finishDate != None #if finish date is not null, it is complete
 
-	'''SubGoal Operations'''
-	def appendSubGoal(self, _subgoal):
-		self.subGoals.append(_subgoal) #appends the passed subgoal to the subgoal list
-
 	'''Effort Tracker Operations'''
-	def addEffortTrack(self, _date, _elapsedtime): #FUNCTION NEEDS TO BE BUILT
-		#NEED TO HANDLE FOR IF DATE IS ALREADY IN EFFORTTRACKER
-		self.effortTracker[_date] = _elapsedtime #adds a key-value pair of <date, elapsetime> to effort tracker
+	def addEffortTrack(self, _date, _elapsedtime):
+		if _date in self.effortTracker: #checks if date already exists in effort tracker
+			self.effortTracker[_date] = self.effortTracker[_date] + _elapsedtime #if it already exists, add elapsed times together
+		else:
+			self.effortTracker[_date] = _elapsedtime #else adds a key-value pair of <date, elapsetime> to effort tracker
 
 	"""GETTERS FOR GOAL"""
 	def getId(self):
@@ -66,3 +64,5 @@ class Goal(object):
 		return self.subGoals.copy() #returns a copy of the Sub Goals of the Goal
 
 	"""SETTERS FOR GOAL"""
+	def setSubGoals(self, _subGoals):
+		self.subGoals = _subGoals

@@ -7,10 +7,10 @@
 class SubGoal(object):
 	"""CONSTRUCTORS FOR SUBGOAL"""
 	def __init__(self, _id, _subGoalInformation, _startDate):
-		self.id = _id #sets the id to the passed it
-		self.name = _subGoalInformation["name"] #sets the name to the passed name
-		self.startDate = _startDate #sets the start date to the passed start date
-		self.finishDate = None #defaults the finish date to null
+		self.id = _id #integer
+		self.name = _subGoalInformation["name"] #string
+		self.startDate = _startDate #DateTime
+		self.finishDate = None #DateTime/Null
 
 	"""METHODS FOR SUBGOAL"""
 	'''SubGoal Operations'''
