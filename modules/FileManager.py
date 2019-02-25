@@ -7,16 +7,17 @@
 from Goal import Goal as Goal
 from SubGoal import SubGoal as SubGoal
 from Status import Status as Status
+from Model import Model as Model
 
 class FileManager(object):
 	"""CONSTRUCTOR FOR FILEMANAGER"""
-	def __init__(self, _fileName):
-		self.fileName = _fileName
+	def __init__(self):
+		pass
 		
 	"""METHODS FOR FILEMANAGER"""
 	'''Load Operations'''
-	def load(self, _fileName=None):
-		_fileName = self.fileName if _fileName == None else _fileName
+	def load(self, _fileName): #FUNCTION NEEDS TO BE BUILT
+		self.fileName = _fileName
 		#open file
 
 		#read file
@@ -31,14 +32,23 @@ class FileManager(object):
 
 		#close file
 
-		#return list of Goal objects, currGID, currSGID, EffortTrackingData, and IO STATUS
+		#create a Model object which contains
+		#a list of Goal objects, currGID, currSGID, EffortTrackingData
+
+		#return Model and IO Status
+
 		#if IO STATUS (FileNotFound), do not crash, must create defaults of all data
-		pass
 
 	'''Save Operations'''
-	def save(self, _goalList, _currGID, _currSGID, effortTrackingData, _fileName=None): 
+	def save(self, _model, _fileName=None): #FUNCTION NEEDS TO BE BUILT
 		_fileName = self.fileName if _fileName == None else _fileName #defaults to original file name unless a new one is specified
 		
+		goalList = _model.getGoalList()
+		currGID = _model.getCurrGID()
+		currSGID = _model.getCurrSGID()
+		effortTrackingData = _model.getEffortTrackingData()
+
+		#the following 4 objects are contained within _model. read Model object to learn how a Model is built
 		#look at Goal object to understand what a goal is composed of
 
 		#please keep these two as abstract as possible when working with them as
@@ -58,7 +68,6 @@ class FileManager(object):
 		#close file
 
 		#return IO STATUS
-		pass
 
 	"""GETTERS FOR FILEMANAGER"""
 	def getFileName(self):

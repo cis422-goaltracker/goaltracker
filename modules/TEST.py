@@ -20,7 +20,12 @@ def testGoal():
 	#TEST 1
 	try:
 		#build test here
-		goal1 = Goal(1, "Water the Plants", "Gardening", 1, "01012019")
+		goalInformation = {
+			"name": "Water the Plants",
+			"category": "Gardening",
+			"priority": 1
+		}
+		goal1 = Goal(1, goalInformation, "01012019")
 		print(goal1.getId())
 		print(goal1.getName())
 		print(goal1.getCategory())
@@ -38,6 +43,7 @@ def testGoal():
 			print(goal1.getFinishDate())
 		else:
 			print("Incomplete")
+
 		print("***************GOAL TEST 1: SUCCESS***************\n")
 	except:
 		print("***************GOAL TEST 1: FAIL***************\n")
@@ -48,7 +54,7 @@ def testGoal():
 		
 		print("***************GOAL TEST 2: SUCCESS***************\n")
 	except:
-		print("***************GOAL TEST 2: FAIL***************")
+		print("***************GOAL TEST 2: FAIL***************\n")
 
 	#TEST 3
 	try:
@@ -57,7 +63,6 @@ def testGoal():
 		print("***************GOAL TEST 3: SUCCESS***************\n")
 	except:
 		print("***************GOAL TEST 3: FAIL***************\n")
-	
 
 def testSubGoal():
 	#TEST 1
@@ -108,6 +113,31 @@ def testStatus():
 		print("***************STATUS TEST 3: SUCCESS***************\n")
 	except:
 		print("***************STATUS TEST 3: FAIL***************\n")
+
+def testModel():
+	#TEST 1
+	try:
+		#build test here
+		
+		print("***************MODEL TEST 1: SUCCESS***************\n")
+	except:
+		print("***************MODEL TEST 1: FAIL***************\n")
+
+	#TEST 2
+	try:
+		#build test here
+		
+		print("***************MODEL TEST 2: SUCCESS***************\n")
+	except:
+		print("***************MODEL TEST 2: FAIL***************\n")
+
+	#TEST 3
+	try:
+		#build test here
+		
+		print("***************MODEL TEST 3: SUCCESS***************\n")
+	except:
+		print("***************MODEL TEST 3: FAIL***************\n")
 
 '''TESTING MODULES'''
 def testFileManager():
@@ -312,17 +342,18 @@ def testAnalysisViewer():
 
 def main():
 	testGoal()
-	testSubGoal()
-	testStatus()
+	#testSubGoal()
+	#testStatus()
+	#testModel()
 
-	testFileManager()
-	testGoalManager()
-	testSubGoalManager()
-	testEffortTracker()
-	testActiveTimer()
-	testSortManager()
-	testProgressTracker()
-	testAnalysisViewer()
+	#testFileManager()
+	#testGoalManager()
+	#testSubGoalManager()
+	#testEffortTracker()
+	#testActiveTimer()
+	#testSortManager()
+	#testProgressTracker()
+	#testAnalysisViewer()
 
 if __name__ == '__main__':
 	main()

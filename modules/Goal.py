@@ -8,11 +8,11 @@ from SubGoal import SubGoal as SubGoal
 
 class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _name, _category, _priority, _startDate):
+	def __init__(self, _id, _goalInformation, _startDate):
 		self.id = _id #sets the id to the passed id
-		self.name = _name #sets the name to the passed name
-		self.category = _category #sets the category to the passed category
-		self.priority = _priority #sets the priority to the passed priority
+		self.name = _goalInformation["name"] #sets the name to the passed name
+		self.category = _goalInformation["category"] #sets the category to the passed category
+		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
 		self.startDate = _startDate #sets the start date to the passed start date
 		self.finishDate = None #defaults finish date to null
 		self.effortTracker = {} #defaults effort tracker to empty dictionary
@@ -20,10 +20,10 @@ class Goal(object):
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
-	def updateGoal(self, _name, _category, _priority):
-		self.name = _name #sets the name to the passed name
-		self.category = _category #sets the category to the passed category
-		self.priority = _priority #sets the priority to the passed priority
+	def updateGoal(self, _goalInformation):
+		self.name = _goalInformation["name"] #sets the name to the passed name
+		self.category = _goalInformation["category"] #sets the category to the passed category
+		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
 
 	def completeGoal(self, _finishDate):
 		self.finishDate = _finishDate #sets the finish date to the passed finish date
@@ -36,7 +36,8 @@ class Goal(object):
 		self.subGoals.append(_subgoal) #appends the passed subgoal to the subgoal list
 
 	'''Effort Tracker Operations'''
-	def addEffortTrack(self, _date, _elapsedtime):
+	def addEffortTrack(self, _date, _elapsedtime): #FUNCTION NEEDS TO BE BUILT
+		#NEED TO HANDLE FOR IF DATE IS ALREADY IN EFFORTTRACKER
 		self.effortTracker[_date] = _elapsedtime #adds a key-value pair of <date, elapsetime> to effort tracker
 
 	"""GETTERS FOR GOAL"""

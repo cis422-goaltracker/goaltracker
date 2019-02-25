@@ -6,16 +6,16 @@
 
 class SubGoal(object):
 	"""CONSTRUCTORS FOR SUBGOAL"""
-	def __init__(self, _id, _name, _startDate):
+	def __init__(self, _id, _subGoalInformation, _startDate):
 		self.id = _id #sets the id to the passed it
-		self.name = _name #sets the name to the passed name
+		self.name = _subGoalInformation["name"] #sets the name to the passed name
 		self.startDate = _startDate #sets the start date to the passed start date
 		self.finishDate = None #defaults the finish date to null
 
 	"""METHODS FOR SUBGOAL"""
 	'''SubGoal Operations'''
-	def updateSubGoal(self, _name):
-		self.name = _name #sets the name to the passed name
+	def updateSubGoal(self, _subGoalInformation):
+		self.name = _SubGoalInformation["name"] #sets the name to the name in _subGoalInformation
 
 	def completeSubGoal(self, _finishDate):
 		self.finishDate = _finishDate #sets the finished date to the passed finished date

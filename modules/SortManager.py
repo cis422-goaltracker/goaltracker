@@ -5,6 +5,7 @@
 """
 
 from Goal import Goal as Goal
+from Model import Model as Model
 
 class SortManager(object):
 	"""CONSTRUCTORS FOR SORTMANAGER"""
@@ -12,21 +13,19 @@ class SortManager(object):
 		pass
 
 	"""METHODS FOR SORTMANAGER"""
-	def categorySort(self, _goalList):
-		#make a copy of the list
+	def categorySort(self, _model): #FUNCTION NEEDS TO BE BUILT
+		goalList = _model.getGoalList() #gets goallist from the model
 
-		#sort copy by category (alphabetically, if same category, then by priority)
+		#sort goalList by category (alphabetically, if same category, then by priority)
 
-		#return sorted list
-		pass
+		return goalList #returns the category sorted list
 
-	def prioritySort(self, _goalList):
-		#make a copy of the list
+	def prioritySort(self, _model): #FUNCTION NEEDS TO BE BUILT
+		goalList = _model.getGoalList() #gets goallist from the model
 
-		#sort copy by priority (numerically, if same priority, then by category)
+		#sort goalList by priority (numerically, if same priority, then by category)
 
-		#return sorted list
-		pass
+		return goalList #returns the priority sorted list
 
 	"""GETTERS FOR SORTMANAGER"""
 

@@ -5,6 +5,7 @@
 """
 
 from Goal import Goal as Goal
+from Model import Model as Model
 
 class ActiveTimer(object):
 	"""CONSTRUCTOR FOR ACTIVETIMER"""
@@ -12,14 +13,15 @@ class ActiveTimer(object):
 		pass
 
 	"""METHODS FOR ACTIVETIMER"""
-	def calculateActiveTime(self, _goal, _currentDate):
-		#check if goal isComplete
+	def calculateActiveTime(self, _gid, _model, _currentDate): #FUNCTION NEEDS TO BE BUILT
+		goal = _model.getGoal(_gid) #gets the goal form the model
+
+		elapsedTime = None
 		#if complete, goal finishdate - startdate
 
 		#if not complete, currentdate - startdate
 
-		#return calculated active time
-		pass
+		return elapsedTime #returns the elapsed time
 
 	"""GETTERS FOR ACTIVETIMER"""
 
