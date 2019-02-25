@@ -28,7 +28,7 @@ class GoalManager(object):
 		_model.setGoal(goal) #replaces old goal with updated subgoal in model
 		return _model #returns model
 
-	def deleteGoal(self, _gid, _model, _goal): #FUNCTION NEEDS TO BE BUILT
+	def deleteGoal(self, _gid, _model, _goal):
 		goalList = _model.getGoalList() #gets the goallist from the model
 		for index, goal in enumerate(goalList): #cycles through goal list
 			if goal.getId() == _gid: #if goal's id matches _gid
