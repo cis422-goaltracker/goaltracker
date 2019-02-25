@@ -13,35 +13,22 @@ class EffortTracker(object):
 		pass
 
 	"""METHODS FOR EFFORTTRACKER"""
-	def startEffortTracker(self, _gid, _model, _startTime): #FUNCTION NEEDS TO BE BUILT
+	def startEffortTracker(self, _gid, _model, _startTime):
 		trackingDict = _model.getTrackingData() #gets the tracking data from the model
-		#create key-value pair <_gid, _startTime>
-
-		#add pair to the tracking dictionary
-
+		trackingDict[_gid] = _startTime #create key-value pair <_gid, _startTime> and add to tracking dictionary
 		_model.setTrackingData(trackingDict) #sets the updated tracking data in the model
 		return _model #returns the model
 
-	def isEffortTracking(self, _gid, _model): #FUNCTION NEEDS TO BE BUILT
+	def isEffortTracking(self, _gid, _model):
 		trackingDict = _model.getTrackingData() #gets the tracking data from the model
-		#check if _goal is in the tracking dictionary by checking id, true if it is, false if it isn't
+		return _gid in trackingDict #check if _gid is in the tracking dictionary by checking id, true if it is, false if it isn't
 
-	def stopEffortTracker(self, _gid, _model, _finishTime): #FUNCTION NEEDS TO BE BUILT
+	def stopEffortTracker(self, _gid, _model, _finishTime):
 		trackingDict = _model.getTrackingData() #gets the tracking data from the model
 		goal = _model.getGoal(_gid) #gets the goal from the model using goal id
-		
-
-		date = None #find date of _finishTime (DateTime object)
-		elapsedTime = None  #find elapsed time between finish and start time
-		
-		#pops the pair with the _goal as the key out of tracking dictionary
-
-		#finds the elapsed time between _finishTime and _startTime
-
-		#creates new entry in _goal's effort tracker with <date, elapsed time>
-		#if date already exists, add new elapsed time to old time
-
-		goal.addEffortTrack(date, elapsedTime) #adds an effort track to the goal
+		startTime = trackingDict.pop(_gid) #remove <_gid, starttime> pair from tracking dictionary, and stores startTime
+		elapsedTime = _finishTime - startTime #calculates elapsed time as difference between finish and start time
+		goal.addEffortTrack(_finishTime, elapsedTime) #adds an effort track to the goal
 		_model.setGoal(goal) #sets the updated goal in the model
 		return _model #returns model
 
