@@ -14,6 +14,7 @@ class GoalManager(object):
 		pass
 
 	"""METHODS FOR GOALMANAGER"""
+	'''Goal Modification Operations'''
 	def addGoal(self, _model, _goalInformation, _startDate, _anticipatedFinishDate):
 		goalList = _model.getGoalList() #retrieves goalList from the model
 		gid = _model.getNewGID() #retreieves a new goal id from the model

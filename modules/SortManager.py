@@ -18,15 +18,24 @@ class SortManager(object):
 
 		#sort goalList by category (alphabetically, if same category, then by priority)
 
-		return goalList #returns the category sorted list
+		_model.setGoalList(goalList) #sets the updated goal list in the model
+		return _model #returns the model
 
 	def prioritySort(self, _model): #FUNCTION NEEDS TO BE BUILT
 		goalList = _model.getGoalList() #gets goallist from the model
 
 		#sort goalList by priority (numerically, if same priority, then by category)
 
-		return goalList #returns the priority sorted list
+		_model.setGoalList(goalList) #sets the updated goal list in the model
+		return _model #returns the model
 
+	def dueDateSort(self, _model): #FUNCTION NEEDS TO BE BUILT
+		goalList = _model.getGoalList() #gets goallist from the model
+
+		#sort goalList by anticipatedFinishDate (date, if the same anticipatedFinishDate, then by goal name [alphabetically])
+
+		_model.setGoalList(goalList) #sets the updated goal list in the model
+		return _model  #returns the model
 	"""GETTERS FOR SORTMANAGER"""
 
 
