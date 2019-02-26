@@ -25,24 +25,18 @@ class GoalManager(object):
 	def editGoal(self, _gid, _model, _goalInformation):
 		goal = _model.getGoal(_gid) #retrieves the goal from the model
 		goal.update(_goalInformation) #updates the contents of goal
-		_model.setGoal(goal) #replaces old goal with updated subgoal in model
+		_model.setGoal(goal) #replaces old goal with updated goal in model
 		return _model #returns model
 
-	def rescheduleGoal(self, _gid, _model, _anticipatedFinishDate): #FUNCTION NEEDS TO BE BUILT
-		goal = _model.getGoal(_gid)
+	def rescheduleGoal(self, _gid, _model, _anticipatedFinishDate):
+		goal = _model.getGoal(_gid) #retrieves the goal from the model
+		goal.reschedule(_anticipatedFinishDate) #reschedules goal to the new anticipated finish date
+		_model.setGoal(goal) #replaces old goal with update goal in the model
+		return _model #returns model
 
-		#reschedule goal to anticipatedFinishDate (function in Goal)
-
-		_model.setGoal(goal)
-		return _model
-
-	def isOverDue(self, _gid, _model): #FUNCTION NEEDS TO BE BUILT
-		goal = _model.getGoal(_gid)
-
-		#check if goal is overdue (function in Goal)
-
-		_model.setGoal(goal)
-		return _model
+	def isOverDue(self, _gid, _model):
+		goal = _model.getGoal(_gid) #retrieves the goal from the model
+		return goal.isOverDue() #returns if goal is overdue
 
 	def deleteGoal(self, _gid, _model, _goal):
 		goalList = _model.getGoalList() #gets the goallist from the model

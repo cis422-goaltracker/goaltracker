@@ -21,7 +21,7 @@ class Goal(object):
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
-	def rescheduleGoal(self, _anticipatedFinishDate):
+	def reschedule(self, _anticipatedFinishDate):
 		self.anticipatedFinishDate = _anticipatedFinishDate #sets the anticipated finish date to the new anticipated finishd date
 
 	def updateGoal(self, _goalInformation):
