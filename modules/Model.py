@@ -86,6 +86,28 @@ class Model(object):
 		self.currSGID = self.currSGID + 1 # increments current subgoal id
 		return self.currSGID #returns current subgoal id
 
+	'''SORT OPERATIONS'''
+	def categorySort(self):
+		goalList = self.getGoalList()
+
+		#Sort goalList by category here
+
+		self.setGoalList(goalList)
+
+	def prioritySort(self):
+		goalList = self.getGoalList()
+
+		#Sort goalList by priority here
+
+		self.setGoalList(goalList)
+
+	def dueDateSort(self):
+		goalList = self.getGoalList()
+
+		#Sort goalList by due date here
+
+		self.setGoalList(goalList)
+
 	"""GETTERS FOR MODELVIEW"""
 	def getGoalList(self):
 		return self.goalList.copy() #returns a copy of the Goal List
