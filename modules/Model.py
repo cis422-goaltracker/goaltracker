@@ -87,24 +87,36 @@ class Model(object):
 		return self.currSGID #returns current subgoal id
 
 	'''SORT OPERATIONS'''
-	def categorySort(self):
+	def categorySort(self): #FUNCTION NEEDS TO BE BUILT
 		goalList = self.getGoalList()
 
-		#Sort goalList by category here
+		#hints for starter code
+		#for goal in goalList:
+		#	category = goal.getCategory()
+
+		#Sort goalList by category here (alphabetically, if same category, then by priority)
 
 		self.setGoalList(goalList)
 
-	def prioritySort(self):
+	def prioritySort(self): #FUNCTION NEEDS TO BE BUILT
 		goalList = self.getGoalList()
 
-		#Sort goalList by priority here
+		#hints for starter code
+		#for goal in goalList:
+		#	priority = goal.getPriority()
+
+		#Sort goalList by priority here (numerically, if same priority, then by category)
 
 		self.setGoalList(goalList)
 
-	def dueDateSort(self):
+	def dueDateSort(self): #FUNCTION NEEDS TO BE BUILT
 		goalList = self.getGoalList()
 
-		#Sort goalList by due date here
+		#hints for starter code
+		#for goal in goalList:
+		#	dueDate = goal.getAnticipatedFinishDate()
+
+		#Sort goalList by due date here (date, if same due date, then by priority)
 
 		self.setGoalList(goalList)
 
