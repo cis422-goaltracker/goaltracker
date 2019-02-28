@@ -7,6 +7,7 @@
 from Goal import Goal as Goal
 from SubGoal import SubGoal as SubGoal
 from Status import Status as Status
+import datetime as DateTime
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
@@ -25,10 +26,10 @@ class Model(object):
 				incompleteGoalList.append(goal) #append goal to incomplete goal list
 		return incompleteGoalList #return incomplete goal list
 
-	def getOverDueGoalList(self):
+	def getOverDueGoalList(self, _currentDate):
 		overDueGoalList = [] #empty list to hold overdue goals
 		for goal in self.goalList: #cycles through goal list
-			if goal.isOverDue(): #if the goal is not complete
+			if goal.isOverDue(_currentDate): #if the goal is not complete
 				overDueGoalList.append(goal) #append goal to incomplete goal list
 		return overDueGoalList #return incomplete goal list
 
