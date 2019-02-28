@@ -7,6 +7,7 @@
 from Goal import Goal as Goal
 from Status import Status as Status
 from Model import Model as Model
+import datetime as DateTime
 
 class GoalManager(object):
 	"""CONSTRUCTOR FOR GOALMANAGER"""
@@ -35,11 +36,11 @@ class GoalManager(object):
 		_model.setGoal(goal) #replaces old goal with update goal in the model
 		return _model #returns model
 
-	def isOverDue(self, _gid, _model):
+	def isOverDue(self, _gid, _model, _currentDate):
 		goal = _model.getGoal(_gid) #retrieves the goal from the model
-		return goal.isOverDue() #returns if goal is overdue
+		return goal.isOverDue(_currentDate) #returns if goal is overdue
 
-	def deleteGoal(self, _gid, _model, _goal):
+	def deleteGoal(self, _gid, _model):
 		goalList = _model.getGoalList() #gets the goallist from the model
 		for index, goal in enumerate(goalList): #cycles through goal list
 			if goal.getId() == _gid: #if goal's id matches _gid

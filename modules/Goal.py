@@ -5,6 +5,7 @@
 """
 
 from SubGoal import SubGoal as SubGoal
+import datetime as DateTime
 
 class Goal(object):
 	"""Class Variables"""
