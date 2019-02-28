@@ -12,6 +12,35 @@ from PyQt5.uic import loadUi
 import calendar
 import datetime
 
+class AnalysisGenerator(object):
+	"""CONSTRUCTOR FOR ANALYSISGENERATOR"""
+	def __init__(self):
+		pass
+
+	def calculateActiveTime(self, _gid, _model, _currentDate):
+		goal = _model.getGoal(_gid) #gets the goal form the model
+		if goal.isComplete(): #if goal is complete
+			return goal.getFinishDate() - goal.getStartDate() #find the difference between finish and start date
+		else:
+			return _currentDate - goal.getStartDate() #find the difference between the current date and start date
+
+	def trackProgress(self, _gid, _model):
+		pass
+
+	def trackEffort(self, _gid, _model):
+		pass
+		
+	"""METHODS FOR ANALYSISGENERATOR"""
+
+
+	"""GETTERS FOR ANALYSISGENERATOR"""
+
+
+	"""SETTERS FOR ANALYSISGENERATOR"""
+		
+
+
+
 ui = ['Analysis.ui', 'UncompletedAnalysis.ui', 'viewgoal.ui']
 
 class Analysis_Event(QDialog):
