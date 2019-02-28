@@ -32,6 +32,13 @@ class EffortTracker(object):
 		_model.setGoal(goal) #sets the updated goal in the model
 		return _model #returns model
 
+	def manuallyInputEffort(self, _gid, _model, _startTime, _finishTime):
+		goal = _model.getGoal(_gid) #gets the goal from the model using the goal id
+		elapsedTime = _finishTime - _startTime #calcualtes the elapsed time as the difference between finish and start time
+		goal.addEffortTrack(_finishTime, elapsedTime) #adds an effort track to the goal
+		_model.setGoal(goal) #sets the updated goal in the model
+		return _model #retuns model
+
 	"""GETTERS FOR EFFORTTRACKER"""
 
 	"""SETTERS FOR EFFORTTRACKER"""
