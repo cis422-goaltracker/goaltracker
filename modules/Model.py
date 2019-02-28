@@ -4,9 +4,9 @@
 	GoalTracker
 """
 
-from Goal import Goal as Goal
-from SubGoal import SubGoal as SubGoal
-from Status import Status as Status
+from Goal import Goal
+from SubGoal import SubGoal
+from Status import Status
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
@@ -70,7 +70,7 @@ class Model(object):
 	def setSubGoal(self, _gid, _subGoal):
 		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
 		if subGoals != None: #if subGoals is not null
-			for index, subGoal in eumerate(subGoals): #cycles through subgoals
+			for index, subGoal in enumerate(subGoals): #cycles through subgoals
 				if subGoal.getId() == _subGoal.getId(): #if subGoal's id matches _subGoal's id
 					subGoals[index] = _subGoal #replaces subGoal with _subGoal in subGoals
 					self.setSubGoalList(_gid, subGoals) #set subGoalList in goal with updated GoalList
@@ -88,36 +88,18 @@ class Model(object):
 
 	'''SORT OPERATIONS'''
 	def categorySort(self): #FUNCTION NEEDS TO BE BUILT
-		goalList = self.getGoalList()
-
-		#hints for starter code
-		#for goal in goalList:
-		#	category = goal.getCategory()
-
-		#Sort goalList by category here (alphabetically, if same category, then by priority)
-
+		Goal.sorting = "category"
+		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
 	def prioritySort(self): #FUNCTION NEEDS TO BE BUILT
-		goalList = self.getGoalList()
-
-		#hints for starter code
-		#for goal in goalList:
-		#	priority = goal.getPriority()
-
-		#Sort goalList by priority here (numerically, if same priority, then by category)
-
+		Goal.sorting = "priority"
+		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
 	def dueDateSort(self): #FUNCTION NEEDS TO BE BUILT
-		goalList = self.getGoalList()
-
-		#hints for starter code
-		#for goal in goalList:
-		#	dueDate = goal.getAnticipatedFinishDate()
-
-		#Sort goalList by due date here (date, if same due date, then by priority)
-
+		Goal.sorting = "duedate"
+		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
 	"""GETTERS FOR MODELVIEW"""

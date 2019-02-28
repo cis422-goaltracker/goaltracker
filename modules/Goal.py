@@ -7,6 +7,10 @@
 from SubGoal import SubGoal as SubGoal
 
 class Goal(object):
+	"""Class Variables"""
+	#Sorting variable determines the sorting behavior of the goallist
+	#This should be priority, category, or duedate (attributes of goals)
+	sorting = "category"
 	"""CONSTRUCTORS FOR GOAL"""
 	def __init__(self, _id, _goalInformation, _startDate, _anticipatedFinishDate):
 		self.id = _id #integer
@@ -18,6 +22,43 @@ class Goal(object):
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of date-elapsedtime pairs
 		self.subGoals = [] #list of SubGoals
+	"""Special Methods"""
+	#Override less than, aka "<", so self<right_goal
+	def __lt__(self, other):
+		#This method reuses a lot of lines of code but it's the most readable way. The short way is unreadable.
+		#Access this now, just once
+		sort = Goal.sorting
+		#Category > Priority > Duedate
+		if sort == "category":
+			if (self.category.lower() == other.category.lower()):
+				if (self.priority == other.priority):
+					if(self.anticipatedFinishDate == other.anticipatedFinishDate):
+						return False
+					return(self.anticipatedFinishDate < other.anticipatedFinishDate)
+				return (self.priority < other.priority)			
+			return (self.category.lower() < other.category.lower())
+			
+		#Priority > Category > Duedate
+		if sort == "priority":
+			if (self.priority == other.priority):
+				if (self.category.lower() == other.category.lower()):
+					if(self.anticipatedFinishDate == other.anticipatedFinishDate):
+						return False
+					return(self.anticipatedFinishDate < other.anticipatedFinishDate)
+				return (self.category.lower() < other.category.lower())			
+			return (self.priority < other.priority)
+		
+		#Duedate > Priority > Category
+		if sort == "duedate":
+			if(self.anticipatedFinishDate == other.anticipatedFinishDate):
+				if (self.priority == other.priority):
+					if (self.category.lower() == other.category.lower()):
+						return False
+					return (self.category.lower() < other.category.lower())	
+				return (self.priority < other.priority)			
+			return(self.anticipatedFinishDate < other.anticipatedFinishDate)
+		#We should never get here
+		return("ERROR: This should never happen (Sort error)")
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
