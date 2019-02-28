@@ -141,9 +141,9 @@
        <height>41</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="titleLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="goalTrackerLabel">
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Goal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -163,7 +163,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="addButton">
         <property name="text">
          <string>Add</string>
         </property>
@@ -206,7 +206,7 @@
        <height>131</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="completedLayout">
       <item>
        <layout class="QVBoxLayout" name="completedGoalsLayout"/>
       </item>
