@@ -7,6 +7,7 @@
 from Goal import Goal as Goal
 from SubGoal import SubGoal as SubGoal
 from Status import Status as Status
+import datetime as DateTime
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
@@ -17,6 +18,21 @@ class Model(object):
 		self.effortTrackingData = _effortTrackingData #dictionary goalid-starttime pairs
 
 	"""METHODS FOR MODELVIEW"""
+	'''GOALLIST OPERATIONS'''
+	def getIncompleteGoalList(self):
+		incompleteGoalList = [] #empty list to hold incomplete goals
+		for goal in self.goalList: #cycles through goal list
+			if not goal.isComplete(): #if the goal is not complete
+				incompleteGoalList.append(goal) #append goal to incomplete goal list
+		return incompleteGoalList #return incomplete goal list
+
+	def getOverDueGoalList(self, _currentDate):
+		overDueGoalList = [] #empty list to hold overdue goals
+		for goal in self.goalList: #cycles through goal list
+			if goal.isOverDue(_currentDate): #if the goal is not complete
+				overDueGoalList.append(goal) #append goal to incomplete goal list
+		return overDueGoalList #return incomplete goal list
+
 	'''GOAL OPERATIONS'''
 	def getGoal(self, _gid):
 		for goal in self.goalList: #cycles through goal list
@@ -61,10 +77,6 @@ class Model(object):
 					self.setSubGoalList(_gid, subGoals) #set subGoalList in goal with updated GoalList
 		else:
 			return None #returns null if goal not found
-		#cycles through goalList, if current goal's id is _gid, then cycle through subgoals
-		#if current subgoal's id is _subgoal's id, replace subgoal with _subgoal
-		#if not found, raise a subgoal not found error
-		pass
 
 	'''GID AND SGID OPERATIONS'''
 	def getNewGID(self):
@@ -74,6 +86,28 @@ class Model(object):
 	def getNewSGID(self):
 		self.currSGID = self.currSGID + 1 # increments current subgoal id
 		return self.currSGID #returns current subgoal id
+
+	'''SORT OPERATIONS'''
+	def categorySort(self):
+		goalList = self.getGoalList()
+
+		#Sort goalList by category here
+
+		self.setGoalList(goalList)
+
+	def prioritySort(self):
+		goalList = self.getGoalList()
+
+		#Sort goalList by priority here
+
+		self.setGoalList(goalList)
+
+	def dueDateSort(self):
+		goalList = self.getGoalList()
+
+		#Sort goalList by due date here
+
+		self.setGoalList(goalList)
 
 	"""GETTERS FOR MODELVIEW"""
 	def getGoalList(self):

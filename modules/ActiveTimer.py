@@ -6,6 +6,7 @@
 
 from Goal import Goal as Goal
 from Model import Model as Model
+import datetime as DateTime
 
 class ActiveTimer(object):
 	"""CONSTRUCTOR FOR ACTIVETIMER"""

@@ -7,6 +7,7 @@
 from SubGoal import SubGoal as SubGoal
 from Status import Status as Status
 from Model import Model as Model
+import datetime as DateTime
 
 class SubGoalManager(object):
 	"""CONSTRUCTOR FOR SUBGOALMANAGER"""

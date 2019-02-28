@@ -7,6 +7,7 @@
 from Goal import Goal as Goal
 from Status import Status as Status
 from Model import Model as Model
+import datetime as DateTime
 
 class GoalManager(object):
 	"""CONSTRUCTOR FOR GOALMANAGER"""
@@ -14,21 +15,32 @@ class GoalManager(object):
 		pass
 
 	"""METHODS FOR GOALMANAGER"""
-	def addGoal(self, _model, _goalInformation, _startDate):
+	'''Goal Modification Operations'''
+	def addGoal(self, _model, _goalInformation, _startDate, _anticipatedFinishDate):
 		goalList = _model.getGoalList() #retrieves goalList from the model
 		gid = _model.getNewGID() #retreieves a new goal id from the model
-		goal = Goal(gid, _goalInformation, _startDate) #create new Goal object using _goalInformation
+		goal = Goal(gid, _goalInformation, _startDate, _anticipatedFinishDate) #create new Goal object using _goalInformation
 		goalList.append(goal) #append new Goal to goalList
 		_model.setGoalList(goalList) #sets the updated goallist in the model
 		return _model #returns the model
 
 	def editGoal(self, _gid, _model, _goalInformation):
-		goal = _model.getGoal() #retrieves the goal from the model
+		goal = _model.getGoal(_gid) #retrieves the goal from the model
 		goal.update(_goalInformation) #updates the contents of goal
-		_model.setGoal(goal) #replaces old goal with updated subgoal in model
+		_model.setGoal(goal) #replaces old goal with updated goal in model
 		return _model #returns model
 
-	def deleteGoal(self, _gid, _model, _goal):
+	def rescheduleGoal(self, _gid, _model, _anticipatedFinishDate):
+		goal = _model.getGoal(_gid) #retrieves the goal from the model
+		goal.reschedule(_anticipatedFinishDate) #reschedules goal to the new anticipated finish date
+		_model.setGoal(goal) #replaces old goal with update goal in the model
+		return _model #returns model
+
+	def isOverDue(self, _gid, _model, _currentDate):
+		goal = _model.getGoal(_gid) #retrieves the goal from the model
+		return goal.isOverDue(_currentDate) #returns if goal is overdue
+
+	def deleteGoal(self, _gid, _model):
 		goalList = _model.getGoalList() #gets the goallist from the model
 		for index, goal in enumerate(goalList): #cycles through goal list
 			if goal.getId() == _gid: #if goal's id matches _gid
