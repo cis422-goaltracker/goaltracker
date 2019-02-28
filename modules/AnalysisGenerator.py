@@ -12,6 +12,8 @@ from PyQt5.uic import loadUi
 import calendar
 import datetime
 
+#integration
+
 class AnalysisGenerator(object):
 	"""CONSTRUCTOR FOR ANALYSISGENERATOR"""
 	def __init__(self):
