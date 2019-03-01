@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>426</width>
-    <height>573</height>
+    <width>449</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,49 +16,24 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>2</y>
-     <width>366</width>
-     <height>551</height>
+     <x>10</x>
+     <y>50</y>
+     <width>431</width>
+     <height>331</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_8">
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;View Goal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Effort Timer</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>View Analysis</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="goalNameLabel">
         <property name="text">
          <string>Goal Name:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="label">
         <property name="text">
          <string>GoalName</string>
         </property>
@@ -82,47 +57,16 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="endDateLabel">
         <property name="text">
          <string>Anticipated End Date:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="label_11">
         <property name="text">
          <string>AnticipatedEndDate</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>Category:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>Category</string>
         </property>
        </widget>
       </item>
@@ -142,18 +86,18 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QLabel" name="label_10">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+       <widget class="QLabel" name="categoryLabel">
         <property name="text">
-         <string>Priority:</string>
+         <string>Category:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_18">
+       <widget class="QLabel" name="label_8">
         <property name="text">
-         <string>Priority</string>
+         <string>Category</string>
         </property>
        </widget>
       </item>
@@ -173,32 +117,63 @@
      </layout>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item alignment="Qt::AlignVCenter">
+       <widget class="QLabel" name="priorityLabel">
+        <property name="text">
+         <string>Priority:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_19">
+        <property name="text">
+         <string>Priority</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item alignment="Qt::AlignTop">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="subgoalLabel">
         <property name="text">
          <string>Subgoals:</string>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="checkBox_4">
           <property name="text">
            <string>Subgoal1</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_2">
+         <widget class="QCheckBox" name="checkBox_5">
           <property name="text">
            <string>Subgoal2</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_3">
+         <widget class="QCheckBox" name="checkBox_6">
           <property name="text">
            <string>Subgoal3</string>
           </property>
@@ -222,111 +197,73 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_9">
-      <item>
-       <widget class="QLabel" name="label_16">
-        <property name="text">
-         <string>Progress:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_17">
-        <property name="text">
-         <string>Progress</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_9">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>431</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>7</y>
+     <width>431</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <item>
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;View Goal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6">
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Effort Timer:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>EffortTimer</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_7">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
-      <item>
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>Active Timer:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>ActiveTimer</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Effort Timer</string>
+      </property>
+     </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_11">
-      <item>
-       <widget class="QDialogButtonBox" name="buttonBox">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>View Analysis</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -366,4 +303,8 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="categoryButtonGroup"/>
+  <buttongroup name="priorityButtonGroup"/>
+ </buttongroups>
 </ui>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>515</height>
+    <width>310</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,31 +16,24 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>10</y>
-     <width>271</width>
-     <height>501</height>
+     <x>10</x>
+     <y>50</y>
+     <width>291</width>
+     <height>471</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Add Goal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="goalNameLabel">
         <property name="text">
          <string>Goal Name:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="goalName"/>
       </item>
       <item>
        <spacer name="horizontalSpacer">
@@ -60,14 +53,14 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="endDateLabel">
         <property name="text">
          <string>Anticipated End Date:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="dateEdit"/>
+       <widget class="QDateEdit" name="endDate"/>
       </item>
       <item>
        <spacer name="horizontalSpacer_3">
@@ -87,7 +80,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item alignment="Qt::AlignLeft|Qt::AlignTop">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="categoryLabel">
         <property name="text">
          <string>Category:</string>
         </property>
@@ -96,38 +89,53 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="personalRadioButton">
           <property name="text">
            <string>Personal</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">categoryButtonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="healthRadioButton">
           <property name="text">
            <string>Heath</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">categoryButtonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_3">
+         <widget class="QRadioButton" name="financeRadioButton">
           <property name="text">
            <string>Finance</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">categoryButtonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_4">
+         <widget class="QRadioButton" name="workRadioButton">
           <property name="text">
            <string>Work</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">categoryButtonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_5">
+         <widget class="QRadioButton" name="otherRadioButton">
           <property name="text">
            <string>Other</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">categoryButtonGroup</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -150,7 +158,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item alignment="Qt::AlignTop">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="priorityLabel">
         <property name="text">
          <string>Priority:</string>
         </property>
@@ -159,24 +167,33 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QRadioButton" name="radioButton_6">
+         <widget class="QRadioButton" name="lowRadioButton">
           <property name="text">
            <string>Low</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">priorityButtonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_7">
+         <widget class="QRadioButton" name="mediumRadioButton">
           <property name="text">
            <string>Medium</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">priorityButtonGroup</string>
+          </attribute>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_8">
+         <widget class="QRadioButton" name="highRadioButton">
           <property name="text">
            <string>High</string>
           </property>
+          <attribute name="buttonGroup">
+           <string notr="true">priorityButtonGroup</string>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -199,7 +216,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item alignment="Qt::AlignTop">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="subgoalLabel">
         <property name="text">
          <string>Subgoals:</string>
         </property>
@@ -208,13 +225,13 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QLineEdit" name="lineEdit_2"/>
+         <widget class="QLineEdit" name="subgoal1"/>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_4"/>
+         <widget class="QLineEdit" name="subgoal2"/>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_3"/>
+         <widget class="QLineEdit" name="subgoal3"/>
         </item>
        </layout>
       </item>
@@ -244,6 +261,32 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>4</y>
+     <width>281</width>
+     <height>43</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Add Goal&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>291</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
   </widget>
  </widget>
  <resources/>
@@ -281,4 +324,8 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="categoryButtonGroup"/>
+  <buttongroup name="priorityButtonGroup"/>
+ </buttongroups>
 </ui>

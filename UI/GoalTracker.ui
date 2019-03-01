@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>621</height>
+    <width>979</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame">
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QFrame" name="mainFrame">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>581</width>
+      <width>981</width>
       <height>621</height>
      </rect>
     </property>
@@ -29,123 +29,33 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="Line" name="line_2">
+    <widget class="Line" name="seperator">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>561</width>
+       <x>200</x>
+       <y>53</y>
+       <width>771</width>
        <height>16</height>
       </rect>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>90</y>
-       <width>561</width>
-       <height>136</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="overdueLayout">
-      <item>
-       <layout class="QVBoxLayout" name="overdueGoalsLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="overdueEndDatesLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="completeLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="rescheduleLayout"/>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>101</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#fc0107;&quot;&gt;OVERDUE:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-    <widget class="Line" name="line_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>230</y>
-       <width>561</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>240</y>
-       <width>101</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#000000;&quot;&gt;Goals:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>280</y>
-       <width>561</width>
-       <height>131</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="currentLayout">
-      <item>
-       <layout class="QVBoxLayout" name="currentGoalsLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="currentEndDatesLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="viewLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="editLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="deleteLayout"/>
-      </item>
-     </layout>
     </widget>
     <widget class="QWidget" name="horizontalLayoutWidget_3">
      <property name="geometry">
       <rect>
-       <x>9</x>
+       <x>200</x>
        <y>10</y>
-       <width>561</width>
-       <height>41</height>
+       <width>771</width>
+       <height>51</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="titleLayout">
-      <item>
-       <widget class="QLabel" name="goalTrackerLabel">
+      <item alignment="Qt::AlignVCenter">
+       <widget class="QLabel" name="goalLabel">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Goal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:24pt; font-weight:600;&quot;&gt;Goals:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -164,6 +74,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="addButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>32</height>
+         </size>
+        </property>
         <property name="text">
          <string>Add</string>
         </property>
@@ -171,52 +87,71 @@
       </item>
      </layout>
     </widget>
-    <widget class="Line" name="line_4">
+    <widget class="QFrame" name="sidebarFrame">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>420</y>
-       <width>561</width>
-       <height>16</height>
+       <x>0</x>
+       <y>0</y>
+       <width>181</width>
+       <height>621</height>
       </rect>
      </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="currentGoalsButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Current Goals</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="overdueGoalsButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Overdue Goals</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="completedGoalsButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>161</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Completed Goals</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QLabel" name="label_16">
+    <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>430</y>
-       <width>161</width>
-       <height>41</height>
+       <x>200</x>
+       <y>74</y>
+       <width>771</width>
+       <height>531</height>
       </rect>
      </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#000000;&quot;&gt;Completed Goals:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>470</y>
-       <width>561</width>
-       <height>131</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="completedLayout">
-      <item>
-       <layout class="QVBoxLayout" name="completedGoalsLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="completedEndDatesLayout"/>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="viewLayout2"/>
-      </item>
-     </layout>
+     <layout class="QGridLayout" name="gridLayout"/>
     </widget>
    </widget>
   </widget>
