@@ -11,9 +11,12 @@ from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
 import calendar
 import datetime
+import pyqtgraph as pg
+from pyqtgraph.Qt import QtCore, QtGui
+import numpy as np
 
 #For Kellie to work on
-
+#need to pip install pyqtgraph
 class AnalysisGenerator(object):
 	"""CONSTRUCTOR FOR ANALYSISGENERATOR"""
 	def __init__(self):
@@ -31,6 +34,79 @@ class AnalysisGenerator(object):
 
 	def trackEffort(self, _gid, _model):
 		pass
+
+
+	def calculateFasterSlower(self, _gid, _model):
+		goal = _model.getGoal(_gid)	#gets the goal from the model
+		if goal.isComplete(): 	#if goal is complete
+			return goal.getInitialAnticipatedFinishDate() - goal.getFinishDate() #calculates the number of days from anticipated finish date
+
+	def calculateAveragetime(self, _gid, _model):
+		ret = {} #creates a dictionary to return
+		for dt in dict.keys(): #loops through keys in dictionarya
+			if not (dt.date() in ret): #if date is not in return dictioary
+					ret[dt.date()] = dict[dt] #add timedelta if does not exist
+			else:
+				returnet[dt.date()] += dict[dt] #adds timedelta if date already exists
+		timesum = sum(d.values()) #sum all the values
+		return timesum/ len(ret) #return the average per day
+
+
+	def calculateBeforeDuedate(self, _model):
+		reschedulecount = 0	#creates counter for number of goals rescheduled
+		completedcount = 0 	#creates counter for completed goals
+		for i in _model:	#looks through goals in model
+			if _model.getGoal(i).hasBeenRescheduled() and _model.getGoal(i).isComplete(): #increments if a completed goal has been rescheduled
+				reschedulecount += 1
+			if _model.getGoal(i).isComplete(): #increments completed goal count
+				completedcount += 1
+		completed_before_due = completedcount - reschedulecount #finds number of goals not reschedules
+		return completed_before_due/completedcount #calculates and returns percentage of goals done befoe duedate
+
+
+	def calculateAfterDuedate(self, _model):
+		reschedulecount = 0 #creates counter for number of goals rescheduled
+		completedcount = 0 	#creates counter for completed goals
+		for i in _model:	#loops through goals in model
+			if _model.getGoal(i).hasBeenRescheduled() and _model.getGoal(i).isComplete(): #increments if completed goal has been rescheduled
+				reschedulecount += 1
+			if _model.getGoal(i).isComplete(): #increments completed goal count
+				completedcount += 1
+		return reschedulecount/completedcount #calculates and returns percentage of goals completed after inital duedate
+		
+	def tranformDatesList(self, _model):
+		ret = {} #creates a dictionary to return
+		for dt in dict.keys(): #loops through keys in dictionarya
+			if not (dt.date() in ret): #if date is not in return dictioary
+					ret[dt.date()] = dict[dt] #add timedelta if does not exist
+			else:
+				returnet[dt.date()] += dict[dt] #add timedelta if date already exists
+		
+		for key in dict.keys(): #for every key in the dictionary
+			datetime.strftime(key,'%b %d, %Y') #turn it into a string
+		
+		dates = list(ret.keys()) #make a list of date strings
+
+		return dates
+
+	def tranformValuesList(self, _model):
+		ret = {} #creates a dictionary to return
+		for dt in dict.keys(): #loops through keys in dictionarya
+			if not (dt.date() in ret): #if date is not in return dictioary
+					ret[dt.date()] = dict[dt] #add timedelta if does not exist
+			else:
+				returnet[dt.date()] += dict[dt] #add timedelta if date already exists
+		
+		values = list(ret.values()) #make a list of values
+
+		return values
+
+
+	# time_took = calculateActiveTime()
+	# end_time_comp = calculateFasterSlower()
+	# time_per_day_summed = calculateAverageTime()
+	# before_due_num = calculateBeforeDuedate()
+	# after_due_num = calculateAfterDuedate()
 		
 	"""METHODS FOR ANALYSISGENERATOR"""
 
@@ -39,80 +115,7 @@ class AnalysisGenerator(object):
 
 
 	"""SETTERS FOR ANALYSISGENERATOR"""
-		
 
-
-
-ui = ['Analysis.ui', 'UncompletedAnalysis.ui', 'viewgoal.ui']
-
-class Analysis_Event(QDialog):
-	def __init__(self, model):
-	super(Analysis_Event, self).__init__()
-	loadUi(ui.[3], self)
-	#command to click
-
-class AnalysisViewer(object):
-	"""CONSTRUCTORS FOR ANALYSISVIEWER"""
-	def __init__(self, model):
-	super(AnalysisViewer, self).__init__()
-	loadUi(ui.[1],self)	
-
-	self.m = model
-
-	#Skeleton_code
-
-	#time_took = start_time - stop_time
-	#time_took needs to be rounded to days (ex. 3.4 days)
-	#Push string "This Goal took you" + time_took + "days to complete" to label_daystook
-
-	#end_time_comp = anticipated_end_time - actual_end_time
-	#end_time_comp needs to be rounded to days (ex. 3.4 days)
-	#Push string "That is" + end_time_comp + "days faster/slower than anticipated" to label_fasterslower
-	
-	#time_per_day_summed = (from dictionary of time and dates from effort time, need time per day summed) / time_took
-	#time_per_day_summed needs to be in hours (ex. 9.3 hours)
-	#Push string "You spend on average" + time_per_day_summed + "hours a day working on your goal" to label_numhours
-
-	#before_due_num = number_of_goals_completed_before_due / num_completed_goals
-	#after_due_num = number_of_goals_completed_after_due / num_completed_goals
-	#before_due_num and after_due_num need to be less than or equal to one
-	#greater_val = max(before_due_num, after_due_num)
-	#if greater_val == before_due_num:
-	#	Push string "You completed %" + greater_val + of your goals faster than aniticpated!" to label_lowerlinetext_1
-	#	Push string "Great job, keep up the good work!" to label_lowerlinetext_2
-	#	Push string "" to label_lowerlinetext_3
-
-	#if greater_val != before_due_num:
-	#	Push string "You completed %" + greater_val + of your goals slower than aniticpated." to label_lowerlinetext_1
-	#	Push string "You seem to have trouble sticking to your goals. Consider giving" to label_lowerlinetext_2
-	#	Push string "yourself more time next time!" to label_lowerlinetext_3
-
-
-	"""METHODS FOR ANALYSISVIEWER"""
-
-	"""GETTERS FOR ANALYSISVIEWER"""
-
-	"""SETTERS FOR ANALYSISVIEWER"""
-
-class AnalysisViewerUnfinished(object):
-	"""CONSTRUCTORS FOR ANALYSISVIEWER"""
-	def __init__(self, model):
-
-	self.m = model
-
-	#before_due_num = number_of_goals_completed_before_due / num_completed_goals
-	#after_due_num = number_of_goals_completed_after_due / num_completed_goals
-	#before_due_num and after_due_num need to be less than or equal to one
-	#greater_val = max(before_due_num, after_due_num)
-	#if greater_val == before_due_num:
-	#	Push string "You completed %" + greater_val + of your goals faster than aniticpated!" to label_lowerlinetext_1
-	#	Push string "Great job, keep up the good work!" to label_lowerlinetext_2
-	#	Push string "" to label_lowerlinetext_3
-
-	#if greater_val != before_due_num:
-	#	Push string "You completed %" + greater_val + of your goals slower than aniticpated." to label_lowerlinetext_1
-	#	Push string "You seem to have trouble sticking to your goals. Consider giving" to label_lowerlinetext_2
-	#	Push string "yourself more time next time!" to label_lowerlinetext_3
 
 class CustomWidget(pg.GraphicsWindow):
     pg.setConfigOption('background', 'w')
