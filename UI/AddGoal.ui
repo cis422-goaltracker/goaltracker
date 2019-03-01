@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>310</width>
+    <width>311</width>
     <height>520</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>50</y>
+     <y>51</y>
      <width>291</width>
      <height>471</height>
     </rect>
@@ -214,28 +214,22 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <item alignment="Qt::AlignTop">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
        <widget class="QLabel" name="subgoalLabel">
         <property name="text">
          <string>Subgoals:</string>
         </property>
        </widget>
       </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QLineEdit" name="subgoal1"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="subgoal2"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="subgoal3"/>
-        </item>
-       </layout>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="addButton">
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
       </item>
-      <item>
+      <item row="0" column="2">
        <spacer name="horizontalSpacer_4">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
