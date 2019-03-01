@@ -6,6 +6,7 @@
 
 from SubGoal import SubGoal as SubGoal
 import datetime as DateTime
+import copy
 
 class Goal(object):
 	"""Class Variables"""
@@ -119,10 +120,10 @@ class Goal(object):
 		return self.finishDate #returns the Goal Finish Date
 
 	def getEffortTracker(self):
-		return self.effortTracker.copy() #returns a copy of the Effort Tracker of the Goal
+		return copy.deepcopy(self.effortTracker) #returns a copy of the Effort Tracker of the Goal
 
 	def getSubGoals(self):
-		return self.subGoals.copy() #returns a copy of the Sub Goals of the Goal
+		return copy.deepcopy(self.subGoals) #returns a copy of the Sub Goals of the Goal
 
 	"""SETTERS FOR GOAL"""
 	def setSubGoals(self, _subGoals):

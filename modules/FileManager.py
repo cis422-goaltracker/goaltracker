@@ -17,71 +17,34 @@ class FileManager(object):
 		
 	"""METHODS FOR FILEMANAGER"""
 	'''Load Operations'''
-	def load(self, _fileName): #FUNCTION NEEDS TO BE BUILT
-		self.fileName = _fileName
-		#open file
+	def load(self, _fileName):
+		self.fileName = _fileName #sets default file name for FileManager
 		try:
-			db = shelve.open(self.fileName)
-
-			#create list of Goal objects / refer to hints in the save function on how to parse
-			goalList = db['goalList']
-			#get currGID and currSGID / refer to hints in the save function on how to parse
-			currGID = db['currGID']
-			currSGID = db['currSGID']
-			#get Effort Tracking Data / refer to hints in the save function on how to parse
-			effortTrackingData = db['effortTrackingData']
-			#close file
-			db.close()
-			#create a Model object which contains
-			#a list of Goal objects, currGID, currSGID, EffortTrackingData
-			model = Model(goalList, currGID, currSGID, effortTrackingData)
-
-			#return Model and IO Status
-
+			db = shelve.open(self.fileName) #open file
+			goalList = db['goalList'] #get list of goal objects from shelve
+			currGID = db['currGID'] #get currGID from shelve
+			currSGID = db['currSGID'] #get currSGID from shelve
+			effortTrackingData = db['effortTrackingData'] #get Effort Tracking Data from shelve
+			db.close() #close file
+			model = Model(goalList, currGID, currSGID, effortTrackingData) #create a Model object which contains a list of Goal objects, currGID, currSGID, EffortTrackingData
 		except:
-			model = Model([], 0, 0, {})
-
-		#if IO STATUS (FileNotFound), do not crash, must create defaults of all data
-		return model
+			model = Model([], 0, 0, {}) #create an empty Model object where everything is set to 0 or empty
+		return model #
 
 	'''Save Operations'''
-	def save(self, _model, _fileName=None): #FUNCTION NEEDS TO BE BUILT
-
+	def save(self, _model, _fileName=None):
 		_fileName = self.fileName if _fileName == None else _fileName #defaults to original file name unless a new one is specified
 		try:
-			goalList = _model.getGoalList()
-			currGID = _model.getCurrGID()
-			currSGID = _model.getCurrSGID()
-			effortTrackingData = _model.getEffortTrackingData()
-
-			#the following 4 objects are contained within _model. read Model object to learn how a Model is built
-			#look at Goal object to understand what a goal is composed of
-
-			#please keep these two as abstract as possible when working with them as
-			#we are not sure the data type of it yet.
-			#_currGID is going to be a single element (string, number, not sure yet)
-			#_currSGID is also going to be a single element (string, number, not sure yet)
-
-			#_effortTrackingData is a dictionary with elements <key: GoalID, value: startTime (likely will be DateTime Object>
-			#will need to convert from DateTime object to string when saving
-
-			#open file
-			db = shelve.open(_fileName)
-
-			#parse goalList, create into JSON like data
-
-			#write to file goal information, currGID and currSGID
-			db['goalList'] = goalList
-			db['currGID'] = currGID
-			db['currSGID'] = currSGID
-			db['effortTrackingData'] = effortTrackingData
-
-			#close file
-			db.close()
-			return 0
+			db = shelve.open(_fileName) #open file
+			db['goalList'] = _model.getGoalList() #get goal list from model and store into shelve
+			db['currGID'] = _model.getCurrGID() #get currGID from model and store into shelve
+			db['currSGID'] = _model.getCurrSGID() #get currSGID from model and store into shelve
+			db['effortTrackingData'] = _model.getEffortTrackingData() #get effort tracking data from model and store into shelve
+			db.close() #close file
+			return 0 #Success
 		except:
 			#return IO STATUS
-			return 1
+			return 1 #IO ERROR
 
 	"""GETTERS FOR FILEMANAGER"""
 	def getFileName(self):

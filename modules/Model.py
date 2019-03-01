@@ -8,6 +8,7 @@ from Goal import Goal as Goal
 from SubGoal import SubGoal as SubGoal
 from Status import Status as Status
 import datetime as DateTime
+import copy
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
@@ -105,7 +106,7 @@ class Model(object):
 
 	"""GETTERS FOR MODELVIEW"""
 	def getGoalList(self):
-		return self.goalList.copy() #returns a copy of the Goal List
+		return copy.deepcopy(self.goalList) #returns a copy of the Goal List
 
 	def getCurrGID(self):
 		return self.currGID #returns the current goal id
@@ -114,7 +115,7 @@ class Model(object):
 		return self.currSGID #returns the current subgoal id
 
 	def getEffortTrackingData(self):
-		return self.effortTrackingData.copy() #returns the a copy of the effort tracking data
+		return copy.deepcopy(self.effortTrackingData) #returns the a copy of the effort tracking data
 
 	"""SETTERS FOR MODELVIEW"""
 	def setGoalList(self, _goalList):
