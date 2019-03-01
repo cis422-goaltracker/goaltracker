@@ -15,7 +15,7 @@ class Goal(object):
 	sorting = "category"
 
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _startDate, _dueDate):
+	def __init__(self, _id, _goalInformation, _startDate, _dueDate = None):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
@@ -30,45 +30,20 @@ class Goal(object):
 	"""Special Methods"""
 	#Override less than, aka "<", so self<right_goal
 	def __lt__(self, other):
-		#This method reuses a lot of lines of code but it's the most readable way. The short way is unreadable.
-		#Access this now, just once
 		sort = Goal.sorting
-		#Category > Priority > Duedate
-		if sort == "category":
-			if (self.category.lower() == other.category.lower()):
-				if (self.priority == other.priority):
-					if(self.dueDate == other.dueDate):
-						return False
-					return(self.dueDate < other.dueDate)
-				return (self.priority < other.priority)			
-			return (self.category.lower() < other.category.lower())
-			
-		#Priority > Category > Duedate
-		if sort == "priority":
-			if (self.priority == other.priority):
-				if (self.category.lower() == other.category.lower()):
-					if(self.dueDate == other.dueDate):
-						return False
-					return(self.dueDate < other.dueDate)
-				return (self.category.lower() < other.category.lower())			
-			return (self.priority < other.priority)
-		
-		#Duedate > Priority > Category
-		if sort == "duedate":
-			if(self.dueDate == other.dueDate):
-				if (self.priority == other.priority):
-					if (self.category.lower() == other.category.lower()):
-						return False
-					return (self.category.lower() < other.category.lower())	
-				return (self.priority < other.priority)			
-			return(self.dueDate < other.dueDate)
-		#We should never get here
-		return("ERROR: This should never happen (Sort error)")
+		if sort == "category": #sort by category		
+			return (self.category.lower() < other.category.lower()) #returns the comparison operation for sorting
+		if sort == "priority": #sort by priority
+			return (self.priority < other.priority) #returns the comparison operation for sorting
+		return("ERROR: This should never happen (Sort error)") #returns an error
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
 	def reschedule(self, _dueDate):
 		self.dueDate = _dueDate #sets the due date to the new due date
+
+	def hasDueDate(self):
+		return self.dueDate != None
 
 	def hasBeenRescheduled(self):
 		return self.dueDate == self.initialDueDate #if due date and initial due date are same, return true, otherwise false
