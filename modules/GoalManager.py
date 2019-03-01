@@ -36,10 +36,6 @@ class GoalManager(object):
 		_model.setGoal(goal) #replaces old goal with update goal in the model
 		return _model #returns model
 
-	def isOverDue(self, _gid, _model, _currentDate):
-		goal = _model.getGoal(_gid) #retrieves the goal from the model
-		return goal.isOverDue(_currentDate) #returns if goal is overdue
-
 	def deleteGoal(self, _gid, _model):
 		goalList = _model.getGoalList() #gets the goallist from the model
 		for index, goal in enumerate(goalList): #cycles through goal list

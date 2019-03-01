@@ -39,14 +39,19 @@ class Goal(object):
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
+	def hasDueDate(self):
+		return self.dueDate != None #if due date is not null, it has a due date
+
 	def reschedule(self, _dueDate):
+		if not self.hasDueDate(): #check if due date does not exist
+			self.initialDueDate = _dueDate #if it does not exist, set the initial due date as well
 		self.dueDate = _dueDate #sets the due date to the new due date
 
-	def hasDueDate(self):
-		return self.dueDate != None
-
 	def hasBeenRescheduled(self):
-		return self.dueDate == self.initialDueDate #if due date and initial due date are same, return true, otherwise false
+		if self.hasDueDate(): #check if due date exists
+			return self.dueDate == self.initialDueDate #if due date and initial due date are same, return true, otherwise false
+		else:
+			return None #returns null if not found
 
 	def updateGoal(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name
@@ -60,7 +65,10 @@ class Goal(object):
 		return self.finishDate != None #if finish date is not null, it is complete
 
 	def isOverDue(self, _currentDate):
-		return self.dueDate < _currentDate #if current date is greater than due date, its overdue
+		if self.hasDueDate(): #check if due date exists
+			return self.dueDate < _currentDate #if current date is greater than due date, its overdue
+		else:
+			return None #returns null if not found
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _date, _elapsedtime):
@@ -86,10 +94,16 @@ class Goal(object):
 		return self.startDate #returns the Goal Start Date
 
 	def getDueDate(self):
-		return self.dueDate #returns the Goal Due Date
+		if self.hasDueDate(): #check if due date exists
+			return self.dueDate #returns the Goal Due Date
+		else:
+			return None #returns null if not found
 
 	def getInitialDueDate(self):
-		return self.initialDueDate #returns the Goal Initial Due Date
+		if self.hasDueDate(): #check if due date exists
+			return self.initialDueDate #returns the Goal Initial Due Date
+		else:
+			return None #returns null if not found
 
 	def getFinishDate(self):
 		return self.finishDate #returns the Goal Finish Date
