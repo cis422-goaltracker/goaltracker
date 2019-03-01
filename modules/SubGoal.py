@@ -17,7 +17,7 @@ class SubGoal(object):
 	"""METHODS FOR SUBGOAL"""
 	'''SubGoal Operations'''
 	def updateSubGoal(self, _subGoalInformation):
-		self.name = _SubGoalInformation["name"] #sets the name to the name in _subGoalInformation
+		self.name = _subGoalInformation["name"] #sets the name to the name in _subGoalInformation
 
 	def completeSubGoal(self, _finishDate):
 		self.finishDate = _finishDate #sets the finished date to the passed finished date
