@@ -12,17 +12,20 @@ class Goal(object):
 	#Sorting variable determines the sorting behavior of the goallist
 	#This should be priority, category, or duedate (attributes of goals)
 	sorting = "category"
+
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _startDate, _anticipatedFinishDate):
+	def __init__(self, _id, _goalInformation, _startDate, _dueDate):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
 		self.priority = _goalInformation["priority"] #integer
 		self.startDate = _startDate #DateTime
-		self.anticipatedFinishDate = _anticipatedFinishDate #DateTime
+		self.dueDate = _dueDate #DateTime
+		self.initialDueDate = _dueDate #DateTime
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of date-elapsedtime pairs
 		self.subGoals = [] #list of SubGoals
+	
 	"""Special Methods"""
 	#Override less than, aka "<", so self<right_goal
 	def __lt__(self, other):
@@ -33,9 +36,9 @@ class Goal(object):
 		if sort == "category":
 			if (self.category.lower() == other.category.lower()):
 				if (self.priority == other.priority):
-					if(self.anticipatedFinishDate == other.anticipatedFinishDate):
+					if(self.dueDate == other.dueDate):
 						return False
-					return(self.anticipatedFinishDate < other.anticipatedFinishDate)
+					return(self.dueDate < other.dueDate)
 				return (self.priority < other.priority)			
 			return (self.category.lower() < other.category.lower())
 			
@@ -43,28 +46,31 @@ class Goal(object):
 		if sort == "priority":
 			if (self.priority == other.priority):
 				if (self.category.lower() == other.category.lower()):
-					if(self.anticipatedFinishDate == other.anticipatedFinishDate):
+					if(self.dueDate == other.dueDate):
 						return False
-					return(self.anticipatedFinishDate < other.anticipatedFinishDate)
+					return(self.dueDate < other.dueDate)
 				return (self.category.lower() < other.category.lower())			
 			return (self.priority < other.priority)
 		
 		#Duedate > Priority > Category
 		if sort == "duedate":
-			if(self.anticipatedFinishDate == other.anticipatedFinishDate):
+			if(self.dueDate == other.dueDate):
 				if (self.priority == other.priority):
 					if (self.category.lower() == other.category.lower()):
 						return False
 					return (self.category.lower() < other.category.lower())	
 				return (self.priority < other.priority)			
-			return(self.anticipatedFinishDate < other.anticipatedFinishDate)
+			return(self.dueDate < other.dueDate)
 		#We should never get here
 		return("ERROR: This should never happen (Sort error)")
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
-	def reschedule(self, _anticipatedFinishDate):
-		self.anticipatedFinishDate = _anticipatedFinishDate #sets the anticipated finish date to the new anticipated finishd date
+	def reschedule(self, _dueDate):
+		self.dueDate = _dueDate #sets the due date to the new due date
+
+	def hasBeenRescheduled(self):
+		return self.dueDate == self.initialDueDate #if due date and initial due date are same, return true, otherwise false
 
 	def updateGoal(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name
@@ -78,7 +84,7 @@ class Goal(object):
 		return self.finishDate != None #if finish date is not null, it is complete
 
 	def isOverDue(self, _currentDate):
-		return self.anticipatedFinishDate < _currentDate #if current date is greater than anticipated finish date, its overdue
+		return self.dueDate < _currentDate #if current date is greater than due date, its overdue
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _date, _elapsedtime):
@@ -103,8 +109,11 @@ class Goal(object):
 	def getStartDate(self):
 		return self.startDate #returns the Goal Start Date
 
-	def getAnticipatedFinishDate(self):
-		return self.anticipatedFinishDate #returns the Goal Anticipated Finish Date
+	def getDueDate(self):
+		return self.dueDate #returns the Goal Due Date
+
+	def getInitialDueDate(self):
+		return self.initialDueDate #returns the Goal Initial Due Date
 
 	def getFinishDate(self):
 		return self.finishDate #returns the Goal Finish Date
@@ -117,4 +126,4 @@ class Goal(object):
 
 	"""SETTERS FOR GOAL"""
 	def setSubGoals(self, _subGoals):
-		self.subGoals = _subGoals
+		self.subGoals = _subGoals #sets the subGoals to the passed _subGoals

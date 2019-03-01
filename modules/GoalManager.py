@@ -16,10 +16,10 @@ class GoalManager(object):
 
 	"""METHODS FOR GOALMANAGER"""
 	'''Goal Modification Operations'''
-	def addGoal(self, _model, _goalInformation, _startDate, _anticipatedFinishDate):
+	def addGoal(self, _model, _goalInformation, _startDate, _dueDate):
 		goalList = _model.getGoalList() #retrieves goalList from the model
 		gid = _model.getNewGID() #retreieves a new goal id from the model
-		goal = Goal(gid, _goalInformation, _startDate, _anticipatedFinishDate) #create new Goal object using _goalInformation
+		goal = Goal(gid, _goalInformation, _startDate, _dueDate) #create new Goal object using _goalInformation
 		goalList.append(goal) #append new Goal to goalList
 		_model.setGoalList(goalList) #sets the updated goallist in the model
 		return _model #returns the model
@@ -30,9 +30,9 @@ class GoalManager(object):
 		_model.setGoal(goal) #replaces old goal with updated goal in model
 		return _model #returns model
 
-	def rescheduleGoal(self, _gid, _model, _anticipatedFinishDate):
+	def rescheduleGoal(self, _gid, _model, _dueDate):
 		goal = _model.getGoal(_gid) #retrieves the goal from the model
-		goal.reschedule(_anticipatedFinishDate) #reschedules goal to the new anticipated finish date
+		goal.reschedule(_dueDate) #reschedules goal to the new due date
 		_model.setGoal(goal) #replaces old goal with update goal in the model
 		return _model #returns model
 

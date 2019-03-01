@@ -88,17 +88,17 @@ class Model(object):
 		return self.currSGID #returns current subgoal id
 
 	'''SORT OPERATIONS'''
-	def categorySort(self): #FUNCTION NEEDS TO BE BUILT
+	def categorySort(self):
 		Goal.sorting = "category"
 		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
-	def prioritySort(self): #FUNCTION NEEDS TO BE BUILT
+	def prioritySort(self):
 		Goal.sorting = "priority"
 		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
-	def dueDateSort(self): #FUNCTION NEEDS TO BE BUILT
+	def dueDateSort(self):
 		Goal.sorting = "duedate"
 		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
