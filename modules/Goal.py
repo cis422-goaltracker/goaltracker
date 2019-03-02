@@ -30,39 +30,15 @@ class Goal(object):
 	"""Special Methods"""
 	#Override less than, aka "<", so self<right_goal
 	def __lt__(self, other):
-		#This method reuses a lot of lines of code but it's the most readable way. The short way is unreadable.
 		#Access this now, just once
 		sort = Goal.sorting
 		#Category > Priority > Duedate
 		if sort == "category":
-			if (self.category.lower() == other.category.lower()):
-				if (self.priority == other.priority):
-					if(self.dueDate == other.dueDate):
-						return False
-					return(self.dueDate < other.dueDate)
-				return (self.priority < other.priority)			
 			return (self.category.lower() < other.category.lower())
 			
 		#Priority > Category > Duedate
-		if sort == "priority":
-			if (self.priority == other.priority):
-				if (self.category.lower() == other.category.lower()):
-					if(self.dueDate == other.dueDate):
-						return False
-					return(self.dueDate < other.dueDate)
-				return (self.category.lower() < other.category.lower())			
+		if sort == "priority":		
 			return (self.priority < other.priority)
-		
-		#Duedate > Priority > Category
-		if sort == "duedate":
-			if(self.dueDate == other.dueDate):
-				if (self.priority == other.priority):
-					if (self.category.lower() == other.category.lower()):
-						return False
-					return (self.category.lower() < other.category.lower())	
-				return (self.priority < other.priority)			
-			return(self.dueDate < other.dueDate)
-		#We should never get here
 		return("ERROR: This should never happen (Sort error)")
 
 	"""METHODS FOR GOAL"""
@@ -89,12 +65,8 @@ class Goal(object):
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _date, _elapsedtime):
-        #TODO: date is actually a day.
         #_elapsedtime is a datetime.timedelta object
-		if _date in self.effortTracker: #checks if date already exists in effort tracker
-			self.effortTracker[_date] = self.effortTracker[_date] + _elapsedtime #if it already exists, add elapsed times together
-		else:
-			self.effortTracker[_date] = _elapsedtime #else adds a key-value pair of <date, elapsetime> to effort tracker
+		self.effortTracker[_date] = _elapsedtime #adds a key-value pair of <date, elapsetime> to effort tracker
 
 	"""GETTERS FOR GOAL"""
 	def getId(self):

@@ -18,6 +18,11 @@ bgoalInformation = {"name": "btest", "category" : "btest_category", "priority" :
 
 a = Goal.Goal(1, agoalInformation, astart, adue)
 b = Goal.Goal(2, bgoalInformation, bstart, bdue)
+#Subgoal
+time = DateTime.datetime.now()
+subGoalInformation = {"name": "test"}
+suba = SubGoal.SubGoal(1, subGoalInformation, time)
+subgoals = [suba]
 
 def test_category_lt():
     assert a < b
@@ -41,10 +46,15 @@ def test_isComplete():
 #TODO: Test isOverDue? I think it shouldn;t be a function
 def test_addEffortTrack():
     now = DateTime.datetime.now()
-    later = now + timedelta(hours = 9)
+    later = now + DateTime.timedelta(hours = 9)
     delta = later - now
+    assert len(a.effortTracker) == 0
     a.addEffortTrack(later, delta)
-    assert 1 == 1
+    assert len(a.effortTracker) == 1
+
+def test_setSubGoals():
+    a.setSubGoals(subgoals)
+    assert a.subGoals[0] == suba
     
     
     

@@ -18,7 +18,7 @@ class Model(object):
 		self.currSGID = _currSGID #integer
 		self.effortTrackingData = _effortTrackingData #dictionary goalid-starttime pairs
 
-	"""METHODS FOR MODELVIEW"""
+	"""METHODS FOR MODEL"""
 	'''GOALLIST OPERATIONS'''
 	def getIncompleteGoalList(self):
 		incompleteGoalList = [] #empty list to hold incomplete goals
@@ -104,7 +104,7 @@ class Model(object):
 		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
-	"""GETTERS FOR MODELVIEW"""
+	"""GETTERS FOR MODEL"""
 	def getGoalList(self):
 		return copy.deepcopy(self.goalList) #returns a copy of the Goal List
 
@@ -117,7 +117,7 @@ class Model(object):
 	def getEffortTrackingData(self):
 		return copy.deepcopy(self.effortTrackingData) #returns the a copy of the effort tracking data
 
-	"""SETTERS FOR MODELVIEW"""
+	"""SETTERS FOR MODEL"""
 	def setGoalList(self, _goalList):
 		self.goalList = _goalList #sets the goal list to the passed _goalList
 

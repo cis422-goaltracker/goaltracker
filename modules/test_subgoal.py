@@ -7,7 +7,6 @@
 import pytest
 import SubGoal
 import datetime as DateTime
-#from ..modules import SubGoal
 time = DateTime.datetime.now()
 finish = DateTime.date(1998, 6, 28)
 subGoalInformation = {"name": "test"}
