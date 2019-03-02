@@ -5,8 +5,8 @@
 """
 #Standard imports: pytest and the file to be tested
 import pytest
-import Goal
-import SubGoal
+from Goal import Goal
+from SubGoal import SubGoal
 import datetime as DateTime
 astart = DateTime.date(1998, 6, 28)
 adue = DateTime.date(2014, 6, 12)
@@ -19,13 +19,13 @@ agoalInformation = {"name": "atest", "category" : "atest_category", "priority" :
 bgoalInformation = {"name": "btest", "category" : "btest_category", "priority" : 2}
 cgoalInformation = {"name": "ctest", "category" : "ctest_category", "priority" : 2}
 
-a = Goal.Goal(1, agoalInformation, astart, adue)
-b = Goal.Goal(2, bgoalInformation, bstart, bdue)
-c = Goal.Goal(3, cgoalInformation, cstart, cdue)
+a = Goal(1, agoalInformation, astart, adue)
+b = Goal(2, bgoalInformation, bstart, bdue)
+c = Goal(3, cgoalInformation, cstart, cdue)
 #Subgoal
 time = DateTime.datetime.now()
 subGoalInformation = {"name": "test"}
-suba = SubGoal.SubGoal(1, subGoalInformation, time)
+suba = SubGoal(1, subGoalInformation, time)
 subgoals = [suba]
 
 def test_category_lt():
@@ -34,9 +34,10 @@ def test_priority_lt():
     Goal.sorting = "priority"
     print (Goal.sorting)
     assert a < b 
-    assert (b < c)
+    assert not(b < c)
 def test_priority2():
     Goal.sorting = "123"
+    print(a < b)
     assert a < b < c 
 
 def test_reschedule():
