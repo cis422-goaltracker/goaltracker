@@ -13,11 +13,15 @@ adue = DateTime.date(2014, 6, 12)
 bstart = DateTime.date(2000, 1, 1)
 bdue = DateTime.date(2019, 9, 5)
 afinish = DateTime.date(2050, 11, 11)
+cstart = DateTime.date(2001, 6, 20)
+cdue = DateTime.date(2015, 3, 12)
 agoalInformation = {"name": "atest", "category" : "atest_category", "priority" : 1}
 bgoalInformation = {"name": "btest", "category" : "btest_category", "priority" : 2}
+cgoalInformation = {"name": "ctest", "category" : "ctest_category", "priority" : 2}
 
 a = Goal.Goal(1, agoalInformation, astart, adue)
 b = Goal.Goal(2, bgoalInformation, bstart, bdue)
+c = Goal.Goal(3, cgoalInformation, cstart, cdue)
 #Subgoal
 time = DateTime.datetime.now()
 subGoalInformation = {"name": "test"}
@@ -25,10 +29,16 @@ suba = SubGoal.SubGoal(1, subGoalInformation, time)
 subgoals = [suba]
 
 def test_category_lt():
-    assert a < b
+    assert a < b < c
 def test_priority_lt():
     Goal.sorting = "priority"
-    assert a < b
+    print (Goal.sorting)
+    assert a < b 
+    assert (b < c)
+def test_priority2():
+    Goal.sorting = "123"
+    assert a < b < c 
+
 def test_reschedule():
     a.reschedule(bdue)
     assert a.dueDate == b.dueDate

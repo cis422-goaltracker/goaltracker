@@ -37,7 +37,10 @@ class Goal(object):
 			return (self.category.lower() < other.category.lower())
 			
 		#Priority > Category > Duedate
-		if sort == "priority":		
+		if sort == "priority":
+			print (self.priority)
+			print (other.priority)
+
 			return (self.priority < other.priority)
 		return("ERROR: This should never happen (Sort error)")
 
