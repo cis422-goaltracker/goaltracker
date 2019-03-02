@@ -4,6 +4,7 @@
 *.csv
 *.xls
 *.json
+*.garbage
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -5,7 +5,7 @@
 """
 
 from SubGoal import SubGoal as SubGoal
-import datetime as DateTime
+from datetime import datetime, timedelta
 import copy
 
 class Goal(object):
@@ -15,7 +15,7 @@ class Goal(object):
 	sorting = "category"
     #TODO _dueDate should be optional
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _startDate, _dueDate):
+	def __init__(self, _id, _goalInformation, _startDate, _dueDate = None):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
@@ -25,7 +25,7 @@ class Goal(object):
 		self.initialDueDate = _dueDate #DateTime
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of date-elapsedtime pairs
-		self.subGoals = [] #list of SubGoals
+		self.subGoals = _goalInformation["subGoals"] #dictionary of SubGoals
 	
 	"""Special Methods"""
 	#Override less than, aka "<", so self<right_goal
@@ -43,11 +43,19 @@ class Goal(object):
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
+	def hasDueDate(self):
+		return self.dueDate != None
+
 	def reschedule(self, _dueDate):
+		if not self.hasDueDate():
+			self.initialDueDate = _dueDate
 		self.dueDate = _dueDate #sets the due date to the new due date
 
 	def hasBeenRescheduled(self):
-		return self.dueDate != self.initialDueDate #if due date and initial due date are same, return false, otherwise true
+		if self.hasDueDate():
+			return self.dueDate != self.initialDueDate #if due date and initial due date are same, return false, otherwise true
+		else:
+			return None
 
 	def updateGoal(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name
@@ -59,9 +67,12 @@ class Goal(object):
 
 	def isComplete(self):
 		return self.finishDate != None #if finish date is not null, it is complete
-    #TODO: this function is unecessary
-	def isOverDue(self, _currentDate):
-		return self.dueDate < _currentDate #if current date is greater than due date, its overdue
+
+	def isOverDue(self):
+		if self.hasDueDate():
+			return self.dueDate < datetime.now() #if current date is greater than due date, its overdue
+		else:
+			return None
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _date, _elapsedtime):

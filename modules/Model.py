@@ -35,49 +35,51 @@ class Model(object):
 		return overDueGoalList #return incomplete goal list
 
 	'''GOAL OPERATIONS'''
-	def getGoal(self, _gid):
-		for goal in self.goalList: #cycles through goal list
-			if goal.getId() == _gid: #if current goal's id matches _gid
-				return goal #return the goal
-		return None #if not found, return Null
+	def addGoal(self, _goalInformation, _startDate, _dueDate = None):
+		goal = Goal(self.getNewGID(), _goalInformation, _startDate, _dueDate)
+		self.goalList.append(goal)
 
-	def setGoal(self, _goal):
-		for index, goal in enumerate(self.goalList): #cycles through goalList
-			if goal.getId() == _goal.getId(): #if current goal's id matches _goal's id
-				self.goalList[index] = _goal #replace goal with _goal
+	def editGoal(self, _gid, _goalInformation):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].updateGoal(_goalInformation)
 
-	'''SUBGOALLIST OPERATIONS'''
-	def getSubGoalList(self, _gid):
-		for goal in self.goalList: #cycle through goalList
-			if goal.getId() == _gid: #if current goal's id matches _gid
-				return goal.getSubGoals() #return goal's subgoal list
-		return None #if not found return Null
+	def completeGoal(self, _gid, _finishDate):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].completeGoal(_goalInformation)
+				#also set all subgoals to complete
 
-	def setSubGoalList(self, _gid, _subGoalList):
-		for goal in self.goalList: #cycles through goalList
-			if goal.getId() == _gid: #if current goal's id matches _goal's id
-				goal.setSubGoals(_subGoalList) #replace subGoals with new _subGoalList
+	def rescheduleGoal(self, _gid, _newDueDate):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].reschedule(_goalInformation)
+
+	def deleteGoal(self, _gid):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList.pop(index)
 
 	'''SUBGOAL OPERATIONS'''
-	def getSubGoal(self, _gid, _sgid):
-		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
-		if subGoals != None: #if subgoals is not null
-			for subGoal in subGoals: #cycles through subgoals
-				if subGoal.getId() == _sgid: #if subgoal's id matches _sgid
-					return subGoal #return subgoal
-			return None #return null if subgoal not found
-		else:
-			return None #return null if goal not found
+	def addSubGoal(self, _gid, _sgid, _subGoalInformation):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].subGoals[_sgid] = _subGoalInformation
 
-	def setSubGoal(self, _gid, _subGoal):
-		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
-		if subGoals != None: #if subGoals is not null
-			for index, subGoal in enumerate(subGoals): #cycles through subgoals
-				if subGoal.getId() == _subGoal.getId(): #if subGoal's id matches _subGoal's id
-					subGoals[index] = _subGoal #replaces subGoal with _subGoal in subGoals
-					self.setSubGoalList(_gid, subGoals) #set subGoalList in goal with updated GoalList
-		else:
-			return None #returns null if goal not found
+	def editSubGoal(self, _gid, _sgid, _subGoalInformation):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].subGoals[_sgid] = _subGoalInformation
+
+	def completeSubGoal(self, _gid _sgid):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].subGoals[_sgid]["isComplete"] = True
+
+	def deleteSubGoal(self, _gid, _sgid):
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				self.goalList[index].subGoals.pop(_sgid)
 
 	'''GID AND SGID OPERATIONS'''
 	def getNewGID(self):
@@ -99,11 +101,6 @@ class Model(object):
 		goalList = sorted(self.getGoalList())
 		self.setGoalList(goalList)
 
-	def dueDateSort(self):
-		Goal.sorting = "duedate"
-		goalList = sorted(self.getGoalList())
-		self.setGoalList(goalList)
-
 	"""GETTERS FOR MODEL"""
 	def getGoalList(self):
 		return copy.deepcopy(self.goalList) #returns a copy of the Goal List
@@ -111,21 +108,8 @@ class Model(object):
 	def getCurrGID(self):
 		return self.currGID #returns the current goal id
 
-	def getCurrSGID(self):
-		return self.currSGID #returns the current subgoal id
-
 	def getEffortTrackingData(self):
 		return copy.deepcopy(self.effortTrackingData) #returns the a copy of the effort tracking data
-
-	"""SETTERS FOR MODEL"""
-	def setGoalList(self, _goalList):
-		self.goalList = _goalList #sets the goal list to the passed _goalList
-
-	def setCurrGID(self, _gid):
-		self.currGID = _gid #sets the current goal id to the passed _gid
-
-	def setCurrSGID(self, _sgid):
-		self.currSGID = _sgid #sets the current subgoal id to the passed _sgid
 
 	def setEffortTrackingData(self, _effortTrackingData):
 		self.effortTrackingData = _effortTrackingData #sets the effort tracking data to the passed _effortTrackingData
