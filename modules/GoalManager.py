@@ -4,9 +4,9 @@
 	GoalTracker
 """
 
-from Goal import Goal as Goal
-from Status import Status as Status
-from Model import Model as Model
+from Goal import Goal
+from Status import Status
+from Model import Model
 import datetime as DateTime
 
 class GoalManager(object):
