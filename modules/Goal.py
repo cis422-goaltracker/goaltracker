@@ -83,12 +83,14 @@ class Goal(object):
 
 	def isComplete(self):
 		return self.finishDate != None #if finish date is not null, it is complete
-
+    #TODO: this function is unecessary
 	def isOverDue(self, _currentDate):
 		return self.dueDate < _currentDate #if current date is greater than due date, its overdue
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _date, _elapsedtime):
+        #TODO: date is actually a day.
+        #_elapsedtime is a datetime.timedelta object
 		if _date in self.effortTracker: #checks if date already exists in effort tracker
 			self.effortTracker[_date] = self.effortTracker[_date] + _elapsedtime #if it already exists, add elapsed times together
 		else:

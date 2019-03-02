@@ -38,3 +38,29 @@ def test_completeGoal():
 def test_isComplete():
     assert a.isComplete()
     assert not b.isComplete()
+#TODO: Test isOverDue? I think it shouldn;t be a function
+def test_addEffortTrack():
+    now = DateTime.datetime.now()
+    later = now + timedelta(hours = 9)
+    delta = later - now
+    a.addEffortTrack(later, delta)
+    assert 1 == 1
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
