@@ -5,8 +5,6 @@
 """
 
 from Goal import Goal as Goal
-from SubGoal import SubGoal as SubGoal
-from Status import Status as Status
 import datetime as DateTime
 import copy
 
@@ -71,7 +69,7 @@ class Model(object):
 			if goal.getId() == _gid:
 				self.goalList[index].subGoals[_sgid] = _subGoalInformation
 
-	def completeSubGoal(self, _gid _sgid):
+	def completeSubGoal(self, _gid, _sgid):
 		for index, goal in enumerate(self.goalList):
 			if goal.getId() == _gid:
 				self.goalList[index].subGoals[_sgid]["isComplete"] = True

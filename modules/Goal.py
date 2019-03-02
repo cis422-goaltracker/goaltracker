@@ -4,7 +4,6 @@
 	GoalTracker
 """
 
-from SubGoal import SubGoal as SubGoal
 from datetime import datetime, timedelta
 import copy
 

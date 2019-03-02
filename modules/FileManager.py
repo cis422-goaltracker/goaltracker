@@ -5,8 +5,6 @@
 """
 
 from Goal import Goal
-from SubGoal import SubGoal
-from Status import Status
 from Model import Model
 import shelve
 
