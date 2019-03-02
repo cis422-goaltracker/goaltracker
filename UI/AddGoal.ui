@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
-    <height>520</height>
+    <width>330</width>
+    <height>527</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>51</y>
-     <width>291</width>
-     <height>471</height>
+     <width>313</width>
+     <height>481</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -215,6 +215,18 @@
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="subgoal4"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="subgoal2"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="subgoal1"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="subgoal3"/>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="subgoalLabel">
         <property name="text">
@@ -222,25 +234,8 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="addButton">
-        <property name="text">
-         <string>Add</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="subgoal5"/>
       </item>
      </layout>
     </item>
@@ -319,7 +314,7 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="categoryButtonGroup"/>
   <buttongroup name="priorityButtonGroup"/>
+  <buttongroup name="categoryButtonGroup"/>
  </buttongroups>
 </ui>

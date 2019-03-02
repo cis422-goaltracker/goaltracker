@@ -159,23 +159,37 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QCheckBox" name="checkBox_4">
+         <widget class="QCheckBox" name="subgoal1">
           <property name="text">
            <string>Subgoal1</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_5">
+         <widget class="QCheckBox" name="subgoal2">
           <property name="text">
            <string>Subgoal2</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_6">
+         <widget class="QCheckBox" name="subgoal3">
           <property name="text">
            <string>Subgoal3</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="subgoal4">
+          <property name="text">
+           <string>Subgoal4</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="subgoal5">
+          <property name="text">
+           <string>Subgoal5</string>
           </property>
          </widget>
         </item>
@@ -254,7 +268,7 @@
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>Effort Timer</string>
+       <string>Effort Tracker</string>
       </property>
      </widget>
     </item>
@@ -303,8 +317,4 @@
    </hints>
   </connection>
  </connections>
- <buttongroups>
-  <buttongroup name="categoryButtonGroup"/>
-  <buttongroup name="priorityButtonGroup"/>
- </buttongroups>
 </ui>
