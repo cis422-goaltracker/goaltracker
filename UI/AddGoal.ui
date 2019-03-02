@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>527</height>
+    <width>309</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>51</y>
-     <width>313</width>
-     <height>481</height>
+     <width>291</width>
+     <height>496</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -51,29 +51,40 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <widget class="QLabel" name="endDateLabel">
+       <widget class="QCheckBox" name="checkBox">
         <property name="text">
-         <string>Anticipated End Date:</string>
+         <string>No Due Date</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="endDate"/>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="endDateLabel">
+          <property name="text">
+           <string>Due Date:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateEdit" name="endDate"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -215,18 +226,6 @@
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="subgoal4"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="subgoal2"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="subgoal1"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="subgoal3"/>
-      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="subgoalLabel">
         <property name="text">
@@ -234,8 +233,55 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="subgoal2"/>
+      </item>
       <item row="4" column="1">
        <widget class="QLineEdit" name="subgoal5"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="subgoal4"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="subgoal3"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="subgoal1"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="deleteButton1">
+        <property name="text">
+         <string> - </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="deleteButton2">
+        <property name="text">
+         <string> - </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="deleteButton3">
+        <property name="text">
+         <string> - </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="deleteButton4">
+        <property name="text">
+         <string> - </string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="deleteButton5">
+        <property name="text">
+         <string> - </string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

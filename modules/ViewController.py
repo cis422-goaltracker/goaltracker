@@ -44,46 +44,101 @@ class AddGoalWindow(QDialog):
 
       # Set the QDateEdit widget to display a predetermined date (today's date)
       self.endDate.setDate(date.today())
-      # Variable for keeping track of the number of subgoals that the user wants to add
-      self.numSubgoals = 0
-      # Variable for keeping track of the maximum number of subgoals a user can have
-      self.maxSubgoals = 5
+
       # Hide all of the subgoals
       self.subgoal1.hide()
       self.subgoal2.hide()
       self.subgoal3.hide()
       self.subgoal4.hide()
       self.subgoal5.hide()
-      # Create a button for adding subgoals
-      self.addButton = QPushButton()
-      # Set the text of the button
-      self.addButton.setText("Add")
-      # Set up method for when button is clicked
-      self.addButton.clicked.connect(self.addSubgoal)
-      # Add button to the grid layout
-      self.gridLayout.addWidget(self.addButton, 0, 1, Qt.AlignLeft)
 
-   def addSubgoal(self):
-      # If the user tries to add more than the maximum number of subgoals allowed, then return
-      if self.numSubgoals == self.maxSubgoals:
-         return
-      # Increase the number of subgoals that the user is adding
-      self.numSubgoals += 1
-      # Add the button to the grid layout (one row below the LineEdit box)
-      self.gridLayout.addWidget(self.addButton, self.numSubgoals + 1, 1)
-      # Show the LineEdit box according to the number of subgoals that the user has
-      # If the user has the maximum number of subgoals displaying, then remove the add button
-      if self.numSubgoals == 1:
-         self.subgoal1.show()
-      elif self.numSubgoals == 2:
-         self.subgoal2.show()
-      elif self.numSubgoals == 3:
-         self.subgoal3.show()
-      elif self.numSubgoals == 4:
-         self.subgoal4.show()
-      elif self.numSubgoals == 5:
-         self.subgoal5.show()
-         self.addButton.hide()
+      # Hide all of the delete buttons
+      self.deleteButton1.hide()
+      self.deleteButton2.hide()
+      self.deleteButton3.hide()
+      self.deleteButton4.hide()
+      self.deleteButton5.hide()
+      # Set up the methods for when a button is clicked
+      self.deleteButton1.clicked.connect(self.deleteSubgoal1)
+      self.deleteButton2.clicked.connect(self.deleteSubgoal2)
+      self.deleteButton3.clicked.connect(self.deleteSubgoal3)
+      self.deleteButton4.clicked.connect(self.deleteSubgoal4)
+      self.deleteButton5.clicked.connect(self.deleteSubgoal5)
+
+      # Create buttons for adding subgoals
+      self.addButton1 = QPushButton()
+      self.addButton2 = QPushButton()
+      self.addButton3 = QPushButton()
+      self.addButton4 = QPushButton()
+      self.addButton5 = QPushButton()
+      # Set the text of the buttons
+      self.addButton1.setText("+")
+      self.addButton2.setText("+")
+      self.addButton3.setText("+")
+      self.addButton4.setText("+")
+      self.addButton5.setText("+")
+      # Set up methods for when a button is clicked
+      self.addButton1.clicked.connect(self.addSubgoal1)
+      self.addButton2.clicked.connect(self.addSubgoal2)
+      self.addButton3.clicked.connect(self.addSubgoal3)
+      self.addButton4.clicked.connect(self.addSubgoal4)
+      self.addButton5.clicked.connect(self.addSubgoal5)
+      # Add button to the grid layout
+      self.gridLayout.addWidget(self.addButton1, 0, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton2, 1, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton3, 2, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton4, 3, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton5, 4, 2, Qt.AlignLeft)
+
+   def addSubgoal1(self):
+      self.subgoal1.show()
+      self.addButton1.hide()
+      self.deleteButton1.show()
+
+   def addSubgoal2(self):
+      self.subgoal2.show()
+      self.addButton2.hide()
+      self.deleteButton2.show()
+
+   def addSubgoal3(self):
+      self.subgoal3.show()
+      self.addButton3.hide()
+      self.deleteButton3.show()
+
+   def addSubgoal4(self):
+      self.subgoal4.show()
+      self.addButton4.hide()
+      self.deleteButton4.show()
+
+   def addSubgoal5(self):
+      self.subgoal5.show()
+      self.addButton5.hide()
+      self.deleteButton5.show()
+
+   def deleteSubgoal1(self):
+      self.subgoal1.hide()
+      self.deleteButton1.hide()
+      self.addButton1.show()
+
+   def deleteSubgoal2(self):
+      self.subgoal2.hide()
+      self.deleteButton2.hide()
+      self.addButton2.show()
+
+   def deleteSubgoal3(self):
+      self.subgoal3.hide()
+      self.deleteButton3.hide()
+      self.addButton3.show()
+
+   def deleteSubgoal4(self):
+      self.subgoal4.hide()
+      self.deleteButton4.hide()
+      self.addButton4.show()
+
+   def deleteSubgoal5(self):
+      self.subgoal5.hide()
+      self.deleteButton5.hide()
+      self.addButton5.show()
 
 # The view of editing a goal
 class EditGoalWindow(QDialog):
@@ -102,6 +157,102 @@ class EditGoalWindow(QDialog):
       self.personalRadioButton.setChecked(True)
       # Set the RadioButton widget to be checked according to a predetermined priority (low)
       self.lowRadioButton.setChecked(True)
+
+      # Hide all of the subgoals
+      self.subgoal1.hide()
+      self.subgoal2.hide()
+      self.subgoal3.hide()
+      self.subgoal4.hide()
+      self.subgoal5.hide()
+
+      # Hide all of the delete buttons
+      self.deleteButton1.hide()
+      self.deleteButton2.hide()
+      self.deleteButton3.hide()
+      self.deleteButton4.hide()
+      self.deleteButton5.hide()
+      # Set up the methods for when a button is clicked
+      self.deleteButton1.clicked.connect(self.deleteSubgoal1)
+      self.deleteButton2.clicked.connect(self.deleteSubgoal2)
+      self.deleteButton3.clicked.connect(self.deleteSubgoal3)
+      self.deleteButton4.clicked.connect(self.deleteSubgoal4)
+      self.deleteButton5.clicked.connect(self.deleteSubgoal5)
+
+      # Create buttons for adding subgoals
+      self.addButton1 = QPushButton()
+      self.addButton2 = QPushButton()
+      self.addButton3 = QPushButton()
+      self.addButton4 = QPushButton()
+      self.addButton5 = QPushButton()
+      # Set the text of the buttons
+      self.addButton1.setText("+")
+      self.addButton2.setText("+")
+      self.addButton3.setText("+")
+      self.addButton4.setText("+")
+      self.addButton5.setText("+")
+      # Set up methods for when a button is clicked
+      self.addButton1.clicked.connect(self.addSubgoal1)
+      self.addButton2.clicked.connect(self.addSubgoal2)
+      self.addButton3.clicked.connect(self.addSubgoal3)
+      self.addButton4.clicked.connect(self.addSubgoal4)
+      self.addButton5.clicked.connect(self.addSubgoal5)
+      # Add button to the grid layout
+      self.gridLayout.addWidget(self.addButton1, 0, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton2, 1, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton3, 2, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton4, 3, 2, Qt.AlignLeft)
+      self.gridLayout.addWidget(self.addButton5, 4, 2, Qt.AlignLeft)
+
+   def addSubgoal1(self):
+      self.subgoal1.show()
+      self.addButton1.hide()
+      self.deleteButton1.show()
+
+   def addSubgoal2(self):
+      self.subgoal2.show()
+      self.addButton2.hide()
+      self.deleteButton2.show()
+
+   def addSubgoal3(self):
+      self.subgoal3.show()
+      self.addButton3.hide()
+      self.deleteButton3.show()
+
+   def addSubgoal4(self):
+      self.subgoal4.show()
+      self.addButton4.hide()
+      self.deleteButton4.show()
+
+   def addSubgoal5(self):
+      self.subgoal5.show()
+      self.addButton5.hide()
+      self.deleteButton5.show()
+
+   def deleteSubgoal1(self):
+      self.subgoal1.hide()
+      self.deleteButton1.hide()
+      self.addButton1.show()
+
+   def deleteSubgoal2(self):
+      self.subgoal2.hide()
+      self.deleteButton2.hide()
+      self.addButton2.show()
+
+   def deleteSubgoal3(self):
+      self.subgoal3.hide()
+      self.deleteButton3.hide()
+      self.addButton3.show()
+
+   def deleteSubgoal4(self):
+      self.subgoal4.hide()
+      self.deleteButton4.hide()
+      self.addButton4.show()
+
+   def deleteSubgoal5(self):
+      self.subgoal5.hide()
+      self.deleteButton5.hide()
+      self.addButton5.show()
+
 
 # The view of viewing a goal
 class ViewGoalWindow(QDialog):
@@ -188,20 +339,15 @@ class MainViewController(QMainWindow):
        # Create buttons according to the appropriate status
        # Add buttons to the grid layout as far right as possible
        if goalStatus is "current":
-          viewButton = self.getButton("View")
           editButton = self.getButton("Edit")
-          deleteButton = self.getButton("Delete")
-          self.gridLayout.addWidget(viewButton, 0, 2, Qt.AlignTop)
-          self.gridLayout.addWidget(editButton, 0, 3, Qt.AlignTop)
-          self.gridLayout.addWidget(deleteButton, 0, 4, Qt.AlignTop)
+          self.gridLayout.addWidget(editButton, 0, 2, Qt.AlignTop)
        elif goalStatus is "overdue":
-          completeButton = self.getButton("View")
           rescheduleButton = self.getButton("Reschedule")
-          self.gridLayout.addWidget(completeButton, 0, 3, Qt.AlignTop)
-          self.gridLayout.addWidget(rescheduleButton, 0, 4, Qt.AlignTop)
-       elif goalStatus is "completed":
-          viewButton = self.getButton("View")
-          self.gridLayout.addWidget(viewButton, 0, 4, Qt.AlignTop)
+          self.gridLayout.addWidget(rescheduleButton, 0, 2, Qt.AlignTop)
+       viewButton = self.getButton("View")
+       self.gridLayout.addWidget(viewButton, 0, 3, Qt.AlignTop)
+       deleteButton = self.getButton("Delete")
+       self.gridLayout.addWidget(deleteButton, 0, 4, Qt.AlignTop)
 
        # Modify the span of the columns by stretching the labels twice as much as the buttons
        self.gridLayout.setColumnStretch(0, 2)
