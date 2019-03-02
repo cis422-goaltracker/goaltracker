@@ -11,9 +11,9 @@ import copy
 class Goal(object):
 	"""Class Variables"""
 	#Sorting variable determines the sorting behavior of the goallist
-	#This should be priority, category, or duedate (attributes of goals)
+	#This should be priority or category (attributes of goals)
 	sorting = "category"
-
+    #TODO _dueDate should be optional
 	"""CONSTRUCTORS FOR GOAL"""
 	def __init__(self, _id, _goalInformation, _startDate, _dueDate):
 		self.id = _id #integer
@@ -71,7 +71,7 @@ class Goal(object):
 		self.dueDate = _dueDate #sets the due date to the new due date
 
 	def hasBeenRescheduled(self):
-		return self.dueDate == self.initialDueDate #if due date and initial due date are same, return true, otherwise false
+		return self.dueDate != self.initialDueDate #if due date and initial due date are same, return false, otherwise true
 
 	def updateGoal(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name

@@ -12,14 +12,29 @@ astart = DateTime.date(1998, 6, 28)
 adue = DateTime.date(2014, 6, 12)
 bstart = DateTime.date(2000, 1, 1)
 bdue = DateTime.date(2019, 9, 5)
-agoalInformation = {"name": "test", "category" : "atest_category", "priority" : 1}
-bgoalInformation = {"name": "test", "category" : "btest_category", "priority" : 2}
+afinish = DateTime.date(2050, 11, 11)
+agoalInformation = {"name": "atest", "category" : "atest_category", "priority" : 1}
+bgoalInformation = {"name": "btest", "category" : "btest_category", "priority" : 2}
 
 a = Goal.Goal(1, agoalInformation, astart, adue)
 b = Goal.Goal(2, bgoalInformation, bstart, bdue)
 
-def test_category_sort():
+def test_category_lt():
     assert a < b
-def test_priority_sort():
+def test_priority_lt():
     Goal.sorting = "priority"
     assert a < b
+def test_reschedule():
+    a.reschedule(bdue)
+    assert a.dueDate == b.dueDate
+def test_hasBeenRescheduled():
+    assert a.hasBeenRescheduled()
+def test_updateGoal():
+    a.updateGoal(bgoalInformation)
+    assert a.name == b.name
+def test_completeGoal():
+    a.completeGoal(afinish)
+    assert a.finishDate == afinish
+def test_isComplete():
+    assert a.isComplete()
+    assert not b.isComplete()
