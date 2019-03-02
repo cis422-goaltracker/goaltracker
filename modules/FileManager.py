@@ -4,10 +4,10 @@
 	GoalTracker
 """
 
-from Goal import Goal as Goal
-from SubGoal import SubGoal as SubGoal
-from Status import Status as Status
-from Model import Model as Model
+from Goal import Goal
+from SubGoal import SubGoal
+from Status import Status
+from Model import Model
 import shelve
 
 class FileManager(object):
