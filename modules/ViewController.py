@@ -205,9 +205,6 @@ class MainViewController(QMainWindow):
             category = self.getCategoryOption(window)
             priority = self.getPriorityOption(window)
             subgoals = self.getSubgoals(window)
-            #return
-
-
 
         self.model.addGoal({"name": goalName, "category": category, "priority": priority}, [])
         mylist = self.model.getGoalList()
