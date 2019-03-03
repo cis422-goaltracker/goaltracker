@@ -198,6 +198,17 @@ class MainViewController(QMainWindow):
         priority = self.getPriorityOption(window)
         subgoals = self.getSubgoals(window)
 
+        while (goalName == ''):
+            window.exec_()
+            goalName = self.getGoalName(window)
+            endDate = self.getEndDate(window)
+            category = self.getCategoryOption(window)
+            priority = self.getPriorityOption(window)
+            subgoals = self.getSubgoals(window)
+            #return
+
+
+
         self.model.addGoal({"name": goalName, "category": category, "priority": priority}, [])
         mylist = self.model.getGoalList()
         for goal in mylist:
