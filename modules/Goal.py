@@ -4,47 +4,76 @@
 	GoalTracker
 """
 
-from SubGoal import SubGoal as SubGoal
-import datetime as DateTime
+from datetime import datetime, timedelta
+import copy
 
 class Goal(object):
+	"""Class Variables"""
+	#Sorting variable determines the sorting behavior of the goallist
+	#This should be priority or category (attributes of goals)
+	# sorting = "category"
+    #TODO _dueDate should be optional
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _startDate, _anticipatedFinishDate):
+	def __init__(self, _id, _goalInformation, _subGoals, _dueDate):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
 		self.priority = _goalInformation["priority"] #integer
-		self.startDate = _startDate #DateTime
-		self.anticipatedFinishDate = _anticipatedFinishDate #DateTime
+		self.startDate = datetime.now() #DateTime
+		self.dueDate = _dueDate #DateTime
+		self.initialDueDate = _dueDate #DateTime
 		self.finishDate = None #DateTime/Null
-		self.effortTracker = {} #dictionary of date-elapsedtime pairs
-		self.subGoals = [] #list of SubGoals
+		self.effortTracker = {} #dictionary of <finish datetime, start datetime> pairs
+		self.subGoals = _subGoals #dictionary of SubGoals
+		self.sortingMethod = "category"
+	
+	"""Special Methods"""
+	#Override less than, aka "<", so self<right_goal
+	def __lt__(self, other):
+		#Access this now, just once
+		# sort = Goal.sorting
+		if self.sortingMethod == "category":
+			return (self.category.lower() < other.category.lower())
+		if self.sortingMethod == "priority":
+			return (self.priority < other.priority)
+		return("ERROR: This should never happen (Sort error)")
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
-	def reschedule(self, _anticipatedFinishDate):
-		self.anticipatedFinishDate = _anticipatedFinishDate #sets the anticipated finish date to the new anticipated finishd date
+	def hasDueDate(self):
+		return self.dueDate != None
 
-	def updateGoal(self, _goalInformation):
+	def reschedule(self, _dueDate):
+		if not self.hasDueDate():
+			self.initialDueDate = _dueDate
+		self.dueDate = _dueDate #sets the due date to the new due date
+
+	def hasBeenRescheduled(self):
+		if self.hasDueDate():
+			return self.dueDate != self.initialDueDate #if due date and initial due date are same, return false, otherwise true
+		else:
+			return None
+
+	def update(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name
 		self.category = _goalInformation["category"] #sets the category to the passed category
 		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
 
-	def completeGoal(self, _finishDate):
+	def complete(self, _finishDate):
 		self.finishDate = _finishDate #sets the finish date to the passed finish date
 
 	def isComplete(self):
 		return self.finishDate != None #if finish date is not null, it is complete
 
-	def isOverDue(self, _currentDate):
-		return self.anticipatedFinishDate < _currentDate #if current date is greater than anticipated finish date, its overdue
+	def isOverDue(self):
+		if self.hasDueDate():
+			return self.dueDate < datetime.now() #if current date is greater than due date, its overdue
+		else:
+			return False
 
 	'''Effort Tracker Operations'''
-	def addEffortTrack(self, _date, _elapsedtime):
-		if _date in self.effortTracker: #checks if date already exists in effort tracker
-			self.effortTracker[_date] = self.effortTracker[_date] + _elapsedtime #if it already exists, add elapsed times together
-		else:
-			self.effortTracker[_date] = _elapsedtime #else adds a key-value pair of <date, elapsetime> to effort tracker
+	def addEffortTrack(self, _finishTime, _startTime):
+		self.effortTracker[_finishTime] = _startTime #adds a key-value pair of <finish time, start time> to effort tracker
 
 	"""GETTERS FOR GOAL"""
 	def getId(self):
@@ -62,18 +91,27 @@ class Goal(object):
 	def getStartDate(self):
 		return self.startDate #returns the Goal Start Date
 
-	def getAnticipatedFinishDate(self):
-		return self.anticipatedFinishDate #returns the Goal Anticipated Finish Date
+	def getDueDate(self):
+		return self.dueDate #returns the Goal Due Date
+
+	def getInitialDueDate(self):
+		return self.initialDueDate #returns the Goal Initial Due Date
 
 	def getFinishDate(self):
 		return self.finishDate #returns the Goal Finish Date
 
 	def getEffortTracker(self):
-		return self.effortTracker.copy() #returns a copy of the Effort Tracker of the Goal
+		return copy.deepcopy(self.effortTracker) #returns a copy of the Effort Tracker of the Goal
 
 	def getSubGoals(self):
-		return self.subGoals.copy() #returns a copy of the Sub Goals of the Goal
+		return copy.deepcopy(self.subGoals) #returns a copy of the Sub Goals of the Goal
+
+	def getSortingMethod(self):
+		return self.sortingMethod
 
 	"""SETTERS FOR GOAL"""
 	def setSubGoals(self, _subGoals):
-		self.subGoals = _subGoals
+		self.subGoals = _subGoals #sets the subGoals to the passed _subGoals
+
+	def setSortingMethod(self, _sortingMethod):
+		self.sortingMethod = _sortingMethod

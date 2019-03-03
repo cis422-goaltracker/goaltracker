@@ -17,6 +17,7 @@ import numpy as np
 
 #For Kellie to work on
 #need to pip install pyqtgraph
+
 class AnalysisGenerator(object):
 	"""CONSTRUCTOR FOR ANALYSISGENERATOR"""
 	def __init__(self):
