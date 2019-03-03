@@ -48,16 +48,8 @@ class AddGoalWindow(QDialog):
         # Set the QDateEdit widget to display a predetermined date (today's date)
         self.endDate.setDate(date.today())
 
-        # ?
-        super(AddGoalWindow, self).__init__()
-        # Load the Add Goal Window UI
-        loadUi(ui[1], self)
-
-        # Update the window's title
-        self.setWindowTitle('Add Goal');
-
-        # Set the QDateEdit widget to display a predetermined date (today's date)
-        self.endDate.setDate(date.today())
+        self.personalRadioButton.setChecked(True)
+        self.lowRadioButton.setChecked(True)
 
         # Hide all of the subgoals
         self.subgoal1.hide()
@@ -172,6 +164,7 @@ class EditGoalWindow(QDialog):
         # Set the RadioButton widget to be checked according to a predetermined priority (low)
         self.lowRadioButton.setChecked(True)
 
+        hastext = goalName->text().isEmpty()
         # Hide all of the subgoals
         self.subgoal1.hide()
         self.subgoal2.hide()
