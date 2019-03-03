@@ -11,32 +11,30 @@ class Goal(object):
 	"""Class Variables"""
 	#Sorting variable determines the sorting behavior of the goallist
 	#This should be priority or category (attributes of goals)
-	sorting = "category"
+	# sorting = "category"
     #TODO _dueDate should be optional
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _startDate, _dueDate = None):
+	def __init__(self, _id, _goalInformation, _subGoals, _dueDate):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
 		self.priority = _goalInformation["priority"] #integer
-		self.startDate = _startDate #DateTime
+		self.startDate = datetime.now() #DateTime
 		self.dueDate = _dueDate #DateTime
 		self.initialDueDate = _dueDate #DateTime
 		self.finishDate = None #DateTime/Null
-		self.effortTracker = {} #dictionary of date-elapsedtime pairs
-		self.subGoals = _goalInformation["subGoals"] #dictionary of SubGoals
+		self.effortTracker = {} #dictionary of <finish datetime, start datetime> pairs
+		self.subGoals = _subGoals #dictionary of SubGoals
+		self.sortingMethod = "category"
 	
 	"""Special Methods"""
 	#Override less than, aka "<", so self<right_goal
 	def __lt__(self, other):
 		#Access this now, just once
-		sort = Goal.sorting
-		#Category > Priority > Duedate
-		if sort == "category":
+		# sort = Goal.sorting
+		if self.sortingMethod == "category":
 			return (self.category.lower() < other.category.lower())
-			
-		#Priority > Category > Duedate
-		if sort == "priority":
+		if self.sortingMethod == "priority":
 			return (self.priority < other.priority)
 		return("ERROR: This should never happen (Sort error)")
 
@@ -56,12 +54,12 @@ class Goal(object):
 		else:
 			return None
 
-	def updateGoal(self, _goalInformation):
+	def update(self, _goalInformation):
 		self.name = _goalInformation["name"] #sets the name to the passed name
 		self.category = _goalInformation["category"] #sets the category to the passed category
 		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
 
-	def completeGoal(self, _finishDate):
+	def complete(self, _finishDate):
 		self.finishDate = _finishDate #sets the finish date to the passed finish date
 
 	def isComplete(self):
@@ -71,12 +69,11 @@ class Goal(object):
 		if self.hasDueDate():
 			return self.dueDate < datetime.now() #if current date is greater than due date, its overdue
 		else:
-			return None
+			return False
 
 	'''Effort Tracker Operations'''
-	def addEffortTrack(self, _date, _elapsedtime):
-        #_elapsedtime is a datetime.timedelta object
-		self.effortTracker[_date] = _elapsedtime #adds a key-value pair of <date, elapsetime> to effort tracker
+	def addEffortTrack(self, _finishTime, _startTime):
+		self.effortTracker[_finishTime] = _startTime #adds a key-value pair of <finish time, start time> to effort tracker
 
 	"""GETTERS FOR GOAL"""
 	def getId(self):
@@ -109,6 +106,12 @@ class Goal(object):
 	def getSubGoals(self):
 		return copy.deepcopy(self.subGoals) #returns a copy of the Sub Goals of the Goal
 
+	def getSortingMethod(self):
+		return self.sortingMethod
+
 	"""SETTERS FOR GOAL"""
 	def setSubGoals(self, _subGoals):
 		self.subGoals = _subGoals #sets the subGoals to the passed _subGoals
+
+	def setSortingMethod(self, _sortingMethod):
+		self.sortingMethod = _sortingMethod
