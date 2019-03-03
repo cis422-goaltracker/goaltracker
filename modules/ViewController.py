@@ -246,9 +246,6 @@ class MainViewController(QMainWindow):
 
     def completeGoal(self):
         print("TODO: Complete Goal")
-
-    def completeGoal(self):
-        print("TODO: Complete Goal")
  
 def main():
     filemanager = FileManager() #create FileManager object
