@@ -7,7 +7,7 @@
 #Standard imports: pytest and the file to be tested
 import pytest
 from Goal import Goal
-from SubGoal import SubGoal
+#from SubGoal import SubGoal
 import datetime as DateTime
 astart = DateTime.date(1998, 6, 28)
 adue = DateTime.date(2014, 6, 12)
@@ -64,7 +64,7 @@ def test_completeGoal():
 def test_isComplete():
     assert a.isComplete()
     assert not b.isComplete()
-    
+
 #TODO: Test isOverDue? I think it shouldn;t be a function
 def test_addEffortTrack():
     now = DateTime.datetime.now()
