@@ -220,7 +220,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose
+		@purpose: This method takes the _gid to find the goal in
 		'''
 		for index, goal in enumerate(self.goalList):
 			if goal.getId() == _gid:
@@ -234,7 +234,8 @@ class Model(object):
 
 		@return: None
 
-		@purpose
+		@purpose: This method takes the _gid to find the goal in the goal list, then it adds an
+		effort track to the goal with _startTime and _finishTime
 		'''
 		for index, goal in enumerate(self.goalList):
 			if goal.getId() == _gid:
@@ -246,7 +247,7 @@ class Model(object):
 
 		@return: (dictionary) - 
 
-		@purpose
+		@purpose: This method returns a copy of the effort tracking data
 		'''
 		return copy.deepcopy(self.effortTrackingData) #returns the a copy of the effort tracking data
 
@@ -257,7 +258,7 @@ class Model(object):
 
 		@return: (integer) - 
 
-		@purpose
+		@purpose: This method generates a new goal id and then returns it
 		'''
 		self.currGID = self.currGID + 1 #increments current goal id
 		return self.currGID #returns current goal id
@@ -268,7 +269,7 @@ class Model(object):
 
 		@return: (integer) - 
 
-		@purpose
+		@purpose: This method generates a new subgoal id and then returns it
 		'''
 		self.currSGID = self.currSGID + 1 # increments current subgoal id
 		return self.currSGID #returns current subgoal id
