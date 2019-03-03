@@ -30,7 +30,13 @@ class AnalysisGenerator(object):
 			return _currentDate - goal.getStartDate() #find the difference between the current date and start date
 
 	def trackProgress(self, _gid, _model):
-		pass
+		goal = _model.getGoal(_gid) #gets the goal from the model
+		subgoaldict = goal.subGoals()	#grabs the dictionary of subgoals
+		subcompletedcount = 0			#starts a counter for completed subgoals
+		for value in subgoaldict:	#for every value in dictionary
+			if value == True:	#if that value is true i.e. goal is completed
+				subcompletedcount += 1	#increase goal count
+		return subcompletedcount/ len(subgoaldict) #return number completed over number of subgoals
 
 	def trackEffort(self, _gid, _model):
 		pass
@@ -38,21 +44,38 @@ class AnalysisGenerator(object):
 
 	def calculateFasterSlower(self, _gid, _model):
 		goal = _model.getGoal(_gid)	#gets the goal from the model
-		if goal.isComplete(): 	#if goal is complete
-			return goal.getInitialAnticipatedFinishDate() - goal.getFinishDate() #calculates the number of days from anticipated finish date
+		if goal.hasDueDate() == False:	#if the goal does not have a due date #???? Does this function exist ????
+			return -10000;	#return -10000 (a number that is almost possible to achieve in normal day to day use)
+		else:
+			if goal.isComplete(): 	#if goal is complete
+				return goal.getInitialAnticipatedFinishDate() - goal.getFinishDate() #calculates the number of days from anticipated finish date
+
 
 	def calculateAveragetime(self, _gid, _model):
+		#how do i get the dictionary of the datetime objects and time deltas for effort tracker?
+
 		ret = {} #creates a dictionary to return
 		for dt in dict.keys(): #loops through keys in dictionarya
 			if not (dt.date() in ret): #if date is not in return dictioary
 					ret[dt.date()] = dict[dt] #add timedelta if does not exist
 			else:
 				returnet[dt.date()] += dict[dt] #adds timedelta if date already exists
-		timesum = sum(d.values()) #sum all the values
+		
+		for values in ret.keys(): #for the time delta values in the new dictionary made
+
+			seconds = values.total_seconds() #solve for how many hours
+			hours = seconds // 3600 #more computation
+
+		timesum = sum(dt.values()) #sum all the values (now as hours)
+
 		return timesum/ len(ret) #return the average per day
 
 
 	def calculateBeforeDuedate(self, _model):
+		#should this be changed? it originally relied on having a due date fro every goal. now the stats 
+		#aren't as accurate. should i just be looking at the goals that DID have a due date attached to them?
+
+
 		reschedulecount = 0	#creates counter for number of goals rescheduled
 		completedcount = 0 	#creates counter for completed goals
 		for i in _model:	#looks through goals in model
@@ -65,6 +88,9 @@ class AnalysisGenerator(object):
 
 
 	def calculateAfterDuedate(self, _model):
+		#should this be changed? it originally relied on having a due date fro every goal. now the stats 
+		#aren't as accurate. should i just be looking at the goals that DID have a due date attached to them?
+
 		reschedulecount = 0 #creates counter for number of goals rescheduled
 		completedcount = 0 	#creates counter for completed goals
 		for i in _model:	#loops through goals in model
@@ -74,15 +100,16 @@ class AnalysisGenerator(object):
 				completedcount += 1
 		return reschedulecount/completedcount #calculates and returns percentage of goals completed after inital duedate
 		
+	#jiazhen looking into this
 	def tranformDatesList(self, _model):
 		ret = {} #creates a dictionary to return
 		for dt in dict.keys(): #loops through keys in dictionarya
 			if not (dt.date() in ret): #if date is not in return dictioary
 					ret[dt.date()] = dict[dt] #add timedelta if does not exist
 			else:
-				returnet[dt.date()] += dict[dt] #add timedelta if date already exists
+				ret[dt.date()] += dict[dt] #add timedelta if date already exists
 		
-		for key in dict.keys(): #for every key in the dictionary
+		for key in ret.keys(): #for every key in the dictionary
 			datetime.strftime(key,'%b %d, %Y') #turn it into a string
 		
 		dates = list(ret.keys()) #make a list of date strings
@@ -97,6 +124,12 @@ class AnalysisGenerator(object):
 			else:
 				returnet[dt.date()] += dict[dt] #add timedelta if date already exists
 		
+		for values in ret.keys(): #for the time delta values in the new dictionary made
+			seconds = values.total_seconds() #solve for how many hours
+			hours = seconds // 3600 #more computation
+			
+			ret[values] = hours #assign hours to new dictionary ???? What is the right way to assign this ???? 
+
 		values = list(ret.values()) #make a list of values
 
 		return values
@@ -107,7 +140,7 @@ class AnalysisGenerator(object):
 	# time_per_day_summed = calculateAverageTime()
 	# before_due_num = calculateBeforeDuedate()
 	# after_due_num = calculateAfterDuedate()
-		
+	
 	"""METHODS FOR ANALYSISGENERATOR"""
 
 
