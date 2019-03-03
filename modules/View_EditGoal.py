@@ -3,27 +3,53 @@ from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from datetime import date
+from datetime import datetime
 
 UI_PATH = '../UI/EditGoal.ui'
 
 # The view of editing a goal
 class EditGoalWindow(QDialog):
-    def __init__(self):
+    def __init__(self, _goalName = None, _category = None, _priority = None, _subGoals = None, _date = None):
         # ?
         super(EditGoalWindow, self).__init__()
         # Load the Edit Goal Window UI
         loadUi(UI_PATH, self)
-        # Update the window's title
-        self.setWindowTitle('Edit Goal');
-        # Set the text of the LineEdit box to display a predetermined text
-        self.goalName.setText("Exercise")
-        # Set the QDateEdit widget to display a predetermined date (today's date)
-        self.endDate.setDate(date.today())
-        # Set the RadioButton widget to be checked according to a predetermined category (personal)
-        self.personalRadioButton.setChecked(True)
-        # Set the RadioButton widget to be checked according to a predetermined priority (low)
-        self.lowRadioButton.setChecked(True)
+
+        if _goalName == None and _category == None and _priority == None and _subGoals == None:
+            self.setWindowTitle('Add Goal') # Update the window's title
+            self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
+            self.personalRadioButton.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined category (personal)
+            self.lowRadioButton.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined priority (low)
+        else:
+            self.setWindowTitle('Edit Goal') # Update the window's title
+            self.goalName.setText(_goalName)
+
+            if _date == None:
+                self.checkBox.setChecked(True)
+                self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
+            else:
+                self.endDate.setDate(_date)
+
+            if _category == "Personal":
+                self.personalRadioButton.setChecked(True)
+            elif _category == "Health":
+                self.healthRadioButton.setChecked(True)
+            elif _category == "Finance":
+                self.financeRadioButton.setChecked(True)
+            elif _category == "Work":
+                self.workRadioButton.setChecked(True)
+            else:
+                self.otherRadioButton.setChecked(True)
+
+            if _priority == 1:
+                self.highRadioButton.setChecked(True)
+            elif _priority == 2:
+                self.mediumRadioButton.setChecked(True)
+            else:
+                self.lowRadioButton.setChecked(True)
+
+        #load subgoals
+
 
         # Hide all of the subgoals
         self.subgoal1.hide()

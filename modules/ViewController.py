@@ -5,26 +5,20 @@
         Reference [0]: https://stackoverflow.com/questions/21213853/pyside-how-to-delete-widgets-from-gridlayout
 
 """
-
-from Goal import Goal as Goal
-from Model import Model as Model
-
-from FileManager import FileManager as FileManager
-
-from View_AddGoal import AddGoalWindow
-from View_EditGoal import EditGoalWindow
-from View_ViewGoal import ViewGoalWindow
-# from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
-
-#Commented the line below out because it caused an error
-#from ModelView import ModelView as ModelView
-
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from datetime import date
+from datetime import datetime
+
+from Goal import Goal
+from Model import Model
+from FileManager import FileManager
+from View_AddGoal import AddGoalWindow
+from View_EditGoal import EditGoalWindow
+from View_ViewGoal import ViewGoalWindow
+from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
 
 # Global variable for storing UI files (HH)
 # ui = ['../UI/GoalTracker.ui', '../UI/AddGoal.ui', '../UI/EditGoal.ui', '../UI/ViewGoal.ui']
@@ -39,7 +33,6 @@ class MainViewController(QMainWindow):
         loadUi(UI_PATH, self)
 
         self.model = _model
-
 
         # Update the window's title
         self.setWindowTitle('Goal Tracker');
@@ -182,11 +175,11 @@ class MainViewController(QMainWindow):
     # Returns a goal's priority according to user's selection
     def getPriorityOption(self, window):
         if window.lowRadioButton.isChecked():
-            return "Low"
+            return 3
         elif window.mediumRadioButton.isChecked():
-            return "Medium"
+            return 2
         elif window.highRadioButton.isChecked():
-            return "High"
+            return 1
 
     # Return's a goal's subgoals according to user's input
     def getSubgoals(self, window):
@@ -195,7 +188,7 @@ class MainViewController(QMainWindow):
     # Open a new window and get the user's input for adding a goal
     def openAddGoalWindow(self):
         # Create a window of the Add Goal display
-        window = AddGoalWindow()
+        window = EditGoalWindow()
         # Show the window
         window.exec_()
         # Get the goal's information
@@ -208,14 +201,12 @@ class MainViewController(QMainWindow):
         self.model.addGoal({"name": goalName, "category": category, "priority": priority}, [])
         mylist = self.model.getGoalList()
         for goal in mylist:
-            print(goal.getName())
-        # Print the goal's information
-        # print(goalName, endDate, category, priority, subgoals[0], subgoals[1], subgoals[2], subgoals[3], subgoals[4])
+            print(goal.getName(), goal.getCategory(), goal.getPriority())
 
     # Open a new window and get the user's input for editing a goal
     def openEditGoalWindow(self):
         # Create a window of the Edit Goal display
-        window = EditGoalWindow()
+        window = EditGoalWindow("Potato", "Health", 1, {})
         # Show the window
         window.exec_()
         # Get the goal's information

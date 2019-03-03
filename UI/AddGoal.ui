@@ -19,7 +19,7 @@
      <x>10</x>
      <y>51</y>
      <width>291</width>
-     <height>496</height>
+     <height>580</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -142,7 +142,7 @@
         <item>
          <widget class="QRadioButton" name="otherRadioButton">
           <property name="text">
-           <string>Other</string>
+           <string>O&amp;ther</string>
           </property>
           <attribute name="buttonGroup">
            <string notr="true">categoryButtonGroup</string>
@@ -180,7 +180,7 @@
         <item>
          <widget class="QRadioButton" name="lowRadioButton">
           <property name="text">
-           <string>Low</string>
+           <string>&amp;Low</string>
           </property>
           <attribute name="buttonGroup">
            <string notr="true">priorityButtonGroup</string>
@@ -190,7 +190,7 @@
         <item>
          <widget class="QRadioButton" name="mediumRadioButton">
           <property name="text">
-           <string>Medium</string>
+           <string>Medi&amp;um</string>
           </property>
           <attribute name="buttonGroup">
            <string notr="true">priorityButtonGroup</string>
@@ -200,7 +200,7 @@
         <item>
          <widget class="QRadioButton" name="highRadioButton">
           <property name="text">
-           <string>High</string>
+           <string>Hi&amp;gh</string>
           </property>
           <attribute name="buttonGroup">
            <string notr="true">priorityButtonGroup</string>
@@ -360,7 +360,7 @@
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="priorityButtonGroup"/>
   <buttongroup name="categoryButtonGroup"/>
+  <buttongroup name="priorityButtonGroup"/>
  </buttongroups>
 </ui>

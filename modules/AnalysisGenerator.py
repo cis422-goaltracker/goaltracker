@@ -4,7 +4,6 @@
 	GoalTracker
 """
 import sys
-from Model import CalendarModel
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -60,7 +59,7 @@ class AnalysisGenerator(object):
 			if not (dt.date() in ret): #if date is not in return dictioary
 					ret[dt.date()] = dict[dt] #add timedelta if does not exist
 			else:
-				returnet[dt.date()] += dict[dt] #adds timedelta if date already exists
+				ret[dt.date()] += dict[dt] #adds timedelta if date already exists
 		
 		for values in ret.keys(): #for the time delta values in the new dictionary made
 
