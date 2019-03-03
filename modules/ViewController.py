@@ -32,44 +32,51 @@ class ViewGoalWindow(QDialog):
 
 # The view of editing a goal
 class EditGoalWindow(QDialog):
-    def __init__(self, _goalName = None, _category = None, _priority = None, _subGoals = None, _date = None):
-        # ?
+    def __init__(self, model):
+        
+        #_goalName = None, _category = None, _priority = None, _subGoals = None, _date = None, model):
+
         super(EditGoalWindow, self).__init__()
         # Load the Edit Goal Window UI
         loadUi(UI_PATHS[1], self)
 
-        if _goalName == None and _category == None and _priority == None and _subGoals == None:
-            self.setWindowTitle('Add Goal') # Update the window's title
-            self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
-            self.personalRadioButton.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined category (personal)
-            self.lowRadioButton.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined priority (low)
-        else:
-            self.setWindowTitle('Edit Goal') # Update the window's title
-            self.goalName.setText(_goalName)
+        #Isaac, make the save button usable only when there is text in goalname
 
-            if _date == None:
-                self.checkBox.setChecked(True)
-                self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
-            else:
-                self.endDate.setDate(_date)
+        self.pushButton.clicked.connect(self.save_goal)
+        
+        # if _goalName == None and _category == None and _priority == None and _subGoals == None:
+        self.setWindowTitle('Add Goal') # Update the window's title
+        self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
+        self.personalRadioButton.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined category (personal)
+        self.lowRadioButton.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined priority (low)
 
-            if _category == "Personal":
-                self.personalRadioButton.setChecked(True)
-            elif _category == "Health":
-                self.healthRadioButton.setChecked(True)
-            elif _category == "Finance":
-                self.financeRadioButton.setChecked(True)
-            elif _category == "Work":
-                self.workRadioButton.setChecked(True)
-            else:
-                self.otherRadioButton.setChecked(True)
+        # else:
+        #     self.setWindowTitle('Edit Goal') # Update the window's title
+        #     self.goalName.setText(_goalName)
 
-            if _priority == 1:
-                self.highRadioButton.setChecked(True)
-            elif _priority == 2:
-                self.mediumRadioButton.setChecked(True)
-            else:
-                self.lowRadioButton.setChecked(True)
+        #     if _date == None:
+        #         self.checkBox.setChecked(True)
+        #         self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
+        #     else:
+        #         self.endDate.setDate(_date)
+
+        #     if _category == "Personal":
+        #         self.personalRadioButton.setChecked(True)
+        #     elif _category == "Health":
+        #         self.healthRadioButton.setChecked(True)
+        #     elif _category == "Finance":
+        #         self.financeRadioButton.setChecked(True)
+        #     elif _category == "Work":
+        #         self.workRadioButton.setChecked(True)
+        #     else:
+        #         self.otherRadioButton.setChecked(True)
+
+        #     if _priority == 1:
+        #         self.highRadioButton.setChecked(True)
+        #     elif _priority == 2:
+        #         self.mediumRadioButton.setChecked(True)
+        #     else:
+        #         self.lowRadioButton.setChecked(True)
 
         #load subgoals
 
@@ -118,6 +125,8 @@ class EditGoalWindow(QDialog):
         self.gridLayout.addWidget(self.addButton3, 2, 2, Qt.AlignLeft)
         self.gridLayout.addWidget(self.addButton4, 3, 2, Qt.AlignLeft)
         self.gridLayout.addWidget(self.addButton5, 4, 2, Qt.AlignLeft)
+
+        self.model = model
 
     def addSubgoal1(self):
         self.subgoal1.show()
@@ -169,6 +178,25 @@ class EditGoalWindow(QDialog):
         self.deleteButton5.hide()
         self.addButton5.show()
 
+    # Open a new window and get the user's input for adding a goal
+    @pyqtSlot()
+    def save_goal(self):
+
+        goalName = self.goalName.text()
+        endDate = self.endDate.date()
+        category = self.categoryButtonGroup.checkedButton().text()
+        priority = self.priorityButtonGroup.checkedButton().text()
+        #subgoals = self.getSubgoals()
+
+        self.model.addGoal({"name": goalName, "category": category, "priority": priority}, [])
+        
+        mylist = self.model.getGoalList()
+        for goal in mylist:
+            print(goal.getName(), goal.getCategory(), goal.getPriority())
+
+        self.accept()
+        return 
+
 
 # The main view of the Goal Tracker
 class MainViewController(QMainWindow):
@@ -185,7 +213,7 @@ class MainViewController(QMainWindow):
         # Set up layout for current goals
         self.setupLayout("current")
         # Set up method for when Add Event button is clicked
-        self.addButton.clicked.connect(self.openAddGoalWindow)
+        self.addButton.clicked.connect(self.add_event_button)
         # Set up methods for displaying goals according to their status (overdue, current, completed)
         self.currentGoalsButton.clicked.connect(self.setupCurrentLayout)
         self.overdueGoalsButton.clicked.connect(self.setupOverdueLayout)
@@ -331,32 +359,6 @@ class MainViewController(QMainWindow):
     def getSubgoals(self, window):
         return [window.subgoal1.text(), window.subgoal2.text(), window.subgoal3.text(), window.subgoal4.text(), window.subgoal5.text()]
 
-    # Open a new window and get the user's input for adding a goal
-    def openAddGoalWindow(self):
-        # Create a window of the Add Goal display
-        window = EditGoalWindow()
-        # Show the window
-        window.exec_()
-        # Get the goal's information
-        goalName = self.getGoalName(window)
-        endDate = self.getEndDate(window)
-        category = self.getCategoryOption(window)
-        priority = self.getPriorityOption(window)
-        subgoals = self.getSubgoals(window)
-
-        while (goalName == ''):
-            window.exec_()
-            goalName = self.getGoalName(window)
-            endDate = self.getEndDate(window)
-            category = self.getCategoryOption(window)
-            priority = self.getPriorityOption(window)
-            subgoals = self.getSubgoals(window)
-
-        self.model.addGoal({"name": goalName, "category": category, "priority": priority}, [])
-        mylist = self.model.getGoalList()
-        for goal in mylist:
-            print(goal.getName(), goal.getCategory(), goal.getPriority())
-
     # Open a new window and get the user's input for editing a goal
     def openEditGoalWindow(self):
         # Create a window of the Edit Goal display
@@ -400,6 +402,24 @@ class MainViewController(QMainWindow):
 
     def completeGoal(self):
         print("TODO: Complete Goal")
+
+    @pyqtSlot()
+    def add_event_button(self): #Opens the add_event pop up window
+        #TODO: Either use this sub-wrapper or delete it
+        self.add_window_h()
+        #self.refresh()
+        return
+
+    def add_window_h(self):
+        '''
+        side effects: opens
+        description: Storing values at datetime objects means we can easily use datetime methods for various
+        returns: a boolean whether self.accept() was called or not. (Whether the user clicked save or the "X")
+        '''
+        addDialog = EditGoalWindow(self.model)
+        if addDialog.exec():
+            return(True)
+        return False
  
 def main():
     filemanager = FileManager() #create FileManager object
