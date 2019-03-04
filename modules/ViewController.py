@@ -20,7 +20,7 @@ from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
 from Dialogs import AddEditViewGoal, AddEditViewSubGoal
 
 # Global variable for storing UI files (HH)
-UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.py", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.py"}
+UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.py"}
 
 class MainWindow(QMainWindow):
     def __init__(self, _model):
@@ -42,6 +42,9 @@ class MainWindow(QMainWindow):
         self.push_edit_view.clicked.connect(self.loadEditViewGoal)
         self.push_delete_goal.clicked.connect(self.loadDeleteGoal)
         self.push_view_analysis.clicked.connect(self.loadViewAnalysis)
+
+        # Update the window's title
+        self.setWindowTitle('Goal Tracker');
 
     @pyqtSlot()
     def loadCurrentGoals(self):
@@ -118,7 +121,10 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        pass
+        addDialog = EditGoalWindow(self.model)
+        if addDialog.exec():
+            return(True)
+        return False
 
     @pyqtSlot()
     def loadCompleteGoal(self):
@@ -163,6 +169,38 @@ class MainWindow(QMainWindow):
         @purpose:
         '''
         pass
+
+class EditGoalWindow(QDialog):
+    def __init__(self, model):
+
+        super(EditGoalWindow, self).__init__()
+        # Load the Edit Goal Window UI
+        loadUi(UI_PATHS["AddEditViewGoal"], self)
+
+        self.push_save.clicked.connect(self.save_goal)
+        
+        self.setWindowTitle('Add/Edit Goal') # Update the window's title
+        #self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
+        self.radio_priority_low.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined priority (low)
+
+        self.model = model
+    @pyqtSlot()
+    def save_goal(self):
+
+        goalName = self.lineEdit_goal_name.text()
+        endDate = self.dateTimeEdit_due_date.date()
+        category = self.lineEdit_category.text()
+        priority = self.buttonGroup.checkedButton().text()
+        memo = self.textEdit.toPlainText()
+
+        self.model.addGoal({"name": goalName, "category": category, "priority": priority, "memo": memo}, [])
+        
+        mylist = self.model.getGoalList()
+        for goal in mylist:
+            print(goal.getName(), goal.getCategory(), goal.getPriority(), goal.getMemo())
+
+        self.accept()
+        return 
     
 def main():
     '''

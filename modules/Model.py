@@ -86,7 +86,7 @@ class Model(object):
 
 		@purpose: Creates a Goal object and then appends it to the goalList
 		'''
-		self.goalList.append(Goal(self.getNewGID(), _goalInformation, subGoals, _dueDate))
+		self.goalList.append(Goal(self.getNewGID(), _goalInformation, _subGoals, _dueDate))
 
 	def editGoal(self, _gid, _goalInformation):
 		'''

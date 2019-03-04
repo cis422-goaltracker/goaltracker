@@ -98,7 +98,7 @@ class Goal(object):
 		return self.priority #returns the Goal Priority
 
 	def getMemo(self):
-		return self.memor #returns the Goal Memo
+		return self.memo #returns the Goal Memo
 
 	def getStartDate(self):
 		return self.startDate #returns the Goal Start Date
