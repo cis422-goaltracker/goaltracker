@@ -62,7 +62,7 @@ Other buttons include the fuctionality to add, completed, edit/view a goal as we
 
 Home page is shown below: 
 
-![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
+![alt text](hoempagepic)
 
 ### To add a Goal:
 On the home page, select button labeled "Add Goal"
