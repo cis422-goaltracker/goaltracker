@@ -1,6 +1,6 @@
 # 422 - GoalTracker 3/4/2019
 
-GoalTracker is an personal goal tracking application application. With it, you have a tool that can help organize your future plans, schedule meetings more efficiently and stay on top of tasks and reminders. GoalTracker not only helps with goals but provides statistical insights on productivty habits to help guide and encourage the user. 
+GoalTracker is an personal goal tracking application. With it, you have a tool that can help organize your future plans, schedule meetings more efficiently and stay on top of tasks and reminders. GoalTracker not only helps with goals but provides statistical insights on productivty habits to help guide and encourage the user. 
 
 ![alt text](picture of working app)
 
