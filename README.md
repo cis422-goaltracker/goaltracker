@@ -1,4 +1,4 @@
-# 422 - GoalTracker
+# 422 - GoalTracker 3/4/2019
 
 GoalTracker is an personal goal tracking application application. With it, you have a tool that can help organize your future plans, schedule meetings more efficiently and stay on top of tasks and reminders. GoalTracker not only helps with goals but provides statistical insights on productivty habits to help guide and encourage the user. 
 
@@ -55,6 +55,7 @@ $ python ViewController.py
 
 ## Usage
 On the home page, you can see a list of your goals. These goals can be sorted in six ways for ease of use. 
+
 These include "Current Goals", "Overdue Goals", "Completed Goals" and "All Goals."
 And within those, you can view them by "Priority" or "Category"
 
@@ -73,15 +74,15 @@ Enter the name of your goal, the day the goal is due (MM/DD/YY, HH:MM format) as
 
 While not required, the GoalTracker application allows you to add subgoals and notes or "memos" as a helpful tool toward productivity. More details on instruction of adding, deleting and completing subgoals can be found below.
 
-Once filled out, Select "Save" button for save events
+Once filled out, select "Save" button for save events
 
-Check the event has been saved or not, click the close button(red) on the top left page of "Add/Edit Goal", then view the list of goals you have to make sure the one you recently added is there and as been saved. 
+Check the event has been saved or not, click the close button(red) on the top left page of "Add/Edit Goal", then view the list of goals you have to make sure the one you recently added is there.
 
-For more information on Goals and SubGoals and the things you can do with them, see "To add a Subgoal" and "To delete a Goal and Subgoal" and "To complete a Goal or Gubgoal"
+For more information on goals and subgoals and the things you can do with them, see "To add a subgoal" and "To delete a goal and subgoal" and "To complete a goal or subgoal"
 
 ![alt text](imagelikegoeshere)
 
-### To edit/view a Goal:
+### To edit/view a goal:
 On the homepage, navigate to a pre-existing goal that you would like to edit. Select it in the dropdown box and select the 'Edit/View' button. This window, similiarly to the "add a goal" window  has all the same fields, but now has the information that you had entered before. 
 
 To change anything, make your changes in this window and select save.
@@ -97,14 +98,14 @@ select either "Add Goal". if you want to add a subgoal to a new goal you will cr
 -OR- 
 Select a pre-existing goal from the drop down box in the main window and select "Edit/View"
 
-From here select the "Add button" that opens in the new window beside the words "Subgoal". This will prompt a textbox to open up to name your subgoal. Once Saved, the subgoal for that goal will appear as an entry in the list with the "Completed or Uncompleted" keyword next to it. 
+From here select the "Add button" that opens in the new window beside the words "Subgoal". This will prompt a textbox to open up to name your subgoal. Once saved, the subgoal for that goal will appear as an entry in the list with the "Completed" or "Uncompleted" keyword next to it. 
 
 ![alt text](Image of subgoal once added)
 
 To close the widget, simply close the window by clicking the red button on the top left of the "Dialog"
 
 ### To delete Goals and Subgoals:
-If you come across a goal of subgoal that you do not want you are given the option to delete it. 
+If you come across a goal or subgoal that you do not want, you are given the option to delete it. 
 
 To do this, you much go to the window that the goal or subgoal can be viewed in (picture below) and select that specific goal or subgoal from the dropdown list. To the right you will see a "Delete" button. Once pressed, your goal or subgoal selected will be deleted.
 
@@ -115,9 +116,9 @@ If you come across a goal of subgoal that you have completed, you are given the 
 
 To do this, you much go to the window that the goal or subgoal can be viewed in (picture below) and select that specific goal or subgoal from the dropdown list. To the right you will see a "Complete" button. Once pressed, your goal or subgoal selected will be marked as completed.
 
-Completed Goals will be removed from the list of goals, but still viewable when the "Completed Goals" button is selected in the main window. 
+Completed goals will be removed from the list of goals, but still viewable when the "Completed Goals" button is selected in the main window. 
 
-We recommend completing goals and subgoals to not only give you, the user a accurate of your goals but also, to view accurate statistical analysis on your productivity habits like progress.
+We recommend completing goals and subgoals to not only give you, the user, a better understanding of your goals but also, to view accurate statistical analysis on your productivity habits like progress.
 
 ![alt text](Image of subgoal deletion process)
 
@@ -127,7 +128,7 @@ Goals turn into overdue goals when the date they are due has passed. If a goal i
 ![alt text](Image of Overdue goal)
 
 ### View Analysis:
-View Analysis is something that we would like to offer the user to help better understand productivity habits and offer encouraging helpful tips toward future productivity. 
+View Analysis is something that we provie the user to help better understand productivity habits and offer encouraging helpful tips toward future productivity. 
 
 For full insight, select a completed goal and select the "ViewAnalysis" button
 
@@ -136,7 +137,7 @@ On top of this, there are several insights that have been made for the user.
 
 ![alt text](Image of ViewAnalysis comp process)
 
-If you select a goal that has not been completed, it will prompt you to come back once the goal has been completed, but in the meantime offers general insights on goal completion habits. 
+If you select a goal that has not been completed, it will prompt you to come back once the goal has been completed, but in the meantime, offers general insights on goal completion habits. 
 
 ![alt text](Image of ViewAnalysis not com process)
 
