@@ -6,6 +6,7 @@
 
 from datetime import datetime, timedelta
 import copy
+from GErrors import FlagError
 
 class Goal(object):
 	"""Class Variables"""
@@ -38,7 +39,7 @@ class Goal(object):
 		#Priority > Category > Duedate
 		if sort == "priority":
 			return (self.priority < other.priority)
-		return("ERROR: This should never happen (Sort error)")
+		raise FlagError("sorting", ["category", "priority"], Goal.sorting)
 
 	"""METHODS FOR GOAL"""
 	'''Goal Operations'''
