@@ -65,7 +65,7 @@ Home page is shown below:
 
 ![alt text](hoempagepic)
 
-### To add a Goal:
+### To Add a Goal:
 On the home page, select button labeled "Add Goal"
 
 This will direct you to a saving page labeled "Add/Edit Goal"
@@ -78,11 +78,11 @@ Once filled out, select "Save" button for save events
 
 Check the event has been saved or not, click the close button(red) on the top left page of "Add/Edit Goal", then view the list of goals you have to make sure the one you recently added is there.
 
-For more information on goals and subgoals and the things you can do with them, see "To add a subgoal" and "To delete a goal and subgoal" and "To complete a goal or subgoal"
+For more information on goals and subgoals and the things you can do with them, see "To Add a subgoal" and "To Delete a Goal and Subgoal" and "To Complete a Goal or Subgoal"
 
 ![alt text](imagelikegoeshere)
 
-### To edit/view a goal:
+### To Edit/View a goal:
 On the homepage, navigate to a pre-existing goal that you would like to edit. Select it in the dropdown box and select the 'Edit/View' button. This window, similiarly to the "add a goal" window  has all the same fields, but now has the information that you had entered before. 
 
 To change anything, make your changes in this window and select save.
@@ -91,7 +91,7 @@ Note that to the right of "Due Date" you will be able to see how many days until
 
 ![alt text](due picture?)
 
-### To add a subgoal:
+### To Add a Subgoal:
 On the home page, 
 
 select either "Add Goal". if you want to add a subgoal to a new goal you will create 
@@ -104,7 +104,7 @@ From here select the "Add button" that opens in the new window beside the words 
 
 To close the widget, simply close the window by clicking the red button on the top left of the "Dialog"
 
-### To delete Goals and Subgoals:
+### To Delete Goals and Subgoals:
 If you come across a goal or subgoal that you do not want, you are given the option to delete it. 
 
 To do this, you much go to the window that the goal or subgoal can be viewed in (picture below) and select that specific goal or subgoal from the dropdown list. To the right you will see a "Delete" button. Once pressed, your goal or subgoal selected will be deleted.
