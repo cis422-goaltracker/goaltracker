@@ -11,6 +11,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from datetime import datetime
+from enum import Enum
 
 from Goal import Goal
 from Model import Model
@@ -22,6 +23,12 @@ from Dialogs import AddEditViewGoal, AddEditViewSubGoal
 # Global variable for storing UI files (HH)
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.py", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.py"}
 
+class State(Enum):
+	CURRENT = 1
+	OVERDUE = 2
+	COMPLETED = 3
+	ALL = 4
+
 class MainWindow(QMainWindow):
     def __init__(self, _model):
         super(MainWindow, self).__init__()
@@ -29,6 +36,7 @@ class MainWindow(QMainWindow):
 
         #Class Variables
         self.model = _model
+        self.state = State.CURRENT
         
         #Signals
         self.push_CurrentGoals.clicked.connect(self.loadCurrentGoals)
@@ -52,7 +60,14 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Current Goals")
+        self.label_Goals.setText("Current Goals") #set label
+        self.state = State.CURRENT #set state
+
+        #pulls current goal list from model
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadOverdueGoals(self):
@@ -63,7 +78,14 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Overdue Goals")
+        self.label_Goals.setText("Overdue Goals") #set label
+        self.state = State.OVERDUE #set state
+
+        #pulls overdue goal list from model
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadCompletedGoals(self):
@@ -74,7 +96,14 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Completed Goals")
+        self.label_Goals.setText("Completed Goals") #set label
+        self.state = State.COMPLETED #set state
+
+        #pulls completed goal list from model
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadAllGoals(self):
@@ -85,7 +114,14 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("All Goals")
+        self.label_Goals.setText("All Goals") #set label
+        self.state = State.ALL #set state
+
+        #pulls all goal list from model
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadCategorySort(self):
@@ -96,7 +132,27 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        pass
+        #runs category sort on model
+
+        goalList = []
+        if self.state == State.CURRENT:
+        	#pulls current goal list from model
+        	pass
+        elif self.state == State.OVERDUE:
+        	#pulls overdue goal list from model
+        	pass
+        elif self.state == State.COMPLETED:
+        	#pulls completed goal list from model
+        	pass
+        elif self.state == State.ALL:
+        	#pulls all goal list from model
+        	pass
+        else:
+        	print("Error")
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadPrioritySort(self):
@@ -107,7 +163,27 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        pass
+        #runs category sort on model
+
+        goalList = []
+        if self.state == State.CURRENT:
+        	#pulls current goal list from model
+        	pass
+        elif self.state == State.OVERDUE:
+        	#pulls overdue goal list from model
+        	pass
+        elif self.state == State.COMPLETED:
+        	#pulls completed goal list from model
+        	pass
+        elif self.state == State.ALL:
+        	#pulls all goal list from model
+        	pass
+        else:
+        	print("Error")
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadAddGoal(self):
@@ -118,7 +194,34 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        pass
+        #create default state of goal
+
+        #put default state of goal in model
+
+        #open add AddEditViewGoal window
+
+        #if accept, add updated state of goal to model
+        #if reject, discard state of goal
+        
+        goalList = []
+        if self.state == State.CURRENT:
+        	#pulls current goal list from model
+        	pass
+        elif self.state == State.OVERDUE:
+        	#pulls overdue goal list from model
+        	pass
+        elif self.state == State.COMPLETED:
+        	#pulls completed goal list from model
+        	pass
+        elif self.state == State.ALL:
+        	#pulls all goal list from model
+        	pass
+        else:
+        	print("Error")
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadCompleteGoal(self):
@@ -129,6 +232,9 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
+        #get goalid from combobox
+
+        #complete goal (model operation)
         pass
 
     @pyqtSlot()
@@ -140,7 +246,38 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        pass
+        #get goalid from combobox
+
+        #get goal from model using goalid
+
+        #create state of goal from goal
+
+        #put state of goal in model
+
+        #open add AddEditViewGoal window
+
+        #if accept, add updated state of goal to model
+        #if reject, discard state of goal
+        
+        goalList = []
+        if self.state == State.CURRENT:
+        	#pulls current goal list from model
+        	pass
+        elif self.state == State.OVERDUE:
+        	#pulls overdue goal list from model
+        	pass
+        elif self.state == State.COMPLETED:
+        	#pulls completed goal list from model
+        	pass
+        elif self.state == State.ALL:
+        	#pulls all goal list from model
+        	pass
+        else:
+        	print("Error")
+
+        #cycle through list, to string every goal and place into listview
+
+        #cycle through list, get name and goalid of every goal and place into combobox
 
     @pyqtSlot()
     def loadDeleteGoal(self):
@@ -151,6 +288,9 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
+        #get goalid from combobox
+
+        #delete goal (model operation)
         pass
 
     @pyqtSlot()
