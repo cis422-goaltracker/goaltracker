@@ -21,13 +21,21 @@ from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.py", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.py"}
 
 class AddEditViewGoal(QDialog):
-    def __init__(self, _model):
+    def __init__(self, _model, _goalState, _method):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         super(AddEditViewGoal, self).__init__()
         
         loadUi(UI_PATHS["AddEditViewGoal"], self) # Load the AddEditViewGoal UI
 
         #Class Variables
         self.model = _model
+        self.goalState = _goalState
 
         #Signals
         self.push_add_subgoal.clicked.connect(self.loadAddSubGoal)
@@ -37,49 +45,146 @@ class AddEditViewGoal(QDialog):
         self.push_save.clicked.connect(self.loadSaveGoal)
         self.push_cancel.clicked.connect(self.loadCancelGoal)
 
+        #load components with the state information
+        #subgoals will be loaded into listview with subgoal tostring
+        #subgoal will be loaded into combo box with name and id
+
     @pyqtSlot()
     def loadAddSubGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #create default state of subgoal
+
+        #open add AddEditViewGoal window, pass it goal state and state
+
+        #subgoals reloaded from state information into listview with subgoal tostring
+        #subgoals reloaded from state information into combo box with name and id
+
         pass
 
     @pyqtSlot()
     def loadCompleteSubGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #sets subgoal to complete
         pass
 
     @pyqtSlot()
     def loadEditViewSubGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #get subgoalid from combobox
+
+        #get subgoal from model using subgoalid
+
+        #create state of subgoal from subgoal
+
+        #open AddEditViewSubGoal window, passes it goal state and state
+
+        #subgoals reloaded from state information into listview with subgoal tostring
+        #subgoals reloaded from state information into combo box with name and id
         pass
 
     @pyqtSlot()
     def loadDeleteSubGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #delete subgoal
         pass
 
     @pyqtSlot()
     def loadSaveGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #update goal in model to accept the current state of subgoals and any changed information
+
+        #exit dialog
         pass
 
     @pyqtSlot()
     def loadCancelGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #discard state
+
+        #exit dialog
         pass
 
 
 class AddEditViewSubGoal(QDialog):
-    def __init__(self, _model, _parent):
+    def __init__(self, _goalState, _subGoalState, _method, _parent):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         super(AddEditViewSubGoal, self).__init__()
         
         loadUi(UI_PATHS["AddEditViewSubGoal"], self) # Load the AddEditViewSubGoal UI
 
         #Class Variables
-        self.model = _model
+        self.goalState = _goalState
+        self.state = _state
         self.parent = _parent
 
         #Signals
         self.push_save.clicked.connect(self.loadSaveSubGoal)
         self.push_cancel.clicked.connect(self.loadCancelSubGoal)
 
+        #load components with state information
+
     @pyqtSlot()
     def loadSaveSubGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #update subGoal information in goalState
         pass
 
     @pyqtSlot()
     def loadCancelSubGoal(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #discard subGoal state
         pass
