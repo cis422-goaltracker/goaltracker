@@ -8,30 +8,24 @@ from datetime import datetime, timedelta
 import copy
 
 class Goal(object):
-	"""Class Variables"""
-	#Sorting variable determines the sorting behavior of the goallist
-	#This should be priority or category (attributes of goals)
-	# sorting = "category"
-    #TODO _dueDate should be optional
 	"""CONSTRUCTORS FOR GOAL"""
 	def __init__(self, _id, _goalInformation, _subGoals, _dueDate):
 		self.id = _id #integer
 		self.name = _goalInformation["name"] #string
 		self.category = _goalInformation["category"] #string
 		self.priority = _goalInformation["priority"] #integer
+		self.memo = _goalInformation["memo"] #string
 		self.startDate = datetime.now() #DateTime
 		self.dueDate = _dueDate #DateTime
 		self.initialDueDate = _dueDate #DateTime
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of <finish datetime, start datetime> pairs
 		self.subGoals = _subGoals #dictionary of SubGoals
-		self.sortingMethod = "category"
+		self.sortingMethod = "category" #string
 	
 	"""Special Methods"""
 	#Override less than, aka "<", so self<right_goal
 	def __lt__(self, other):
-		#Access this now, just once
-		# sort = Goal.sorting
 		if self.sortingMethod == "category":
 			return (self.category.lower() < other.category.lower())
 		if self.sortingMethod == "priority":
@@ -58,6 +52,7 @@ class Goal(object):
 		self.name = _goalInformation["name"] #sets the name to the passed name
 		self.category = _goalInformation["category"] #sets the category to the passed category
 		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
+		self.memo = _goalInformation["memo"]
 
 	def complete(self, _finishDate):
 		self.finishDate = _finishDate #sets the finish date to the passed finish date
@@ -75,6 +70,20 @@ class Goal(object):
 	def addEffortTrack(self, _finishTime, _startTime):
 		self.effortTracker[_finishTime] = _startTime #adds a key-value pair of <finish time, start time> to effort tracker
 
+	'''To String Operations'''
+	def toString(self):
+		priority = None
+		if self.priority == 3:
+			priority = "Low"
+		elif self.priority == 2:
+			priority = "Medium"
+		elif self.priority == 1:
+			priority = "High"
+		if self.hasDueDate():
+			return "Name: " + self.name + " | Due Date: " + self.dueDate.strftime("%m/%d/%Y") + " | Category: " + self.category + " | Priority: " + priority
+		else:
+			return "Name: " + self.name + "| Category: " + self.category + " | Priority: " + priority
+
 	"""GETTERS FOR GOAL"""
 	def getId(self):
 		return self.id #returns the Goal ID
@@ -87,6 +96,9 @@ class Goal(object):
 
 	def getPriority(self):
 		return self.priority #returns the Goal Priority
+
+	def getMemo(self):
+		return self.memor #returns the Goal Memo
 
 	def getStartDate(self):
 		return self.startDate #returns the Goal Start Date

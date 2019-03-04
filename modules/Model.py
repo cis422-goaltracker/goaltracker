@@ -25,6 +25,8 @@ class Model(object):
 		self.currGID = _currGID #integer
 		self.currSGID = _currSGID #integer
 		self.effortTrackingData = _effortTrackingData #dictionary goalid-starttime pairs
+		self.goalState = {} #dictionary
+		self.subGoalState = {} #dictionary
 
 	"""METHODS FOR MODEL"""
 	'''********************GOALLIST OPERATIONS********************'''
@@ -32,9 +34,10 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list) - 
+		@return: (list) - A list of Goal objects that have been completed
 
-		@purpose
+		@purpose: This function filters the goalList leaving only Goals that have been completed.
+		It then returns the filtered list.
 		'''
 		return [goal for goal in self.goalList if goal.isComplete()]
 
@@ -42,9 +45,10 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list) - 
+		@return: (list) - A list of Goal objects that are currently active
 
-		@purpose
+		@purpose: This function filters the goalList leaving only Goals that have not been completed.
+		It then returns the filtered list.
 		'''
 		return [goal for goal in self.goalList if not goal.isComplete()]
 
@@ -52,9 +56,10 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list) - 
+		@return: (list) - A list of Goal objects that are over due
 
-		@purpose
+		@purpose: This function filters the goalList leaving only Goals that are over due.
+		It then returns the filtered list.
 		'''
 		return [goal for goal in self.goalList if goal.isOverDue()]
 
@@ -62,33 +67,32 @@ class Model(object):
 		'''
 		@param: None
 
-		@return (list) - 
+		@return (list) - A list of all Goal objects
 
-		@purpose
+		@purpose: This function makes a copy of the goalList. It then returns the copied list.
 		'''
 		return copy.deepcopy(self.goalList) #returns a copy of the Goal List
 
 	'''********************GOAL OPERATIONS********************'''
-	def addGoal(self, _goalInformation, _subGoalsNames, _dueDate = None):
+	def addGoal(self, _goalInformation, _subGoals, _dueDate = None):
 		'''
-		@param: _goalInformation (dictionary) - 
-		@param: _subGoalsNames (list) - 
-		@param: _dueDate (datetime) - 
+		@param: _goalInformation (dictionary) - a dictionary containing a "name" (string), 
+		a "category" (string), a "priority" (integer), and a "memo" (string)
+		@param: _subGoalsNames (dictionary) - a dictionary with SGID's (integer) as keys and a dictionaries as values.
+		The inner dictionaries contain "name" and "isComplete" as keys and a name and boolean value as values, respectively.
+		@param: _dueDate (datetime) - a datetime that defaults to Null, that represents the due date
 
 		@return: None
 
-		@purpose
+		@purpose: Creates a Goal object and then appends it to the goalList
 		'''
-		subGoals = {}
-		for name in _subGoalsNames:
-			subGoals[self.getNewSGID()] = {"name": name, "isComplete": False}
-		goal = Goal(self.getNewGID(), _goalInformation, subGoals, _dueDate)
-		self.goalList.append(goal)
+		self.goalList.append(Goal(self.getNewGID(), _goalInformation, subGoals, _dueDate))
 
 	def editGoal(self, _gid, _goalInformation):
 		'''
-		@param: _gid (integer) - 
-		@param: _goalInformation (dictionary) - 
+		@param: _gid (integer) - a unique integer representing a goal
+		@param: _goalInformation (dictionary) - a dictionary containing a "name" (string), 
+		a "category" (string), a "priority" (integer), and a "memo" (string)
 
 		@return: None
 
@@ -137,6 +141,18 @@ class Model(object):
 		for index, goal in enumerate(self.goalList):
 			if goal.getId() == _gid:
 				self.goalList.pop(index)
+
+	def getGoal(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: (Goal) - 
+
+		@purpose
+		'''
+		for goal in self.goalList:
+			if goal.getId() == _gid:
+				return goal
 
 	'''********************SUBGOAL OPERATIONS********************'''
 	def addSubGoal(self, _gid, _sgid, _subGoalInformation):
@@ -283,7 +299,6 @@ class Model(object):
 
 		@purpose: This method sets the goal list to be sorted by the category attribute
 		'''
-		# Goal.sorting = "category"
 		for index, goal in enumerate(self.goalList):
 			self.goalList[index].setSortMethod("category")
 		self.goalList = sorted(self.getGoalList())
@@ -296,7 +311,6 @@ class Model(object):
 
 		@purpose: This method sets the goal list to be sorted by the priority attribute
 		'''
-		# Goal.sorting = "priority"
 		for index, goal in enumerate(self.goalList):
 			self.goalList[index].setSortMethod("priority")
 		self.goalList = sorted(self.getGoalList())

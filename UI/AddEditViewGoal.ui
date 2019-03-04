@@ -142,7 +142,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Low</string>
+        <string>&amp;Low</string>
        </property>
        <property name="checked">
         <bool>true</bool>
@@ -157,7 +157,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Medium</string>
+        <string>Medi&amp;um</string>
        </property>
        <property name="checked">
         <bool>false</bool>
@@ -172,7 +172,7 @@
         </font>
        </property>
        <property name="text">
-        <string>High</string>
+        <string>Hi&amp;gh</string>
        </property>
       </widget>
      </item>
@@ -257,16 +257,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="push_delete_subgoal">
+      <widget class="QPushButton" name="push_edit_view_subgoal">
        <property name="text">
-        <string>Delete</string>
+        <string>Edit/View</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="push_edit_view_subgoal">
+      <widget class="QPushButton" name="push_delete_subgoal">
        <property name="text">
-        <string>Edit/View</string>
+        <string>Delete</string>
        </property>
       </widget>
      </item>

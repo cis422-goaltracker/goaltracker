@@ -52,7 +52,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Complete Goals</string>
+         <string>Completed Goals</string>
         </property>
        </widget>
       </item>
@@ -65,7 +65,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Show All</string>
+         <string>All Goals</string>
         </property>
        </widget>
       </item>
@@ -96,14 +96,14 @@
         <item>
          <widget class="QPushButton" name="push_sort_category">
           <property name="text">
-           <string>Category</string>
+           <string>Sort By Category</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="push_sort_priority">
           <property name="text">
-           <string>Priority</string>
+           <string>Sort By Priority</string>
           </property>
          </widget>
         </item>
