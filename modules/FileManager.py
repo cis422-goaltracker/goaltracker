@@ -10,7 +10,7 @@ import shelve
 
 class FileManager(object):
 	"""CONSTRUCTOR FOR FILEMANAGER"""
-	def __init__(self, _filename):
+	def __init__(self, _fileName):
 		self.fileName = _fileName #sets default file name for FileManager
 		
 	"""METHODS FOR FILEMANAGER"""
