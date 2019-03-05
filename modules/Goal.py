@@ -128,11 +128,11 @@ class Goal(object):
 	'''To String Operations'''
 	def toString(self):
 		priority = None
-		if self.priority == 3:
+		if self.priority == "Low":
 			priority = "Low"
-		elif self.priority == 2:
+		elif self.priority == "Medium":
 			priority = "Medium"
-		elif self.priority == 1:
+		elif self.priority == "High":
 			priority = "High"
 		else:
 			priority = "Super High"
@@ -144,7 +144,7 @@ class Goal(object):
 			status = "Incomplete"
 
 		if self.hasDueDate():
-			return "Name: " + self.name + " | Due Date: " + self.dueDate.strftime("%m/%d/%Y") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
+			return "Name: " + self.name + " | Due Date: " + self.dueDate.toString("yyyy.MM.dd") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 		else:
 			return "Name: " + self.name + "| Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 
