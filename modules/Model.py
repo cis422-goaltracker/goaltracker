@@ -28,7 +28,7 @@ class Model(object):
 
 	"""METHODS FOR MODEL"""
 	'''********************GOALLIST OPERATIONS********************'''
-	def getCompleteGoalList(self):
+	def getCompletedGoalList(self):
 		'''
 		@param: None
 

@@ -18,10 +18,10 @@ from FileManager import FileManager
 from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
 
 # Global variable for storing UI files (HH)
-UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.py", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.py"}
+UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.ui"}
 
 class AddEditViewGoal(QDialog):
-    def __init__(self, _model, _goalState, _method):
+    def __init__(self, _model, _goalState, _method): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -50,7 +50,7 @@ class AddEditViewGoal(QDialog):
         #subgoal will be loaded into combo box with name and id
 
     @pyqtSlot()
-    def loadAddSubGoal(self):
+    def loadAddSubGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -68,7 +68,7 @@ class AddEditViewGoal(QDialog):
         pass
 
     @pyqtSlot()
-    def loadCompleteSubGoal(self):
+    def loadCompleteSubGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -80,7 +80,7 @@ class AddEditViewGoal(QDialog):
         pass
 
     @pyqtSlot()
-    def loadEditViewSubGoal(self):
+    def loadEditViewSubGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -101,7 +101,7 @@ class AddEditViewGoal(QDialog):
         pass
 
     @pyqtSlot()
-    def loadDeleteSubGoal(self):
+    def loadDeleteSubGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -113,7 +113,7 @@ class AddEditViewGoal(QDialog):
         pass
 
     @pyqtSlot()
-    def loadSaveGoal(self):
+    def loadSaveGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -127,7 +127,7 @@ class AddEditViewGoal(QDialog):
         pass
 
     @pyqtSlot()
-    def loadCancelGoal(self):
+    def loadCancelGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -142,7 +142,7 @@ class AddEditViewGoal(QDialog):
 
 
 class AddEditViewSubGoal(QDialog):
-    def __init__(self, _goalState, _subGoalState, _method, _parent):
+    def __init__(self, _goalState, _subGoalState, _method, _parent): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -166,7 +166,7 @@ class AddEditViewSubGoal(QDialog):
         #load components with state information
 
     @pyqtSlot()
-    def loadSaveSubGoal(self):
+    def loadSaveSubGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -175,10 +175,12 @@ class AddEditViewSubGoal(QDialog):
         @purpose:
         '''
         #update subGoal information in goalState
+
+        #exit dialog
         pass
 
     @pyqtSlot()
-    def loadCancelSubGoal(self):
+    def loadCancelSubGoal(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -187,4 +189,6 @@ class AddEditViewSubGoal(QDialog):
         @purpose:
         '''
         #discard subGoal state
+
+        #exit dialog
         pass
