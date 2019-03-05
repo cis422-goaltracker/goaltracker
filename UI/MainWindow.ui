@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>928</width>
+    <width>1147</width>
     <height>498</height>
    </rect>
   </property>
@@ -18,6 +18,21 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Goals</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="push_CurrentGoals">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -25,8 +40,13 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>Current Goals</string>
+         <string>Current</string>
         </property>
        </widget>
       </item>
@@ -38,8 +58,13 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>Overdue Goals</string>
+         <string>Overdue</string>
         </property>
        </widget>
       </item>
@@ -51,8 +76,13 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>Completed Goals</string>
+         <string>Complete</string>
         </property>
        </widget>
       </item>
@@ -64,8 +94,13 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>All Goals</string>
+         <string>All</string>
         </property>
        </widget>
       </item>
@@ -95,20 +130,35 @@
         </item>
         <item>
          <widget class="QPushButton" name="push_sort_category">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>Sort By Category</string>
+           <string>Category</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="push_sort_priority">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>Sort By Priority</string>
+           <string>Priority</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="push_add_goal">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Add Goal</string>
           </property>
@@ -118,6 +168,11 @@
       </item>
       <item>
        <widget class="QListWidget" name="listWidget">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
         <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
@@ -129,19 +184,24 @@
          <widget class="QComboBox" name="comboBox">
           <property name="minimumSize">
            <size>
-            <width>400</width>
+            <width>420</width>
             <height>0</height>
            </size>
           </property>
           <property name="font">
            <font>
-            <pointsize>14</pointsize>
+            <pointsize>16</pointsize>
            </font>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="push_complete">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Complete</string>
           </property>
@@ -149,6 +209,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="push_edit_view">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Edit/View</string>
           </property>
@@ -156,6 +221,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="push_delete_goal">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Delete</string>
           </property>
@@ -163,6 +233,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="push_view_analysis">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>View Analysis</string>
           </property>
