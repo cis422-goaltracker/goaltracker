@@ -275,7 +275,7 @@ class AddEditViewSubGoal(QDialog):
         @purpose:
         '''
         #update subGoal information model
-
+        self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())})
         self.accept() #exit dialog
 
     @pyqtSlot()
