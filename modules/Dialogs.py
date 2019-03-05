@@ -21,7 +21,7 @@ from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.ui"}
 
 class AddEditViewGoal(QDialog):
-    def __init__(self, _model, _goalState, _method): #FUNCTION NEEDS TO BE BUILT
+    def __init__(self, _model, _goalid = None): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -35,7 +35,7 @@ class AddEditViewGoal(QDialog):
 
         #Class Variables
         self.model = _model
-        self.goalState = _goalState
+        self.goalid = _goalid
 
         #Signals
         self.push_add_subgoal.clicked.connect(self.loadAddSubGoal)
@@ -45,9 +45,14 @@ class AddEditViewGoal(QDialog):
         self.push_save.clicked.connect(self.loadSaveGoal)
         self.push_cancel.clicked.connect(self.loadCancelGoal)
 
-        #load components with the state information
-        #subgoals will be loaded into listview with subgoal tostring
-        #subgoal will be loaded into combo box with name and id
+        if _goalid == None:
+            #add goal
+            pass
+        else:
+            pass
+            #edit goal
+            #subgoals will be loaded into listview with subgoal tostring
+            #subgoal will be loaded into combo box with name and id
 
     @pyqtSlot()
     def loadAddSubGoal(self): #FUNCTION NEEDS TO BE BUILT
@@ -142,7 +147,7 @@ class AddEditViewGoal(QDialog):
 
 
 class AddEditViewSubGoal(QDialog):
-    def __init__(self, _goalState, _subGoalState, _method, _parent): #FUNCTION NEEDS TO BE BUILT
+    def __init__(self, _parent, _model, _subgoalid = None): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -155,9 +160,9 @@ class AddEditViewSubGoal(QDialog):
         loadUi(UI_PATHS["AddEditViewSubGoal"], self) # Load the AddEditViewSubGoal UI
 
         #Class Variables
-        self.goalState = _goalState
-        self.state = _state
         self.parent = _parent
+        self.model = _model
+        self.subgoalid = _subgoalid
 
         #Signals
         self.push_save.clicked.connect(self.loadSaveSubGoal)

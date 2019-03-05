@@ -7,6 +7,31 @@
 from datetime import datetime, timedelta
 import copy
 
+class SubGoal(object):
+	"""CONSTRUCTORS FOR SUBGOAL"""
+	def __init__(self, _id, _subGoalInformation):
+		self.id = _id
+		self.name = _subGoalInformation["name"]
+		self.isComplete = False
+
+	def update(self):
+		pass
+
+	def complete(self):
+		pass
+
+	def isComplete(self):
+		pass
+
+	def toString(self):
+		pass
+
+	def getId(self):
+		return self.id
+
+	def getName(self):
+		return self.name
+
 class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
 	def __init__(self, _id, _goalInformation, _subGoals, _dueDate):
@@ -20,7 +45,7 @@ class Goal(object):
 		self.initialDueDate = _dueDate #DateTime
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of <finish datetime, start datetime> pairs
-		self.subGoals = _subGoals #dictionary of SubGoals
+		self.subGoals = [] #list of SubGoals
 		self.sortingMethod = "category" #string
 	
 	"""Special Methods"""
@@ -66,6 +91,9 @@ class Goal(object):
 		else:
 			return False
 
+	'''Subgoal Operations'''
+
+
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _finishTime, _startTime):
 		self.effortTracker[_finishTime] = _startTime #adds a key-value pair of <finish time, start time> to effort tracker
@@ -79,10 +107,17 @@ class Goal(object):
 			priority = "Medium"
 		elif self.priority == 1:
 			priority = "High"
-		if self.hasDueDate():
-			return "Name: " + self.name + " | Due Date: " + self.dueDate.strftime("%m/%d/%Y") + " | Category: " + self.category + " | Priority: " + priority
+
+		status = None
+		if self.isComplete():
+			status = "Complete"
 		else:
-			return "Name: " + self.name + "| Category: " + self.category + " | Priority: " + priority
+			status = "Incomplete"
+
+		if self.hasDueDate():
+			return "Name: " + self.name + " | Due Date: " + self.dueDate.strftime("%m/%d/%Y") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
+		else:
+			return "Name: " + self.name + "| Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 
 	"""GETTERS FOR GOAL"""
 	def getId(self):

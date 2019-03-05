@@ -145,7 +145,7 @@ class MainWindow(QMainWindow):
         self.refreshListViewAndComboBox()
 
     @pyqtSlot()
-    def loadAddGoal(self): #FUNCTION NEEDS TO BE BUILT
+    def loadAddGoal(self):
         '''
         @param:
 
@@ -153,9 +153,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        #TODO: MAKE GOAL STATE CONTAIN DEFAULT GOAL INFORMATION
-        goalState = {} #create default state of goal
-        window = AddEditViewGoal(self.model, goalState, "add") #open add AddEditViewGoal window, pass it model and state
+        window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
         window.exec()
         self.refreshListViewAndComboBox()
 
@@ -176,7 +174,7 @@ class MainWindow(QMainWindow):
             print("No Goals")
 
     @pyqtSlot()
-    def loadEditViewGoal(self): #FUNCTION NEEDS TO BE BUILT
+    def loadEditViewGoal(self):
         '''
         @param:
 
@@ -186,11 +184,7 @@ class MainWindow(QMainWindow):
         '''
         if self.moreThanZeroGoals():
             goalid = self.getGIDFromComboBox() #get goalid from combobox
-            goal = self.model.getGoal(goalid) #get goal from model using goalid
-
-            #TODO: MAKE GOAL STATE CONTAIN GOAL INFORMATION
-            goalState = {} #create state of goal from goal
-            window = AddEditViewGoal(self.model, goalState, "editview") #open AddEditViewGoal window, passes it model and state
+            window = AddEditViewGoal(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
             window.exec()
             self.refreshListViewAndComboBox()
         else:
@@ -213,7 +207,7 @@ class MainWindow(QMainWindow):
             print("No Goals")
 
     @pyqtSlot()
-    def loadViewAnalysis(self):
+    def loadViewAnalysis(self): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
