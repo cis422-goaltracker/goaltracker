@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>839</height>
+    <width>700</width>
+    <height>853</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <widget class="QLabel" name="label_goal_name">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -29,7 +29,54 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_goal_name"/>
+      <widget class="QLineEdit" name="lineEdit_goal_name">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
+     <item>
+      <widget class="QLabel" name="label_status">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Status: Incomplete</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="push_effort">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Start Effort Tracker</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -37,7 +84,7 @@
     <widget class="QCheckBox" name="checkBox_due_date">
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
@@ -57,7 +104,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -66,7 +113,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QDateTimeEdit" name="dateTimeEdit_due_date"/>
+      <widget class="QDateTimeEdit" name="dateTimeEdit_due_date">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="horizontalSpacer_2">
@@ -91,7 +144,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -107,7 +160,7 @@
       <widget class="QLabel" name="label_category">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -116,7 +169,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_category"/>
+      <widget class="QLineEdit" name="lineEdit_category">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -126,7 +185,7 @@
       <widget class="QLabel" name="label_priority">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -138,51 +197,42 @@
       <widget class="QRadioButton" name="radio_priority_low">
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>&amp;Low</string>
+        <string>Low</string>
        </property>
        <property name="checked">
         <bool>true</bool>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
       </widget>
      </item>
      <item>
       <widget class="QRadioButton" name="radio_priority_medium">
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Medi&amp;um</string>
+        <string>Medium</string>
        </property>
        <property name="checked">
         <bool>false</bool>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
       </widget>
      </item>
      <item>
       <widget class="QRadioButton" name="radio_priority_high">
        <property name="font">
         <font>
-         <pointsize>10</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Hi&amp;gh</string>
+        <string>High</string>
        </property>
-       <attribute name="buttonGroup">
-        <string notr="true">buttonGroup</string>
-       </attribute>
       </widget>
      </item>
     </layout>
@@ -193,7 +243,7 @@
       <widget class="QLabel" name="label_memo">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -209,6 +259,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
     </layout>
@@ -219,7 +274,7 @@
       <widget class="QLabel" name="label_subgoals">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
@@ -229,6 +284,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="push_add_subgoal">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Add</string>
        </property>
@@ -244,6 +304,11 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
     </widget>
    </item>
    <item>
@@ -256,26 +321,46 @@
          <height>0</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="push_complete_subgoal">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Complete</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="push_edit_view_subgoal">
+      <widget class="QPushButton" name="push_delete_subgoal">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>Edit/View</string>
+        <string>Delete</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="push_delete_subgoal">
+      <widget class="QPushButton" name="push_edit_view_subgoal">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>Delete</string>
+        <string>Edit/View</string>
        </property>
       </widget>
      </item>
@@ -285,6 +370,11 @@
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
       <widget class="QPushButton" name="push_save">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
@@ -305,6 +395,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="push_cancel">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -316,7 +411,4 @@
  </widget>
  <resources/>
  <connections/>
- <buttongroups>
-  <buttongroup name="buttonGroup"/>
- </buttongroups>
 </ui>
