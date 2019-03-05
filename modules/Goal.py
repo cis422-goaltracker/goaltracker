@@ -9,23 +9,28 @@ import copy
 
 class SubGoal(object):
 	"""CONSTRUCTORS FOR SUBGOAL"""
-	def __init__(self, _id, _subGoalInformation):
+	def __init__(self, _id):
 		self.id = _id
-		self.name = _subGoalInformation["name"]
+		self.name = ""
 		self.isComplete = False
 
-	def update(self):
-		pass
+	"""METHODS FOR SUBGOAL"""
+	def update(self, _subGoalInformation):
+		self.name = _subGoalInformation["name"]
 
 	def complete(self):
-		pass
+		self.isComplete = True
 
 	def isComplete(self):
-		pass
+		return self.isComplete
 
 	def toString(self):
-		pass
+		if self.isComplete:
+			return "Name: " + self.name + " | Status: Complete"
+		else:
+			return "Name: " + self.name + " | Status: Incomplete"
 
+	"""GETTERS FOR SUBGOAL"""
 	def getId(self):
 		return self.id
 
@@ -34,15 +39,20 @@ class SubGoal(object):
 
 class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
-	def __init__(self, _id, _goalInformation, _subGoals, _dueDate):
+	def __init__(self, _id):
+		#constant features
 		self.id = _id #integer
-		self.name = _goalInformation["name"] #string
-		self.category = _goalInformation["category"] #string
-		self.priority = _goalInformation["priority"] #integer
-		self.memo = _goalInformation["memo"] #string
 		self.startDate = datetime.now() #DateTime
-		self.dueDate = _dueDate #DateTime
-		self.initialDueDate = _dueDate #DateTime
+
+		#user updateable features
+		self.name = "" #string
+		self.category = "" #string
+		self.priority = 0 #integer
+		self.memo = "" #string
+		self.dueDate = None #DateTime
+
+		#programmatically updateable features
+		self.initialDueDate = None #DateTime
 		self.finishDate = None #DateTime/Null
 		self.effortTracker = {} #dictionary of <finish datetime, start datetime> pairs
 		self.subGoals = [] #list of SubGoals
@@ -62,11 +72,6 @@ class Goal(object):
 	def hasDueDate(self):
 		return self.dueDate != None
 
-	def reschedule(self, _dueDate):
-		if not self.hasDueDate():
-			self.initialDueDate = _dueDate
-		self.dueDate = _dueDate #sets the due date to the new due date
-
 	def hasBeenRescheduled(self):
 		if self.hasDueDate():
 			return self.dueDate != self.initialDueDate #if due date and initial due date are same, return false, otherwise true
@@ -78,6 +83,9 @@ class Goal(object):
 		self.category = _goalInformation["category"] #sets the category to the passed category
 		self.priority = _goalInformation["priority"] #sets the priority to the passed priority
 		self.memo = _goalInformation["memo"]
+		if not self.hasDueDate() and self.initialDueDate == None:
+			self.initialDueDate = _goalInformation["dueDate"]
+		self.dueDate = _goalInformation["dueDate"]
 
 	def complete(self, _finishDate):
 		self.finishDate = _finishDate #sets the finish date to the passed finish date
@@ -92,7 +100,26 @@ class Goal(object):
 			return False
 
 	'''Subgoal Operations'''
+	def addSubGoal(self, _sgid):
+		self.subGoals.append(SubGoal(_sgid))
 
+	def updateSubGoal(self, _sgid, _subGoalInformation):
+		self.subGoals[self.getIndex(_sgid)].update(_subGoalInformation)
+
+	def completeSubGoal(self, _sgid):
+		self.subGoals[self.getIndex(_sgid)].complete()
+
+	def deleteSubGoal(self, _sgid):
+		self.subGoals.pop(self.getIndex(_sgid))
+
+	def getSubGoal(self, _sgid):
+		return self.subGoals[self.getIndex(_sgid)]
+
+	def getIndex(self, _sgid):
+		for index, subgoal in enumerate(self.subGoals):
+			if subgoal.getId() == _sgid:
+				return index
+		return -1
 
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _finishTime, _startTime):
@@ -107,6 +134,8 @@ class Goal(object):
 			priority = "Medium"
 		elif self.priority == 1:
 			priority = "High"
+		else:
+			priority = "Super High"
 
 		status = None
 		if self.isComplete():
@@ -157,8 +186,5 @@ class Goal(object):
 		return self.sortingMethod
 
 	"""SETTERS FOR GOAL"""
-	def setSubGoals(self, _subGoals):
-		self.subGoals = _subGoals #sets the subGoals to the passed _subGoals
-
 	def setSortingMethod(self, _sortingMethod):
 		self.sortingMethod = _sortingMethod

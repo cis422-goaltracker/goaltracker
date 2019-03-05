@@ -4,7 +4,7 @@
 	GoalTracker
 """
 
-from Goal import Goal
+from Goal import Goal, SubGoal
 from datetime import datetime, timedelta
 import copy
 
@@ -72,33 +72,29 @@ class Model(object):
 		return copy.deepcopy(self.goalList) #returns a copy of the Goal List
 
 	'''********************GOAL OPERATIONS********************'''
-	def addGoal(self, _goalInformation, _subGoals, _dueDate = None):
+	def addGoal(self):
 		'''
-		@param: _goalInformation (dictionary) - a dictionary containing a "name" (string), 
-		a "category" (string), a "priority" (integer), and a "memo" (string)
-		@param: _subGoalsNames (dictionary) - a dictionary with SGID's (integer) as keys and a dictionaries as values.
-		The inner dictionaries contain "name" and "isComplete" as keys and a name and boolean value as values, respectively.
-		@param: _dueDate (datetime) - a datetime that defaults to Null, that represents the due date
+		@param: None
 
 		@return: None
 
 		@purpose: Creates a Goal object and then appends it to the goalList
 		'''
-		self.goalList.append(Goal(self.getNewGID(), _goalInformation, _subGoals, _dueDate))
+		newGID = self.getNewGID()
+		self.goalList.append(Goal(newGID))
+		return newGID
 
 	def editGoal(self, _gid, _goalInformation):
 		'''
 		@param: _gid (integer) - a unique integer representing a goal
 		@param: _goalInformation (dictionary) - a dictionary containing a "name" (string), 
-		a "category" (string), a "priority" (integer), and a "memo" (string)
+		a "category" (string), a "priority" (integer), a "memo" (string), and a "dueDate" (DateTime)
 
 		@return: None
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].update(_goalInformation)
+		self.goalList[self.getIndex(_gid)].update(_goalInformation)
 
 	def completeGoal(self, _gid, _finishDate = datetime.now()):
 		'''
@@ -109,24 +105,8 @@ class Model(object):
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].complete(_finishDate)
-				for key in self.goalList[index].keys():
-					self.goalList[index][key]["isComplete"] = True
-
-	def rescheduleGoal(self, _gid, _newDueDate):
-		'''
-		@param: _gid (integer) - 
-		@param: _newDueDate (datetime) - 
-
-		@return: None
-
-		@purpose
-		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].reschedule(_goalInformation)
+		self.goalList[self.getIndex(_gid)].complete(_finishDate)
+		#cycle through and complete all subgoals
 
 	def deleteGoal(self, _gid):
 		'''
@@ -136,9 +116,7 @@ class Model(object):
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList.pop(index)
+		self.goalList.pop(self.getIndex(_gid))
 
 	def getGoal(self, _gid):
 		'''
@@ -148,24 +126,31 @@ class Model(object):
 
 		@purpose
 		'''
-		for goal in self.goalList:
-			if goal.getId() == _gid:
-				return goal
+		return self.goalList[self.getIndex(_gid)]
 
-	'''********************SUBGOAL OPERATIONS********************'''
-	def addSubGoal(self, _gid, _sgid, _subGoalInformation):
+	'''********************SUBGOALLIST OPERATIONS********************'''
+	def getSubGoalList(self, _gid):
 		'''
 		@param: _gid (integer) - 
-		@param: _sgid (integer) - 
-		@param: _subGoalInformation (dictionary) - 
 
 		@return: None
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].subGoals[_sgid] = _subGoalInformation
+		return self.goalList[self.getIndex(_gid)].getSubGoals()
+
+	'''********************SUBGOAL OPERATIONS********************'''
+	def addSubGoal(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		newSGID = self.getNewSGID()
+		self.goalList[self.getIndex(_gid)].addSubGoal(newSGID)
+		return newSGID
 
 	def editSubGoal(self, _gid, _sgid, _subGoalInformation):
 		'''
@@ -177,9 +162,7 @@ class Model(object):
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].subGoals[_sgid] = _subGoalInformation
+		self.goalList[self.getIndex(_gid)].updateSubGoal(_sgid, _subGoalInformation)
 
 	def completeSubGoal(self, _gid, _sgid):
 		'''
@@ -190,9 +173,7 @@ class Model(object):
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].subGoals[_sgid]["isComplete"] = True
+		self.goalList[self.getIndex(_gid)].completeSubGoal(_sgid)
 
 	def deleteSubGoal(self, _gid, _sgid):
 		'''
@@ -203,9 +184,18 @@ class Model(object):
 
 		@purpose
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].subGoals.pop(_sgid)
+		self.goalList[self.getIndex(_gid)].deleteSubGoal(_sgid)
+
+	def getSubGoal(self, _gid, _sgid):
+		'''
+		@param: _gid (integer) - 
+		@param: _sgid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		return self.goalList[self.getIndex(_gid)].getSubGoal(_sgid)
 
 	'''********************EFFORT TRACKER OPERATIONS********************'''
 	def startEffortTracker(self, _gid):
@@ -236,9 +226,7 @@ class Model(object):
 
 		@purpose: This method takes the _gid to find the goal in
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].addEffortTrack(datetime.now(), self.effortTrackingData.pop(_gid))
+		self.goalList[self.getIndex(_gid)].addEffortTrack(datetime.now(), self.effortTrackingData.pop(_gid))
 
 	def manuallyInputEffort(self, _gid, _startTime, _finishTime):
 		'''
@@ -251,9 +239,7 @@ class Model(object):
 		@purpose: This method takes the _gid to find the goal in the goal list, then it adds an
 		effort track to the goal with _startTime and _finishTime
 		'''
-		for index, goal in enumerate(self.goalList):
-			if goal.getId() == _gid:
-				self.goalList[index].addEffortTrack(_finishTime, _startTime)
+		self.goalList[self.getIndex(_gid)].addEffortTrack(_finishTime, _startTime)
 
 	def getEffortTrackingData(self):
 		'''
@@ -298,7 +284,7 @@ class Model(object):
 		@purpose: This method sets the goal list to be sorted by the category attribute
 		'''
 		for index, goal in enumerate(self.goalList):
-			self.goalList[index].setSortMethod("category")
+			self.goalList[index].setSortingMethod("category")
 		self.goalList = sorted(self.getGoalList())
 
 	def prioritySort(self):
@@ -310,5 +296,19 @@ class Model(object):
 		@purpose: This method sets the goal list to be sorted by the priority attribute
 		'''
 		for index, goal in enumerate(self.goalList):
-			self.goalList[index].setSortMethod("priority")
+			self.goalList[index].setSortingMethod("priority")
 		self.goalList = sorted(self.getGoalList())
+
+	'''********************MISCELLANEOUS OPERATIONS********************'''
+	def getIndex(self, _gid):
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				return index
+		return -1

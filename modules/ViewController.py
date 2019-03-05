@@ -5,6 +5,7 @@
         Reference [0]: https://stackoverflow.com/questions/21213853/pyside-how-to-delete-widgets-from-gridlayout
 
 """
+#System Imports
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
@@ -13,11 +14,13 @@ from PyQt5.QtGui import *
 from datetime import datetime
 from enum import Enum
 
-from Goal import Goal
+#Module Imports
+from Goal import Goal, SubGoal
 from Model import Model
 from FileManager import FileManager
-from AnalysisGenerator import AnalysisGenerator as AnalysisGenerator
+from AnalysisGenerator import AnalysisGenerator
 
+#UI Imports
 from Dialogs import AddEditViewGoal, AddEditViewSubGoal
 
 # Global variable for storing UI files (HH)
@@ -54,7 +57,7 @@ class MainWindow(QMainWindow):
         self.comboBox.activated.connect(self.setChosenItem)
 
         # Update the window's title
-        self.setWindowTitle('Goal Tracker');
+        self.setWindowTitle('Goal Tracker')
 
         #instantiates window with current goals
         self.loadCurrentGoals()
@@ -154,8 +157,8 @@ class MainWindow(QMainWindow):
         @purpose:
         '''
         window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
-        window.exec()
-        self.refreshListViewAndComboBox()
+        if window.exec():
+            self.refreshListViewAndComboBox()
 
     @pyqtSlot()
     def loadCompleteGoal(self):
@@ -185,8 +188,8 @@ class MainWindow(QMainWindow):
         if self.moreThanZeroGoals():
             goalid = self.getGIDFromComboBox() #get goalid from combobox
             window = AddEditViewGoal(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
-            window.exec()
-            self.refreshListViewAndComboBox()
+            if window.exec():
+                self.refreshListViewAndComboBox()
         else:
             print("No Goals")
 
@@ -231,7 +234,7 @@ class MainWindow(QMainWindow):
         '''
         return self.comboBox.count() != 0
 
-    def setChosenItem(self, index):
+    def setChosenItem(self, _index):
         '''
         @param:
 
@@ -239,7 +242,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.comboIndex = index
+        self.comboIndex = _index
 
     def getGIDFromComboBox(self):
         '''
