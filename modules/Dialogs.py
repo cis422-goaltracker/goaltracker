@@ -157,7 +157,7 @@ class AddEditViewGoal(QDialog):
         category = self.lineEdit_category.text()
         if self.radio_priority_low.isChecked():
             priority = 3
-        else if self.radio_priority_medium.isChecked():
+        elif self.radio_priority_medium.isChecked():
             priority = 2
         else:
             priority = 1
