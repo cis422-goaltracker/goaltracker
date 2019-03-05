@@ -155,7 +155,12 @@ class AddEditViewGoal(QDialog):
         goalName = self.lineEdit_goal_name.text()
         dueDate = self.dateTimeEdit_due_date.date()
         category = self.lineEdit_category.text()
-        priority = self.buttonGroup.checkedButton().text()
+        if self.radio_priority_low.isChecked():
+            priority = 3
+        else if self.radio_priority_medium.isChecked():
+            priority = 2
+        else:
+            priority = 1
         memo = self.textEdit.toPlainText()
 
         self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
