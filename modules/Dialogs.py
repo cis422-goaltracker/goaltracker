@@ -11,6 +11,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from datetime import datetime
+from enum import Enum
 
 from Goal import Goal, SubGoal
 from Model import Model
@@ -19,6 +20,11 @@ from AnalysisGenerator import AnalysisGenerator
 
 # Global variable for storing UI files (HH)
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui"}
+
+class Method(Enum):
+    ADD = 1
+    EDITVIEW = 2
+
 
 class AddEditViewGoal(QDialog):
     def __init__(self, _model, _goalid = None): #FUNCTION NEEDS TO BE BUILT
@@ -36,7 +42,7 @@ class AddEditViewGoal(QDialog):
         #Class Variables
         self.model = _model
         self.goalid = _goalid
-        self.comboIndex = -1
+        self.selectedListItemId = None
 
         #Signals
         self.push_effort.clicked.connect(self.toggleEffortTracker)
@@ -47,16 +53,19 @@ class AddEditViewGoal(QDialog):
         self.push_delete_subgoal.clicked.connect(self.loadDeleteSubGoal)
         self.push_save.clicked.connect(self.loadSaveGoal)
         self.push_cancel.clicked.connect(self.loadCancelGoal)
+        self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
 
-        self.refreshListViewAndComboBox()
+        self.refreshListView()
 
         if self.goalid == None:
+            self.method = Method.ADD
             self.setWindowTitle('Add Goal')
             self.goalid = self.model.addGoal()
 
             #load default information (@WEIGANG DO HERE)
 
         else:
+            self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Goal')
             
             #load goal information (@WEIGANG DO HERE)
@@ -82,7 +91,7 @@ class AddEditViewGoal(QDialog):
         '''
         window = AddEditViewSubGoal(self, self.model, self.goalid) #open add AddEditViewGoal window, pass it model
         if window.exec():
-            self.refreshListViewAndComboBox()
+            self.refreshListView()
 
     @pyqtSlot()
     def loadCompleteSubGoal(self):
@@ -93,10 +102,10 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        if moreThanZeroGoals():
-            subgoalid = self.getSGIDFromComboBox() #get subgoalid from combobox
+        if self.subGoalIsSelected():
+            subgoalid = self.selectedListItemId
             self.model.completeSubGoal(self.goalid, subgoalid)
-            self.refreshListViewAndComboBox()
+            self.refreshListView()
         else:
             print("No Subgoals")
 
@@ -109,11 +118,11 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        if moreThanZeroGoals():
-            subgoalid = self.getSGIDFromComboBox() #get subgoalid from combobox
+        if self.subGoalIsSelected():
+            subgoalid = self.selectedListItemId
             window = AddEditViewSubGoal(self, self.model, self.goalid, subgoalid) #open AddEditViewSubGoal window, passes it model and subgoal id
             if window.exec():
-                self.refreshListViewAndComboBox()
+                self.refreshListView()
         else:
             print("No Subgoals")
 
@@ -126,10 +135,10 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        if self.moreThanZeroGoals():
-            subgoalid = self.getSGIDFromComboBox() #get subgoalid from combobox
+        if self.subGoalIsSelected():
+            subgoalid = self.selectedListItemId
             self.model.deleteSubGoal(self.goalid, subgoalid)
-            self.refreshListViewAndComboBox()
+            self.refreshListView()
         else:
             print("No Subgoals")
 
@@ -155,11 +164,12 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        self.model.deleteGoal(self.goalid) #delete goal from model
+        if self.method == Method.ADD:
+            self.model.deleteGoal(self.goalid) #delete goal from model
         self.close() #exit dialog
 
     '''********************CLASS METHODS OPERATIONS********************'''
-    def moreThanZeroGoals(self):
+    def subGoalIsSelected(self):
         '''
         @param:
 
@@ -167,9 +177,9 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        return self.comboBox.count() != 0
+        return self.selectedListItemId != None
 
-    def setChosenItem(self, index):
+    def setChosenItem(self):
         '''
         @param:
 
@@ -177,17 +187,11 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        self.comboIndex = index
-
-    def getSGIDFromComboBox(self):
-        '''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-        return self.comboBox.itemData(self.comboIndex) #return the SGID currently in combobox
+        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()]
+        if not selectedlist:
+            self.selectedListItemId = None
+        else:
+            self.selectedListItemId = selectedlist[0]
 
     def addToListView(self, _subGoalList):
         '''
@@ -200,9 +204,12 @@ class AddEditViewGoal(QDialog):
         #cycle through list, to string every goal and place into listview
         self.listWidget.clear()
         for subGoal in _subGoalList:
-            self.listWidget.addItem(subGoal.toString())
+            item = QListWidgetItem()
+            item.setText(subGoal.toString())
+            item.setData(Qt.UserRole, subGoal.getId())
+            self.listWidget.addItem(item)
 
-    def addToComboBox(self, _subGoalList):
+    def refreshListView(self):
         '''
         @param:
 
@@ -210,17 +217,9 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        #cycle through list, get name and goalid of every goal and place into combobox
-        self.comboBox.clear()
-        for subGoal in _subGoalList:
-            self.comboBox.addItem(subGoal.getName(), subGoal.getId())
-
-    def refreshListViewAndComboBox(self):
-        goalList = self.model.getGoalList()
-        if len(goalList) != 0:
+        if len(self.model.getGoalList()) != 0:
             subGoalList = self.model.getSubGoalList(self.goalid)
             self.addToListView(subGoalList)
-            self.addToComboBox(subGoalList)
 
 
 class AddEditViewSubGoal(QDialog):
@@ -247,12 +246,14 @@ class AddEditViewSubGoal(QDialog):
         self.push_cancel.clicked.connect(self.loadCancelSubGoal)
 
         if self.subgoalid == None:
+            self.method = Method.ADD
             self.setWindowTitle('Add Subgoal')
             self.subgoalid = self.model.addSubGoal(self.goalid)
 
             #load default information
             
         else:
+            self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Subgoal')
 
             #load subgoal information
@@ -279,5 +280,6 @@ class AddEditViewSubGoal(QDialog):
 
         @purpose:
         '''
-        self.model.deleteSubGoal(self.goalid, self.subgoalid)
+        if self.method == Method.ADD:
+            self.model.deleteSubGoal(self.goalid, self.subgoalid)
         self.close() #exit dialog

@@ -40,7 +40,7 @@ class MainWindow(QMainWindow):
         #Class Variables
         self.model = _model
         self.state = State.CURRENT
-        self.comboIndex = -1
+        self.selectedListItemId = None
         
         #Signals
         self.push_CurrentGoals.clicked.connect(self.loadCurrentGoals)
@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
         self.push_edit_view.clicked.connect(self.loadEditViewGoal)
         self.push_delete_goal.clicked.connect(self.loadDeleteGoal)
         self.push_view_analysis.clicked.connect(self.loadViewAnalysis)
-        self.comboBox.activated.connect(self.setChosenItem)
+        self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
 
         # Update the window's title
         self.setWindowTitle('Goal Tracker')
@@ -74,9 +74,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_Goals.setText("Current Goals") #set label
         self.state = State.CURRENT #set state
-        goalList = self.model.getCurrentGoalList()
-        self.addToListView(goalList)
-        self.addToComboBox(goalList)
+        self.refreshListView()
 
     @pyqtSlot()
     def loadOverdueGoals(self):
@@ -89,9 +87,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_Goals.setText("Overdue Goals") #set label
         self.state = State.OVERDUE #set state
-        goalList = self.model.getOverDueGoalList()
-        self.addToListView(goalList)
-        self.addToComboBox(goalList)
+        self.refreshListView()
 
     @pyqtSlot()
     def loadCompletedGoals(self):
@@ -104,9 +100,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_Goals.setText("Completed Goals") #set label
         self.state = State.COMPLETED #set state
-        goalList = self.model.getCompletedGoalList()
-        self.addToListView(goalList)
-        self.addToComboBox(goalList)
+        self.refreshListView()
 
     @pyqtSlot()
     def loadAllGoals(self):
@@ -119,9 +113,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_Goals.setText("All Goals") #set label
         self.state = State.ALL #set state
-        goalList = self.model.getGoalList()
-        self.addToListView(goalList)
-        self.addToComboBox(goalList)
+        self.refreshListView()
 
     @pyqtSlot()
     def loadCategorySort(self):
@@ -133,7 +125,7 @@ class MainWindow(QMainWindow):
         @purpose:
         '''
         self.model.categorySort() #runs category sort on model
-        self.refreshListViewAndComboBox()
+        self.refreshListView()
 
     @pyqtSlot()
     def loadPrioritySort(self):
@@ -145,7 +137,7 @@ class MainWindow(QMainWindow):
         @purpose:
         '''
         self.model.prioritySort()#runs priority sort on model
-        self.refreshListViewAndComboBox()
+        self.refreshListView()
 
     @pyqtSlot()
     def loadAddGoal(self):
@@ -158,7 +150,7 @@ class MainWindow(QMainWindow):
         '''
         window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
         if window.exec():
-            self.refreshListViewAndComboBox()
+            self.refreshListView()
 
     @pyqtSlot()
     def loadCompleteGoal(self):
@@ -169,10 +161,10 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        if self.moreThanZeroGoals():
-            goalid = self.getGIDFromComboBox() #get goalid from combobox
+        if self.goalIsSelected():
+            goalid = self.selectedListItemId
             self.model.completeGoal(goalid)
-            self.refreshListViewAndComboBox()
+            self.refreshListView()
         else:
             print("No Goals")
 
@@ -185,11 +177,11 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        if self.moreThanZeroGoals():
-            goalid = self.getGIDFromComboBox() #get goalid from combobox
+        if self.goalIsSelected():
+            goalid = self.selectedListItemId
             window = AddEditViewGoal(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
             if window.exec():
-                self.refreshListViewAndComboBox()
+                self.refreshListView()
         else:
             print("No Goals")
 
@@ -202,10 +194,10 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        if self.moreThanZeroGoals():
-            goalid = self.getGIDFromComboBox() #get goalid from combobox
+        if self.goalIsSelected():
+            goalid = self.selectedListItemId
             self.model.deleteGoal(goalid)
-            self.refreshListViewAndComboBox()
+            self.refreshListView()
         else:
             print("No Goals")
 
@@ -218,13 +210,13 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        if self.moreThanZeroGoals():
+        if self.goalIsSelected():
             pass
         else:
             print("No Goals")
 
     '''********************CLASS METHODS********************'''
-    def moreThanZeroGoals(self):
+    def goalIsSelected(self):
         '''
         @param:
 
@@ -232,9 +224,9 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        return self.comboBox.count() != 0
+        return self.selectedListItemId != None
 
-    def setChosenItem(self, _index):
+    def setChosenItem(self):
         '''
         @param:
 
@@ -242,18 +234,11 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.comboIndex = _index
-
-    def getGIDFromComboBox(self):
-        '''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-        #return the GID currently in combobox
-        return self.comboBox.itemData(self.comboIndex)
+        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()]
+        if not selectedlist:
+            self.selectedListItemId = None
+        else:
+            self.selectedListItemId = selectedlist[0]
 
     def addToListView(self, _goalList):
         '''
@@ -263,23 +248,12 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        #cycle through list, to string every goal and place into listview
         self.listWidget.clear()
         for goal in _goalList:
-            self.listWidget.addItem(goal.toString())
-
-    def addToComboBox(self, _goalList):
-        '''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-        #cycle through list, get name and goalid of every goal and place into combobox
-        self.comboBox.clear()
-        for goal in _goalList:
-            self.comboBox.addItem(goal.getName(), goal.getId())
+            item = QListWidgetItem()
+            item.setText(goal.toString())
+            item.setData(Qt.UserRole, goal.getId())
+            self.listWidget.addItem(item)
 
     def getGoalStateList(self):
         '''
@@ -300,10 +274,16 @@ class MainWindow(QMainWindow):
         else:
             return ["ERROR", "ERROR", "ERROR"]
 
-    def refreshListViewAndComboBox(self):
+    def refreshListView(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goalList = self.getGoalStateList()
         self.addToListView(goalList)
-        self.addToComboBox(goalList)
 
 
 # addDialog = EditGoalWindow(self.model)
