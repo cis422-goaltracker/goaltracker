@@ -121,6 +121,9 @@ List:</string>
           <property name="text">
            <string>Completed Goals</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
         <item>
