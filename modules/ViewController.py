@@ -334,8 +334,8 @@ def main():
 
         @purpose:
         '''
-    filemanager = FileManager() #create FileManager object
-    model = filemanager.load("potato.gtd") #load File and store
+    filemanager = FileManager("potato.gtd") #create FileManager object
+    model = filemanager.load() #load File and store
     app = QApplication(sys.argv) # Initialize PyQT application
     window = MainWindow(model) # Create a window of the main display of the Goal Tracker
     window.show() # Show the window

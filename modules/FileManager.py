@@ -10,13 +10,12 @@ import shelve
 
 class FileManager(object):
 	"""CONSTRUCTOR FOR FILEMANAGER"""
-	def __init__(self):
-		pass
+	def __init__(self, _filename):
+		self.fileName = _fileName #sets default file name for FileManager
 		
 	"""METHODS FOR FILEMANAGER"""
 	'''Load Operations'''
-	def load(self, _fileName):
-		self.fileName = _fileName #sets default file name for FileManager
+	def load(self):
 		db = shelve.open(self.fileName) #open file
 		try:
 			model = db['model'] #gets model from shelve

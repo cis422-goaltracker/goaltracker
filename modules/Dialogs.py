@@ -151,7 +151,14 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        #update goal information in model
+
+        goalName = self.lineEdit_goal_name.text()
+        dueDate = self.dateTimeEdit_due_date.date()
+        category = self.lineEdit_category.text()
+        priority = self.buttonGroup.checkedButton().text()
+        memo = self.textEdit.toPlainText()
+
+        self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
 
         self.accept() #exit dialog
 
