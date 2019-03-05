@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1147</width>
-    <height>498</height>
+    <width>870</width>
+    <height>412</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,14 +18,15 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_goalsList">
         <property name="font">
          <font>
           <pointsize>16</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Goals</string>
+         <string>Goals
+List:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -82,7 +83,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Complete</string>
+         <string>Completed</string>
         </property>
        </widget>
       </item>
@@ -111,20 +112,35 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLabel" name="label_Goals">
+         <widget class="QLabel" name="label_listTitle">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Completed Goals</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_goalSorting">
           <property name="minimumSize">
            <size>
-            <width>300</width>
+            <width>0</width>
             <height>0</height>
            </size>
           </property>
           <property name="font">
            <font>
-            <pointsize>18</pointsize>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
-           <string>Current Goals</string>
+           <string>sorting:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -181,17 +197,17 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QComboBox" name="comboBox">
-          <property name="minimumSize">
-           <size>
-            <width>420</width>
-            <height>0</height>
-           </size>
-          </property>
+         <widget class="QLabel" name="label_selectedgoal">
           <property name="font">
            <font>
             <pointsize>16</pointsize>
            </font>
+          </property>
+          <property name="text">
+           <string>Selected Goal:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
