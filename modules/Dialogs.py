@@ -256,14 +256,15 @@ class AddEditViewSubGoal(QDialog):
             self.method = Method.ADD
             self.setWindowTitle('Add Subgoal')
             self.subgoalid = self.model.addSubGoal(self.goalid)
-
-            #load default information
-            
         else:
             self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Subgoal')
-
-            #load subgoal information
+            subgoal = self.model.getSubGoal(self.goalid, self.subgoalid)
+            self.lineEdit.setText(subgoal.getName())
+            if subgoal.isComplete():
+                self.label_status.setText("Status: Complete")
+            else:
+                self.label_status.setText("Status: Incomplete")
 
     @pyqtSlot()
     def loadSaveSubGoal(self): #FUNCTION NEEDS TO BE BUILT
