@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Current Goals") #set label
+        self.label_listTitle.setText("Current Goals") #set label
         self.state = State.CURRENT #set state
         self.refreshListView()
 
@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Overdue Goals") #set label
+        self.label_listTitle.setText("Overdue Goals") #set label
         self.state = State.OVERDUE #set state
         self.refreshListView()
 
@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Completed Goals") #set label
+        self.label_listTitle.setText("Completed Goals") #set label
         self.state = State.COMPLETED #set state
         self.refreshListView()
 
