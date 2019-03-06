@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Current Goals") #set label
+        self.label_listTitle.setText("Current Goals") #set label
         self.state = State.CURRENT #set state
         self.refreshListView()
 
@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Overdue Goals") #set label
+        self.label_listTitle.setText("Overdue Goals") #set label
         self.state = State.OVERDUE #set state
         self.refreshListView()
 
@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Completed Goals") #set label
+        self.label_listTitle.setText("Completed Goals") #set label
         self.state = State.COMPLETED #set state
         self.refreshListView()
 
@@ -334,8 +334,8 @@ def main():
 
         @purpose:
         '''
-    filemanager = FileManager() #create FileManager object
-    model = filemanager.load("potato.gtd") #load File and store
+    filemanager = FileManager("potato.gtd") #create FileManager object
+    model = filemanager.load() #load File and store
     app = QApplication(sys.argv) # Initialize PyQT application
     window = MainWindow(model) # Create a window of the main display of the Goal Tracker
     window.show() # Show the window

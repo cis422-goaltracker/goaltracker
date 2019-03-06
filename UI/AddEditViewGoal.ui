@@ -287,7 +287,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Subgoals</string>
+        <string>Subgoals:</string>
        </property>
       </widget>
      </item>
@@ -323,17 +323,17 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
-      <widget class="QComboBox" name="comboBox">
-       <property name="minimumSize">
-        <size>
-         <width>250</width>
-         <height>0</height>
-        </size>
-       </property>
+      <widget class="QLabel" name="label_subgoals_selected">
        <property name="font">
         <font>
          <pointsize>16</pointsize>
         </font>
+       </property>
+       <property name="text">
+        <string>Selected:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>

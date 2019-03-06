@@ -155,7 +155,12 @@ class AddEditViewGoal(QDialog):
         goalName = self.lineEdit_goal_name.text()
         dueDate = self.dateTimeEdit_due_date.date()
         category = self.lineEdit_category.text()
-        priority = self.buttonGroup.checkedButton().text()
+        if self.radio_priority_low.isChecked():
+            priority = 3
+        elif self.radio_priority_medium.isChecked():
+            priority = 2
+        else:
+            priority = 1
         memo = self.textEdit.toPlainText()
 
         self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
@@ -256,14 +261,15 @@ class AddEditViewSubGoal(QDialog):
             self.method = Method.ADD
             self.setWindowTitle('Add Subgoal')
             self.subgoalid = self.model.addSubGoal(self.goalid)
-
-            #load default information
-            
         else:
             self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Subgoal')
-
-            #load subgoal information
+            subgoal = self.model.getSubGoal(self.goalid, self.subgoalid)
+            self.lineEdit.setText(subgoal.getName())
+            if subgoal.isComplete():
+                self.label_status.setText("Status: Complete")
+            else:
+                self.label_status.setText("Status: Incomplete")
 
     @pyqtSlot()
     def loadSaveSubGoal(self): #FUNCTION NEEDS TO BE BUILT
@@ -275,7 +281,7 @@ class AddEditViewSubGoal(QDialog):
         @purpose:
         '''
         #update subGoal information model
-
+        self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())})
         self.accept() #exit dialog
 
     @pyqtSlot()
