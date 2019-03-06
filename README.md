@@ -142,8 +142,6 @@ Goal Buttons
 Subgoal Buttons
 ![subgoal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal_buttons.png)
 
-![alt text](Image of subgoal deletion process)
-
 ### OverDue Goals:
 Goals turn into overdue goals when the date they are due has passed. If a goal is overdue, you have the option to "Reschedule" your goal to a later date. This can be done by pressing the "Reschedule" button, which will bring open the edit window so you can give youself more time. 
 
