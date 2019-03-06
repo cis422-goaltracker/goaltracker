@@ -96,7 +96,7 @@ class Goal(object):
 
 	def isOverDue(self):
 		if self.hasDueDate():
-			return self.dueDate < datetime.now() #if current date is greater than due date, its overdue
+			return self.dueDate < datetime.datetime.now() #if current date is greater than due date, its overdue
 		else:
 			return False
 
