@@ -63,42 +63,28 @@ class AddEditViewGoal(QDialog):
             self.method = Method.ADD
             self.setWindowTitle('Add Goal')
             self.goalid = self.model.addGoal()
-
-            #load default information (@WEIGANG DO HERE)
-            goal = self.model.getGoal(self.goalid)
-            # self.lineEdit_goal_name.setText(goal.getName())
-
-            # goal.name = self.lineEdit_goal_name.text()
-            # print(goal.name)
-
             self.dateTimeEdit_due_date.setDate(QDate.currentDate())
-            # goal.category = self.lineEdit_category.text()
-
-            # if self.radio_priority_low.isChecked():
-            #     goal.priority = 3
-            # elif self.radio_priority_medium.isChecked():
-            #     goal.priority = 2
-            # else:
-            #     goal.priority = 1
-
-            # goal.memo = self.textEdit.toPlainText()
-            
-            
-        
 
         else:
             self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Goal')
-            
-            #load goal information (@WEIGANG DO HERE)
-            self.goal = self.model.getGoal(self.goalid)
-            self.lineEdit_goal_name.setText(self.goal.getName())
-            self.lineEdit_category.setText(self.goal.getCategory())
-            self.textEdit.setText(self.goal.getMemo())
+            goal = self.model.getGoal(self.goalid)
+            self.lineEdit_goal_name.setText(goal.getName())
+            if goal.isComplete():
+                self.label_status.setText("Status: Complete")
+            else:
+                self.label_status.setText("Status: Incomplete")
+            self.dateTimeEdit_due_date.setDate(goal.getDueDate())
 
+            if goal.getPriority() == 3:
+                self.radio_priority_low.isChecked()
+            elif goal.getPriority() == 2:
+                self.radio_priority_medium.isChecked()
+            else:
+                self.radio_priority_high.isChecked()
 
-
-
+            self.lineEdit_category.setText(goal.getCategory())
+            self.textEdit.setText(goal.getMemo())
 
     '''********************PYQTSLOT OPERATIONS********************'''
     @pyqtSlot()

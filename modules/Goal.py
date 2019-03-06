@@ -48,7 +48,7 @@ class Goal(object):
 		#user updateable features
 		self.name = "" #string
 		self.category = "" #string
-		self.priority = 0 #integer
+		self.priority = 1 #integer
 		self.memo = "" #string
 		self.dueDate = None #DateTime
 
