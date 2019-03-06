@@ -44,7 +44,7 @@ https://pip.pypa.io/en/stable/installing/
 https://pypi.org/project/DateTime/
 
 
-To install pyqt5 run this bash command:
+### To install pyqt5 run this bash command:
 ```bash
 $ pip3 install pyqt5
 ```
@@ -186,25 +186,3 @@ Please make sure to update tests as appropriate.
 
 ## Support
 For any support issues please email khawks996@gmail.com
-
-# University of Oregon CIS 422:
-## Goal Tracker
-
-### Supported Operating Systems
-* Windows 10 (18.03)
-* Mac OSX (10.14.3)
-* Ubunutu (18.04 LTS)
-* Debian (9.8)
-* Arch (2019.03.01)
-* Fedora (29 Workstation)
-* Chrome OS (72.0.3626.117)
-### Installation
-```sh
-$ pip3 install pyqt5
-$ pip3 install DateTime
-$ pip3 install pygraph
-```
-### Running the Script
-```sh
-$ python3 ViewController.py
-```
