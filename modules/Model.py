@@ -218,7 +218,7 @@ class Model(object):
 		'''
 		return _gid in self.effortTrackingData
 
-	def stopEffortTracking(self, _gid):
+	def stopEffortTracker(self, _gid):
 		'''
 		@param: _gid (integer) - 
 
