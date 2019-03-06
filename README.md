@@ -111,12 +111,12 @@ Select a pre-existing goal from the drop down box in the main window and select 
 
 From here select the "Add button" that opens in the new window beside the words "Subgoal". This will prompt a textbox to open up to name your subgoal. Once saved, the subgoal for that goal will appear as an entry in the list with the "Completed" or "Uncompleted" keyword next to it. 
 
-Goal Buttons
-![goal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/Goal_buttons.png)
-Subgoal Buttons
-![subgoal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal_buttons.png)
-
 To close the widget, simply close the window by clicking the red button on the top left of the "Dialog"
+
+Add section of add or add/edit window
+![subgoal](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal2.png)
+Window that comes up once add button is pressed
+![add a subgoal](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal.png)
 
 ### To Delete Goals and Subgoals:
 If you come across a goal or subgoal that you do not want, you are given the option to delete it. 
@@ -136,6 +136,11 @@ To do this, you much go to the window that the goal or subgoal can be viewed in 
 Completed goals will be removed from the list of goals, but still viewable when the "Completed Goals" button is selected in the main window. 
 
 We recommend completing goals and subgoals to not only give you, the user, a better understanding of your goals but also, to view accurate statistical analysis on your productivity habits like progress.
+
+Goal Buttons
+![goal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/Goal_buttons.png)
+Subgoal Buttons
+![subgoal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal_buttons.png)
 
 ![alt text](Image of subgoal deletion process)
 
