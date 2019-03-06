@@ -12,20 +12,20 @@ class SubGoal(object):
 	def __init__(self, _id):
 		self.id = _id
 		self.name = ""
-		self.isComplete = False
+		self.isCompleted = False
 
 	"""METHODS FOR SUBGOAL"""
 	def update(self, _subGoalInformation):
 		self.name = _subGoalInformation["name"]
 
 	def complete(self):
-		self.isComplete = True
+		self.isCompleted = True
 
 	def isComplete(self):
-		return self.isComplete
+		return self.isCompleted
 
 	def toString(self):
-		if self.isComplete:
+		if self.isCompleted:
 			return "Name: " + self.name + " | Status: Complete"
 		else:
 			return "Name: " + self.name + " | Status: Incomplete"
