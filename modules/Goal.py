@@ -5,6 +5,7 @@
 """
 
 from datetime import datetime, timedelta
+import datetime
 import copy
 
 class SubGoal(object):
@@ -42,7 +43,7 @@ class Goal(object):
 	def __init__(self, _id):
 		#constant features
 		self.id = _id #integer
-		self.startDate = datetime.now() #DateTime
+		self.startDate = datetime.datetime.now() #DateTime
 
 		#user updateable features
 		self.name = "" #string
