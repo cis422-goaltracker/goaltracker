@@ -2,7 +2,7 @@
 
 GoalTracker is an personal goal tracking application. With it, you have a tool that can help organize your future goals, create subgoals to stay on task, schedule meetings more efficiently and stay on top of tasks with reminders and insights. GoalTracker not only helps with goals but provides statistical insights on productivty habits to help guide and encourage the user. 
 
-![alt text](picture of working app)
+![Homepage](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/homepage.png)
 
 #### GoalTracker offers many features such as:
 - Lightweight and easy to setup
@@ -49,17 +49,17 @@ To install pyqt5 run this bash command:
 $ pip3 install pyqt5
 ```
 
-To install DateTime run this bash command:
+### To install DateTime run this bash command:
 ```bash
 $ pip3 install DateTime
 ```
 
-To install pyqtgraph run this bash command:
+### To install pyqtgraph run this bash command:
 ```bash
 $ pip3 install pyqtgraph
 ```
 
-To run the application run this bash command:
+### To run the application run this bash command:
 ```bash
 $ python ViewController.py
 ```
@@ -76,7 +76,7 @@ If any of the windows happen to scale incorrectly, we would suggest to try chang
 
 Home page is shown below: 
 
-![alt text](goaltracker/images/homepage.png)
+![Homepage](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/homepage.png)
 
 ### To Add a Goal:
 On the home page, select button labeled "Add Goal"
@@ -93,7 +93,7 @@ Check the event has been saved or not, click the close button(red) on the top le
 
 For more information on goals and subgoals and the things you can do with them, see "To Add a subgoal" and "To Delete a Goal and Subgoal" and "To Complete a Goal or Subgoal"
 
-![alt text](imagelikegoeshere)
+![Add Goal Image](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/add:edit.png)
 
 ### To Edit/View a goal:
 On the homepage, navigate to a pre-existing goal that you would like to edit. Select it in the dropdown box and select the 'Edit/View' button. This window, similiarly to the "add a goal" window  has all the same fields, but now has the information that you had entered before. 
@@ -101,8 +101,6 @@ On the homepage, navigate to a pre-existing goal that you would like to edit. Se
 To change anything, make your changes in this window and select save.
 
 Note that to the right of "Due Date" you will be able to see how many days until this goal is set to be due.
-
-![alt text](due picture?)
 
 ### To Add a Subgoal:
 On the home page, 
@@ -113,7 +111,10 @@ Select a pre-existing goal from the drop down box in the main window and select 
 
 From here select the "Add button" that opens in the new window beside the words "Subgoal". This will prompt a textbox to open up to name your subgoal. Once saved, the subgoal for that goal will appear as an entry in the list with the "Completed" or "Uncompleted" keyword next to it. 
 
-![alt text](Image of subgoal once added)
+Goal Buttons
+![goal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/Goal_buttons.png)
+Subgoal Buttons
+![subgoal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal_buttons.png)
 
 To close the widget, simply close the window by clicking the red button on the top left of the "Dialog"
 
@@ -122,7 +123,10 @@ If you come across a goal or subgoal that you do not want, you are given the opt
 
 To do this, you much go to the window that the goal or subgoal can be viewed in (picture below) and select that specific goal or subgoal from the dropdown list. To the right you will see a "Delete" button. Once pressed, your goal or subgoal selected will be deleted.
 
-![alt text](Image of subgoal deletion process)
+Goal Buttons
+![goal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/Goal_buttons.png)
+Subgoal Buttons
+![subgoal button options](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/subgoal_buttons.png)
 
 ### To Complete Goals and Subgoals:
 If you come across a goal of subgoal that you have completed, you are given the option to mark it as completed.
