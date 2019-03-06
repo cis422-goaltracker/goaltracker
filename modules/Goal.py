@@ -129,11 +129,11 @@ class Goal(object):
 	'''To String Operations'''
 	def toString(self):
 		priority = None
-		if self.priority == "Low":
+		if self.priority == 3:
 			priority = "Low"
-		elif self.priority == "Medium":
+		elif self.priority == 2:
 			priority = "Medium"
-		elif self.priority == "High":
+		elif self.priority == 1:
 			priority = "High"
 		else:
 			priority = "Super High"

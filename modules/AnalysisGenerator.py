@@ -12,7 +12,6 @@ import calendar
 import datetime
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore, QtGui
-import numpy as np
 
 #For Kellie to work on
 #need to pip install pyqtgraph
@@ -22,7 +21,7 @@ class AnalysisGenerator(object):
 	def __init__(self):
 		pass
 
-	def calculateActiveTime(self, _gid, _model, _currentDate):
+	def getActiveTime(self, _gid, _model, _currentDate):
 		goal = _model.getGoal(_gid) #gets the goal form the model
 		if goal.isComplete(): #if goal is complete
 			return goal.getFinishDate() - goal.getStartDate() #find the difference between finish and start date
@@ -42,7 +41,7 @@ class AnalysisGenerator(object):
 		pass
 
 
-	def calculateFasterSlower(self, _gid, _model):
+	def getFasterSlower(self, _gid, _model):
 		goal = _model.getGoal(_gid)	#gets the goal from the model
 		if goal.hasDueDate() == False:	#if the goal does not have a due date #???? Does this function exist ????
 			return -10000;	#return -10000 (a number that is almost possible to achieve in normal day to day use)
@@ -51,7 +50,7 @@ class AnalysisGenerator(object):
 				return goal.getInitialAnticipatedFinishDate() - goal.getFinishDate() #calculates the number of days from anticipated finish date
 
 
-	def calculateAveragetime(self, _gid, _model):
+	def getAveragetime(self, _gid, _model):
 		#how do i get the dictionary of the datetime objects and time deltas for effort tracker?
 
 		ret = {} #creates a dictionary to return
@@ -71,7 +70,7 @@ class AnalysisGenerator(object):
 		return timesum/ len(ret) #return the average per day
 
 
-	def calculateBeforeDuedate(self, _model):
+	def getBeforeDuedate(self, _model):
 		#should this be changed? it originally relied on having a due date fro every goal. now the stats 
 		#aren't as accurate. should i just be looking at the goals that DID have a due date attached to them?
 
@@ -87,7 +86,7 @@ class AnalysisGenerator(object):
 		return completed_before_due/completedcount #calculates and returns percentage of goals done befoe duedate
 
 
-	def calculateAfterDuedate(self, _model):
+	def getAfterDuedate(self, _model):
 		#should this be changed? it originally relied on having a due date fro every goal. now the stats 
 		#aren't as accurate. should i just be looking at the goals that DID have a due date attached to them?
 

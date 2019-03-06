@@ -130,16 +130,6 @@
     <string>yourself more time to accomplish goals in the future.</string>
    </property>
   </widget>
-  <widget class="CustomWidget" name="openGLWidget">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>40</y>
-     <width>341</width>
-     <height>321</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_starjpg_2">
    <property name="geometry">
     <rect>
@@ -153,16 +143,23 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/star/star.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>421</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/graph.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>CustomWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header>Plotter.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="star.qrc"/>
+  <include location="graph.qrc"/>
  </resources>
  <connections/>
 </ui>
