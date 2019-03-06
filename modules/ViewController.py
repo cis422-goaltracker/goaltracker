@@ -111,7 +111,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("All Goals") #set label
+        self.label_listTitle.setText("All Goals") #set label
         self.state = State.ALL #set state
         self.refreshListView()
 
