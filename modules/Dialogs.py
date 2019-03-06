@@ -90,6 +90,7 @@ class AddEditViewGoal(QDialog):
             self.textEdit.setText(goal.getMemo())
 
     '''********************PYQTSLOT OPERATIONS********************'''
+
     @pyqtSlot()
     def toggleEffortTracker(self): #FUNCTION NEEDS TO BE BUILT
         if self.model.isEffortTracking(self.goalid):
@@ -115,6 +116,8 @@ class AddEditViewGoal(QDialog):
         window = AddEditViewSubGoal(self, self.model, self.goalid) #open add AddEditViewGoal window, pass it model
         if window.exec():
             self.refreshListView()
+        else:
+            self.model.deleteSubGoal(self.goalid, self.model.getCurrSGID())
 
     @pyqtSlot()
     def loadCompleteSubGoal(self):
@@ -200,8 +203,6 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        if self.method == Method.ADD:
-            self.model.deleteGoal(self.goalid) #delete goal from model
         self.close() #exit dialog
 
     '''********************CLASS METHODS OPERATIONS********************'''
@@ -317,8 +318,6 @@ class AddEditViewSubGoal(QDialog):
 
         @purpose:
         '''
-        if self.method == Method.ADD:
-            self.model.deleteSubGoal(self.goalid, self.subgoalid)
         self.close() #exit dialog
 
 

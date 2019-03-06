@@ -151,6 +151,8 @@ class MainWindow(QMainWindow):
         window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
         if window.exec():
             self.refreshListView()
+        else:
+            self.model.deleteGoal(self.model.getCurrGID())
 
     @pyqtSlot()
     def loadCompleteGoal(self):

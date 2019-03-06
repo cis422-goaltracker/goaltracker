@@ -274,6 +274,26 @@ class Model(object):
 		self.currSGID = self.currSGID + 1 # increments current subgoal id
 		return self.currSGID #returns current subgoal id
 
+	def getCurrGID(self):
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		return self.currGID
+
+	def getCurrSGID(self):
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		return self.currSGID
+
 	'''********************SORT OPERATIONS********************'''
 	def categorySort(self):
 		'''
