@@ -76,7 +76,7 @@ If any of the windows happen to scale incorrectly, we would suggest to try chang
 
 Home page is shown below: 
 
-![alt text](hoempagepic)
+![alt text](goaltracker/images/homepage.png)
 
 ### To Add a Goal:
 On the home page, select button labeled "Add Goal"
