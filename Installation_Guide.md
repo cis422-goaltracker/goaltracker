@@ -26,23 +26,22 @@ https://pip.pypa.io/en/stable/installing/
 
 https://pypi.org/project/DateTime/
 
-
-### To install pyqt5:
+###To install pyqt5 run this bash command:
 ```bash
 $ pip3 install pyqt5
 ```
 
-### To install DateTime:
+###To install DateTime run this bash command:
 ```bash
 $ pip3 install DateTime
 ```
 
-### To install pyqtgraph:
+###To install pyqtgraph run this bash command:
 ```bash
 $ pip3 install pyqtgraph
 ```
 
-### To run the application:
+###To run the application run this bash command:
 ```bash
 $ python ViewController.py
 ```
