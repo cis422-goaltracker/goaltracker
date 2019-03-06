@@ -95,12 +95,9 @@ class AddEditViewGoal(QDialog):
         if self.model.isEffortTracking(self.goalid):
             self.model.stopEffortTracker(self.goalid)
             self.push_effort.setText("Start Effort Tracker")
-            print("model data",self.model.getEffortTrackingData())
-            print("goal data", self.model.getGoal(self.goalid).getEffortTracker())
         else:
             self.model.startEffortTracker(self.goalid)
             self.push_effort.setText("Stop Effort Tracker")
-            print(self.model.getEffortTrackingData())
 
     @pyqtSlot()
     def toggleDueDate(self): #FUNCTION NEEDS TO BE BUILT
