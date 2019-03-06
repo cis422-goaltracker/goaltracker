@@ -6,6 +6,10 @@
 *.json
 *.garbage
 *.gtd
+*.DS*
+*.gtd.bak
+*.gtd.dat
+*.gtd.dir
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -64,5 +68,3 @@ docs/_build/
 
 # PyBuilder
 target/
-#mac only
-.DS_Store

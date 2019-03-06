@@ -12,6 +12,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from datetime import datetime
 from enum import Enum
+import pyqtgraph as pg
 
 from Goal import Goal, SubGoal
 from Model import Model
@@ -19,7 +20,7 @@ from FileManager import FileManager
 from AnalysisGenerator import AnalysisGenerator
 
 # Global variable for storing UI files (HH)
-UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui"}
+UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui", "Analysis": "../UI/Analysis.ui", "UncompletedAnalysis": "../UI/UncompletedAnalysis.ui"}
 
 class Method(Enum):
     ADD = 1
@@ -179,7 +180,19 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        #update goal information in model
+
+        goalName = self.lineEdit_goal_name.text()
+        dueDate = self.dateTimeEdit_due_date.date()
+        category = self.lineEdit_category.text()
+        if self.radio_priority_low.isChecked():
+            priority = 3
+        elif self.radio_priority_medium.isChecked():
+            priority = 2
+        else:
+            priority = 1
+        memo = self.textEdit.toPlainText()
+
+        self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
 
 
         self.accept() #exit dialog
@@ -278,14 +291,15 @@ class AddEditViewSubGoal(QDialog):
             self.method = Method.ADD
             self.setWindowTitle('Add Subgoal')
             self.subgoalid = self.model.addSubGoal(self.goalid)
-
-            #load default information
-            
         else:
             self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Subgoal')
-
-            #load subgoal information
+            subgoal = self.model.getSubGoal(self.goalid, self.subgoalid)
+            self.lineEdit.setText(subgoal.getName())
+            if subgoal.isComplete():
+                self.label_status.setText("Status: Complete")
+            else:
+                self.label_status.setText("Status: Incomplete")
 
     @pyqtSlot()
     def loadSaveSubGoal(self): #FUNCTION NEEDS TO BE BUILT
@@ -297,7 +311,7 @@ class AddEditViewSubGoal(QDialog):
         @purpose:
         '''
         #update subGoal information model
-
+        self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())})
         self.accept() #exit dialog
 
     @pyqtSlot()
@@ -312,3 +326,84 @@ class AddEditViewSubGoal(QDialog):
         if self.method == Method.ADD:
             self.model.deleteSubGoal(self.goalid, self.subgoalid)
         self.close() #exit dialog
+
+
+class Analysis(QDialog):
+    def __init__(self, _model, _goalid): #FUNCTION NEEDS TO BE BUILT
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        #how do I access these functions? ask noah. is everything connected right
+
+        super(Analysis, self).__init__()
+        
+        loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
+
+        self.model = _model
+        self.goalid = _goalid
+
+        # string1 = "This Goal took you" + time_took(self.goalid) + "days to complete"
+        # #if goal does not have duedate skip
+        # string2 =   "That is" + end_time_comp(self.goalid) + "days faster/slower than anticipated"
+        # string3 =   "You spend on average" + time_per_day_summed(self.goalid) + "hours a day working on your goal"
+
+        # greater_val = max(before_due_num(self.model), after_due_num(self.model))
+        
+        # #should this calculation take into account all of the goals?
+        # #right now I divide the goals that didnt have to be rescheduled from the number of goals
+        # #should i add the requirement of the goal having a duedate?
+        # if greater_val == before_due_num(self.model):
+        #     sting4 =  "You completed %" + greater_val + "of your goals faster than aniticpated!"
+        #     string5 =  "Great job, keep up the good work!"
+        #     string6 =  ""
+
+        # if greater_val != before_due_num(self.model):
+        #     string4 =  "You completed %" + greater_val + "of your goals slower than aniticpated."
+        #     string5 =  "You seem to have trouble sticking to your goals. Consider giving"
+        #     string6 =  "yourself more time next time!"
+
+        # self.label_daystook.setText(string1)
+        # self.label_fasterslower.setText(string2)
+        # self.label_numhours.setText(string3)
+        # self.label_lowerlinetext_1.setText(string4)
+        # self.label_lowerlinetext_2.setText(string5)
+        # self.label_lowerlinetext_3.setText(string6)
+
+        #need to make graph into a picture.
+
+
+class UncompletedAnalysis(QDialog):
+    def __init__(self, _model): #FUNCTION NEEDS TO BE BUILT
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+        super(UncompletedAnalysis, self).__init__()
+        
+        loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
+
+        self.model = _model
+        
+        #should this calculation take into account all of the goals?
+        #right now I divide the goals that didnt have to be rescheduled from the number of goals
+        #should i add the requirement of the goal having a duedate?
+        # if greater_val == before_due_num(self.model):
+        #     sting1 =  "You completed %" + greater_val + "of your goals faster than aniticpated!"
+        #     string2 =  "Great job, keep up the good work!"
+        #     string3 =  ""
+
+        # if greater_val != before_due_num(self.model):
+        #     string1 =  "You completed %" + greater_val + "of your goals slower than aniticpated."
+        #     string2 =  "You seem to have trouble sticking to your goals. Consider giving"
+        #     string3 =  "yourself more time next time!"
+
+        # self.label_lowerlinetext_1.setText(string1)
+        # self.label_lowerlinetext_2.setText(string2)
+        # self.label_lowerlinetext_3.setText(string3)

@@ -5,6 +5,7 @@
 """
 
 from datetime import datetime, timedelta
+import datetime
 import copy
 
 class SubGoal(object):
@@ -12,20 +13,20 @@ class SubGoal(object):
 	def __init__(self, _id):
 		self.id = _id
 		self.name = ""
-		self.isComplete = False
+		self.isCompleted = False
 
 	"""METHODS FOR SUBGOAL"""
 	def update(self, _subGoalInformation):
 		self.name = _subGoalInformation["name"]
 
 	def complete(self):
-		self.isComplete = True
+		self.isCompleted = True
 
 	def isComplete(self):
-		return self.isComplete
+		return self.isCompleted
 
 	def toString(self):
-		if self.isComplete:
+		if self.isCompleted:
 			return "Name: " + self.name + " | Status: Complete"
 		else:
 			return "Name: " + self.name + " | Status: Incomplete"
@@ -42,7 +43,7 @@ class Goal(object):
 	def __init__(self, _id):
 		#constant features
 		self.id = _id #integer
-		self.startDate = datetime.now() #DateTime
+		self.startDate = datetime.datetime.now() #DateTime
 
 		#user updateable features
 		self.name = "" #string
@@ -144,7 +145,7 @@ class Goal(object):
 			status = "Incomplete"
 
 		if self.hasDueDate():
-			return "Name: " + self.name + " | Due Date: " + self.dueDate.strftime("%m/%d/%Y") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
+			return "Name: " + self.name + " | Due Date: " + self.dueDate.toString("yyyy.MM.dd") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 		else:
 			return "Name: " + self.name + "| Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 

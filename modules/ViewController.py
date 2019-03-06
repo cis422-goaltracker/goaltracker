@@ -21,10 +21,10 @@ from FileManager import FileManager
 from AnalysisGenerator import AnalysisGenerator
 
 #UI Imports
-from Dialogs import AddEditViewGoal, AddEditViewSubGoal
+from Dialogs import AddEditViewGoal, AddEditViewSubGoal, UncompletedAnalysis, Analysis
 
 # Global variable for storing UI files (HH)
-UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubGoal": "../UI/AddEditViewSubGoal.ui"}
+UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui", "Analysis": "../UI/Analysis.ui", "UncompletedAnalysis": "../UI/UncompletedAnalysis.ui"}
 
 class State(Enum):
     CURRENT = 1
@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Current Goals") #set label
+        self.label_listTitle.setText("Current Goals") #set label
         self.state = State.CURRENT #set state
         self.refreshListView()
 
@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Overdue Goals") #set label
+        self.label_listTitle.setText("Overdue Goals") #set label
         self.state = State.OVERDUE #set state
         self.refreshListView()
 
@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("Completed Goals") #set label
+        self.label_listTitle.setText("Completed Goals") #set label
         self.state = State.COMPLETED #set state
         self.refreshListView()
 
@@ -111,7 +111,7 @@ class MainWindow(QMainWindow):
 
         @purpose:
         '''
-        self.label_Goals.setText("All Goals") #set label
+        self.label_listTitle.setText("All Goals") #set label
         self.state = State.ALL #set state
         self.refreshListView()
 
@@ -211,7 +211,13 @@ class MainWindow(QMainWindow):
         @purpose:
         '''
         if self.goalIsSelected():
-            pass
+            goalid = self.selectedListItemId
+            if self.model.getGoal(goalid).isComplete() == True:
+                window = Analysis(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
+            else:
+                window = UncompletedAnalysis(self.model)
+            if window.exec():
+                self.refreshListView()
         else:
             print("No Goals")
 
@@ -285,46 +291,6 @@ class MainWindow(QMainWindow):
         goalList = self.getGoalStateList()
         self.addToListView(goalList)
 
-
-# addDialog = EditGoalWindow(self.model)
-            # if addDialog.exec():
-            #     return(True)
-            # return False
-
-
-
-#@KELLIE HAWKS, EditGoalWindow is in "Dialogs.py" its called "AddEditViewGoal"
-# class EditGoalWindow(QDialog):
-#     def __init__(self, model):
-
-#         super(EditGoalWindow, self).__init__()
-#         # Load the Edit Goal Window UI
-#         loadUi(UI_PATHS["AddEditViewGoal"], self)
-
-#         self.push_save.clicked.connect(self.save_goal)
-        
-#         self.setWindowTitle('Add/Edit Goal') # Update the window's title
-#         #self.endDate.setDate(datetime.today()) # Set the QDateEdit widget to display a predetermined date (today's date)
-#         self.radio_priority_low.setChecked(True) # Set the RadioButton widget to be checked according to a predetermined priority (low)
-
-#         self.model = model
-#     @pyqtSlot()
-#     def save_goal(self):
-
-#         goalName = self.lineEdit_goal_name.text()
-#         endDate = self.dateTimeEdit_due_date.date()
-#         category = self.lineEdit_category.text()
-#         priority = self.buttonGroup.checkedButton().text()
-#         memo = self.textEdit.toPlainText()
-
-#         self.model.addGoal({"name": goalName, "category": category, "priority": priority, "memo": memo}, [])
-        
-#         mylist = self.model.getGoalList()
-#         for goal in mylist:
-#             print(goal.getName(), goal.getCategory(), goal.getPriority(), goal.getMemo())
-
-#         self.accept()
-#         return 
     
 def main():
     '''
@@ -334,8 +300,8 @@ def main():
 
         @purpose:
         '''
-    filemanager = FileManager() #create FileManager object
-    model = filemanager.load("potato.gtd") #load File and store
+    filemanager = FileManager("potato.gtd") #create FileManager object
+    model = filemanager.load() #load File and store
     app = QApplication(sys.argv) # Initialize PyQT application
     window = MainWindow(model) # Create a window of the main display of the Goal Tracker
     window.show() # Show the window
