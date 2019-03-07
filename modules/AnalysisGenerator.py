@@ -21,24 +21,23 @@ class AnalysisGenerator(object):
 	def __init__(self):
 		pass
 
-	def getActiveTime(self, _gid, _model, _currentDate):
+	def getActiveTime(self, _gid, _model):
 		goal = _model.getGoal(_gid) #gets the goal form the model
 		if goal.isComplete(): #if goal is complete
-			return goal.getFinishDate() - goal.getStartDate() #find the difference between finish and start date
+
+			return str((goal.getFinishDate() - goal.getStartDate()).seconds // 86400) #find the difference between finish and start date
+			
 		else:
-			return _currentDate - goal.getStartDate() #find the difference between the current date and start date
+			return str((datetime.datetime.now() - goal.getStartDate()).seconds // 86400) #find the difference between the current date and start date
 
 	def trackProgress(self, _gid, _model):
 		goal = _model.getGoal(_gid) #gets the goal from the model
-		subgoaldict = goal.subGoals()	#grabs the dictionary of subgoals
+		subgoallist = goal.getSubGoalList(_gid)	#grabs the dictionary of subgoals
 		subcompletedcount = 0			#starts a counter for completed subgoals
-		for value in subgoaldict:	#for every value in dictionary
-			if value == True:	#if that value is true i.e. goal is completed
+		for subgoal in subgoallist:	#for every value in dictionary
+			if subgoal.isComplete():	#if that value is true i.e. goal is completed
 				subcompletedcount += 1	#increase goal count
-		return subcompletedcount/ len(subgoaldict) #return number completed over number of subgoals
-
-	def trackEffort(self, _gid, _model):
-		pass
+		return subcompletedcount/ len(subgoallist) #return number completed over number of subgoals
 
 
 	def getFasterSlower(self, _gid, _model):
@@ -47,25 +46,33 @@ class AnalysisGenerator(object):
 			return -10000;	#return -10000 (a number that is almost possible to achieve in normal day to day use)
 		else:
 			if goal.isComplete(): 	#if goal is complete
-				return goal.getInitialAnticipatedFinishDate() - goal.getFinishDate() #calculates the number of days from anticipated finish date
+				return str((goal.getInitialDueDate() - goal.getFinishDate()).seconds // 86400) #calculates the number of days from anticipated finish date
 
 
-	def getAveragetime(self, _gid, _model):
-		#how do i get the dictionary of the datetime objects and time deltas for effort tracker?
+	def getAverageTime(self, _gid, _model):
+		goal = _model.getGoal(_gid)
+		effortTrackingData = goal.getEffortTrackingData()
 
-		ret = {} #creates a dictionary to return
-		for dt in dict.keys(): #loops through keys in dictionarya
-			if not (dt.date() in ret): #if date is not in return dictioary
-					ret[dt.date()] = dict[dt] #add timedelta if does not exist
+		ret = {}
+
+		for pair in effortTrackingData:
+			fintime = pair[0]
+			starttime= pair[1]
+
+			complete = fintime - starttime
+			date = fintime.date()
+
+			if not (date in ret):
+				ret[date] = complete
 			else:
-				ret[dt.date()] += dict[dt] #adds timedelta if date already exists
-		
+				ret[date] += complete
+
 		for values in ret.keys(): #for the time delta values in the new dictionary made
 
 			seconds = values.total_seconds() #solve for how many hours
-			hours = seconds // 3600 #more computation
+			hours = seconds // 86400 #more computation
 
-		timesum = sum(dt.values()) #sum all the values (now as hours)
+		timesum = sum(ret.values()) #sum all the values (now as hours)
 
 		return timesum/ len(ret) #return the average per day
 
@@ -133,12 +140,6 @@ class AnalysisGenerator(object):
 
 		return values
 
-
-	# time_took = calculateActiveTime()
-	# end_time_comp = calculateFasterSlower()
-	# time_per_day_summed = calculateAverageTime()
-	# before_due_num = calculateBeforeDuedate()
-	# after_due_num = calculateAfterDuedate()
 	
 	"""METHODS FOR ANALYSISGENERATOR"""
 
@@ -147,36 +148,3 @@ class AnalysisGenerator(object):
 
 
 	"""SETTERS FOR ANALYSISGENERATOR"""
-
-
-class CustomWidget(pg.GraphicsWindow):
-    pg.setConfigOption('background', 'w')
-    pg.setConfigOption('foreground', 'k')
-    ptr1 = 0
-    def __init__(self, parent=None, **kargs):
-        pg.GraphicsWindow.__init__(self, **kargs)
-        self.setParent(parent)
-        self.setWindowTitle('PyQt Graph : Time spent per day for Task')    #adds title for window
-        p1 = self.addPlot(labels =  {'left':'Time Spent', 'bottom':'Day'}) #adds labels to left and bottom side
-        
-        self.data1 = np.random.normal(size=10)		   # what does this line do?
-        print(data1)
-        
-        self.curve1 = p1.plot(self.data1, pen=(3,3))   #this is how the data is plotted, with 3,3 for pen size
-
-        timer = pg.QtCore.QTimer(self)			#create timer
-        timer.timeout.connect(self.update)		#connect time to update
-        timer.start(60) 						#Updates itself every 60 seconds (1 minute)
-
-    def update(self):
-        self.data1[:-1] = self.data1[1:]  		# shift data in the array one sample left
-                            # (see also: np.roll)
-        self.data1[-1] = np.random.normal()
-        self.ptr1 += 1
-        self.curve1.setData(self.data1)
-        self.curve1.setPos(self.ptr1, 0)
-
-if __name__ == '__main__':
-    w = CustomWidget()
-    w.show()
-    QtGui.QApplication.instance().exec_()
