@@ -338,19 +338,24 @@ class Analysis(QDialog):
         self.goalid = _goalid
 
         string1 = "This Goal took you " + self.ag.getActiveTime(self.goalid, self.model) + " days to complete"
-        # #if goal does not have duedate skip
-        string2 =   "That is " + self.ag.getFasterSlower(self.goalid, self.model) + " days faster/slower than anticipated"
+        if self.ag.getFasterSlower(self.goalid, self.model) == -10000:
+            string2 = ""
+        else:
+            if self.ag.getFasterSlower(self.goalid, self.model) > 0:
+                string2 = "That is " + str(self.ag.getFasterSlower(self.goalid, self.model)) + " days faster than anticipated"
+            else:
+                string2 = "That is " + str(self.ag.getFasterSlower(self.goalid, self.model)) + " days slower than anticipated" 
         string3 =   "You spend on average " + self.ag.getAverageTime(self.goalid, self.model) + " hours a day working on your goal"
 
         greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
         
         if greater_val == self.ag.getBeforeDuedate(self.model):
-            string4 =  "You completed " + greater_val + "% of your goals faster than aniticpated!"
+            string4 =  "You completed " + str(greater_val) + "% of your goals faster than aniticpated!"
             string5 =  "Great job, keep up the good work!"
             string6 =  ""
 
         if greater_val != self.ag.getBeforeDuedate(self.model):
-            string4 =  "You completed " + greater_val + "% of your goals slower than aniticpated."
+            string4 =  "You completed " + str(greater_val) + "% of your goals slower than aniticpated."
             string5 =  "You seem to have trouble sticking to your goals. Consider giving"
             string6 =  "yourself more time next time!"
 
@@ -378,21 +383,18 @@ class UncompletedAnalysis(QDialog):
         self.model = _model
         self.ag = AnalysisGenerator()
 
-        # greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
+        greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
+        
+        if greater_val == self.ag.getBeforeDuedate(self.model):
+            string1 =  "You completed " + str(greater_val) + "% of your goals faster than aniticpated!"
+            string2 =  "Great job, keep up the good work!"
+            string3 =  ""
 
-        # #should this calculation take into account all of the goals?
-        # #right now I divide the goals that didnt have to be rescheduled from the number of goals
-        # #should i add the requirement of the goal having a duedate?
-        # if greater_val == self.ag.getBeforeDuedate(self.model):
-        #     sting1 =  "You completed %" + greater_val + "of your goals faster than aniticpated!"
-        #     string2 =  "Great job, keep up the good work!"
-        #     string3 =  ""
+        if greater_val != self.ag.getBeforeDuedate(self.model):
+            string1 =  "You completed " + str(greater_val) + "% of your goals slower than aniticpated."
+            string2 =  "You seem to have trouble sticking to your goals. Consider giving"
+            string3 =  "yourself more time next time!"
 
-        # if greater_val != self.ag.getBeforeDuedate(self.model):
-        #     string1 =  "You completed %" + greater_val + "of your goals slower than aniticpated."
-        #     string2 =  "You seem to have trouble sticking to your goals. Consider giving"
-        #     string3 =  "yourself more time next time!"
-
-        # self.label_lowerlinetext_1.setText(string1)
-        # self.label_lowerlinetext_2.setText(string2)
-        # self.label_lowerlinetext_3.setText(string3)
+        self.label_lowerlinetext_1.setText(string1)
+        self.label_lowerlinetext_2.setText(string2)
+        self.label_lowerlinetext_3.setText(string3)

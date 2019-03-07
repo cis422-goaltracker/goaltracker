@@ -13,9 +13,6 @@ import datetime
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore, QtGui
 
-#For Kellie to work on
-#need to pip install pyqtgraph
-
 class AnalysisGenerator(object):
 	"""CONSTRUCTOR FOR ANALYSISGENERATOR"""
 	def __init__(self):
@@ -31,6 +28,7 @@ class AnalysisGenerator(object):
 			return str((datetime.datetime.now() - goal.getStartDate()).seconds // 86400) #find the difference between the current date and start date
 
 	def trackProgress(self, _gid, _model):
+		
 		goal = _model.getGoal(_gid) #gets the goal from the model
 		subgoallist = goal.getSubGoalList(_gid)	#grabs the dictionary of subgoals
 		subcompletedcount = 0			#starts a counter for completed subgoals
@@ -41,31 +39,33 @@ class AnalysisGenerator(object):
 
 
 	def getFasterSlower(self, _gid, _model):
+		
 		goal = _model.getGoal(_gid)	#gets the goal from the model
 		if goal.hasDueDate() == False:	#if the goal does not have a due date #???? Does this function exist ????
 			return -10000;	#return -10000 (a number that is almost possible to achieve in normal day to day use)
 		else:
 			if goal.isComplete(): 	#if goal is complete
-				return str((goal.getInitialDueDate() - goal.getFinishDate()).seconds // 86400) #calculates the number of days from anticipated finish date
+				return ((goal.getInitialDueDate() - goal.getFinishDate()).seconds // 86400) #calculates the number of days from anticipated finish date
 
 
 	def getAverageTime(self, _gid, _model):
-		goal = _model.getGoal(_gid)
-		effortTrackingData = goal.getEffortTrackingData()
+		
+		goal = _model.getGoal(_gid) #get goal from model
+		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
-		ret = {}
+		ret = {} #create a dictionary to add these values to
 
-		for pair in effortTrackingData:
-			fintime = pair[0]
-			starttime= pair[1]
+		for pair in effortTrackingData: #for the pair in efforttracking data
+			fintime = pair[0] #get finish time
+			starttime= pair[1] #get end time
 
-			complete = fintime - starttime
-			date = fintime.date()
+			complete = fintime - starttime #find total amoutn of time
+			date = fintime.date() #get the data
 
-			if not (date in ret):
-				ret[date] = complete
+			if not (date in ret): #if the date does not exist in the return dictionary
+				ret[date] = complete #add it
 			else:
-				ret[date] += complete
+				ret[date] += complete #sum the timedeltas
 
 		for values in ret.keys(): #for the time delta values in the new dictionary made
 
@@ -74,8 +74,8 @@ class AnalysisGenerator(object):
 
 		timesum = sum(ret.values()) #sum all the values (now as hours)
 
-		if len(ret) == 0:
-			return str(0)
+		if len(ret) == 0: #if the length of the return dictionary is zero
+			return str(0) #return zero because can't div by zero
 		else:
 			return str(timesum/ len(ret)) #return the average per day
 
@@ -84,7 +84,7 @@ class AnalysisGenerator(object):
 		reschedulecount = 0	#creates counter for number of goals rescheduled
 		completedcount = 0 	#creates counter for completed goals
 		
-		goalList = _model.getGoalList()
+		goalList = _model.getGoalList() #get goallist from model
 
 		for goal in goalList:	#looks through goals in model
 			if goal.hasDueDate():
@@ -93,17 +93,15 @@ class AnalysisGenerator(object):
 				if goal.isComplete(): #increments completed goal count
 					completedcount += 1
 		completed_before_due = completedcount - reschedulecount #finds number of goals not reschedules
-		return str(completed_before_due/completedcount) #calculates and returns percentage of goals done befoe duedate
+		return ((completed_before_due/completedcount) * 100) #calculates and returns percentage of goals done befoe duedate
 
 
 	def getAfterDuedate(self, _model):
-		#should this be changed? it originally relied on having a due date fro every goal. now the stats 
-		#aren't as accurate. should i just be looking at the goals that DID have a due date attached to them?
 
 		reschedulecount = 0 #creates counter for number of goals rescheduled
 		completedcount = 0 	#creates counter for completed goals
 		
-		goalList = _model.getGoalList()
+		goalList = _model.getGoalList() #get goallist from model
 
 		for goal in goalList:	#loops through goals in model
 			if goal.hasDueDate():
@@ -112,16 +110,31 @@ class AnalysisGenerator(object):
 				if goal.isComplete(): #increments completed goal count
 					completedcount += 1
 
-		return str(reschedulecount/completedcount) #calculates and returns percentage of goals completed after inital duedate
+		return ((reschedulecount/completedcount) * 100) #calculates and returns percentage of goals completed after inital duedate
 		
-	#jiazhen looking into this
-	def tranformDatesList(self, _model):
-		ret = {} #creates a dictionary to return
-		for dt in dict.keys(): #loops through keys in dictionarya
-			if not (dt.date() in ret): #if date is not in return dictioary
-					ret[dt.date()] = dict[dt] #add timedelta if does not exist
+	def tranformDatesList(self, _gid, _model):
+		
+		goal = _model.getGoal(_gid) #get goal from model
+		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
+
+		ret = {} #create a dictionary to add these values to
+
+		for pair in effortTrackingData: #for the pair in efforttracking data
+			fintime = pair[0] #get finish time
+			starttime= pair[1] #get end time
+
+			complete = fintime - starttime #find total amoutn of time
+			date = fintime.date() #get the data
+
+			if not (date in ret): #if the date does not exist in the return dictionary
+				ret[date] = complete #add it
 			else:
-				ret[dt.date()] += dict[dt] #add timedelta if date already exists
+				ret[date] += complete #sum the timedeltas
+
+		for values in ret.keys(): #for the time delta values in the new dictionary made
+
+			seconds = values.total_seconds() #solve for how many hours
+			hours = seconds // 86400 #more computation
 		
 		for key in ret.keys(): #for every key in the dictionary
 			datetime.strftime(key,'%b %d, %Y') #turn it into a string
@@ -130,29 +143,32 @@ class AnalysisGenerator(object):
 
 		return dates
 
-	def tranformValuesList(self, _model):
-		ret = {} #creates a dictionary to return
-		for dt in dict.keys(): #loops through keys in dictionarya
-			if not (dt.date() in ret): #if date is not in return dictioary
-					ret[dt.date()] = dict[dt] #add timedelta if does not exist
-			else:
-				returnet[dt.date()] += dict[dt] #add timedelta if date already exists
+	def tranformValuesList(self, _gid, _model):
 		
+		goal = _model.getGoal(_gid) #get goal from model
+		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
+
+		ret = {} #create a dictionary to add these values to
+
+		for pair in effortTrackingData: #for the pair in efforttracking data
+			fintime = pair[0] #get finish time
+			starttime= pair[1] #get end time
+
+			complete = fintime - starttime #find total amoutn of time
+			date = fintime.date() #get the data
+
+			if not (date in ret): #if the date does not exist in the return dictionary
+				ret[date] = complete #add it
+			else:
+				ret[date] += complete #sum the timedeltas
+
 		for values in ret.keys(): #for the time delta values in the new dictionary made
+
 			seconds = values.total_seconds() #solve for how many hours
-			hours = seconds // 3600 #more computation
+			hours = seconds // 86400 #more computation
 			
-			ret[values] = hours #assign hours to new dictionary ???? What is the right way to assign this ???? 
+			ret[values] = hours #assign hours to new dictionary
 
 		values = list(ret.values()) #make a list of values
 
 		return values
-
-	
-	"""METHODS FOR ANALYSISGENERATOR"""
-
-
-	"""GETTERS FOR ANALYSISGENERATOR"""
-
-
-	"""SETTERS FOR ANALYSISGENERATOR"""
