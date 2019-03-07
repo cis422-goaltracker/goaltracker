@@ -18,6 +18,7 @@ from Goal import Goal, SubGoal
 from Model import Model
 from FileManager import FileManager
 from AnalysisGenerator import AnalysisGenerator
+from GenerateGraph import Canvas
 
 # Global variable for storing UI files (HH)
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui", "Analysis": "../UI/Analysis.ui", "UncompletedAnalysis": "../UI/UncompletedAnalysis.ui"}
@@ -96,7 +97,6 @@ class AddEditViewGoal(QDialog):
         if self.model.isEffortTracking(self.goalid):
             self.model.stopEffortTracker(self.goalid)
             self.push_effort.setText("Start Effort Tracker")
-            print(self.model.getEffortTracker())
         else:
             self.model.startEffortTracker(self.goalid)
             self.push_effort.setText("Stop Effort Tracker")
@@ -328,7 +328,8 @@ class Analysis(QDialog):
         super(Analysis, self).__init__()
         
         loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
-
+        canvas = Canvas(self, width=5, height=4)
+        canvas.move(0,0)
         self.model = _model
         self.goalid = _goalid
 
