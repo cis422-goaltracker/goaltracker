@@ -301,7 +301,9 @@ def main():
     app = QApplication(sys.argv) # Initialize PyQT application
     window = MainWindow(model) # Create a window of the main display of the Goal Tracker
     window.show() # Show the window
-    sys.exit(app.exec_()) # Exit the program
+    app.exec_()
+    filemanager.save(model)
+    sys.exit() # Exit the program
 
 if __name__ == '__main__':
     main()
