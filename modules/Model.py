@@ -137,7 +137,7 @@ class Model(object):
 
 		@purpose
 		'''
-		return self.goalList[self.getIndex(_gid)].getSubGoals()
+		return self.goalList[self.getIndex(_gid)].getSubGoalList()
 
 	'''********************SUBGOAL OPERATIONS********************'''
 	def addSubGoal(self, _gid):

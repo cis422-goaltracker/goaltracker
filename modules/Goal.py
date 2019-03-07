@@ -111,8 +111,8 @@ class Goal(object):
 		#programmatically updateable features
 		self.initialDueDate = None #DateTime
 		self.finishDate = None #DateTime/Null
-		self.effortTracker = set() #set of tuples (finish time, start time)
-		self.subGoals = [] #list of SubGoals
+		self.effortTracker = [] #list of tuples (finish time, start time)
+		self.subGoalList = [] #list of SubGoals
 		self.sortingMethod = "category" #string
 	
 	"""Special Methods"""
@@ -213,7 +213,7 @@ class Goal(object):
 
         @purpose:
         '''
-		self.subGoals.append(SubGoal(_sgid))
+		self.subGoalList.append(SubGoal(_sgid))
 
 	def updateSubGoal(self, _sgid, _subGoalInformation):
 		'''
@@ -223,7 +223,7 @@ class Goal(object):
 
         @purpose:
         '''
-		self.subGoals[self.getIndex(_sgid)].update(_subGoalInformation)
+		self.subGoalList[self.getIndex(_sgid)].update(_subGoalInformation)
 
 	def completeSubGoal(self, _sgid):
 		'''
@@ -233,7 +233,7 @@ class Goal(object):
 
         @purpose:
         '''
-		self.subGoals[self.getIndex(_sgid)].complete()
+		self.subGoalList[self.getIndex(_sgid)].complete()
 
 	def deleteSubGoal(self, _sgid):
 		'''
@@ -243,7 +243,7 @@ class Goal(object):
 
         @purpose:
         '''
-		self.subGoals.pop(self.getIndex(_sgid))
+		self.subGoalList.pop(self.getIndex(_sgid))
 
 	def getSubGoal(self, _sgid):
 		'''
@@ -253,7 +253,7 @@ class Goal(object):
 
         @purpose:
         '''
-		return self.subGoals[self.getIndex(_sgid)]
+		return self.subGoalList[self.getIndex(_sgid)]
 
 	def getIndex(self, _sgid):
 		'''
@@ -263,7 +263,7 @@ class Goal(object):
 
         @purpose:
         '''
-		for index, subgoal in enumerate(self.subGoals):
+		for index, subgoal in enumerate(self.subGoalList):
 			if subgoal.getId() == _sgid:
 				return index
 		return -1
@@ -277,7 +277,7 @@ class Goal(object):
 
         @purpose:
         '''
-		self.effortTracker.add((_finishTime, _startTime)) #adds a tuple (finish time, start time) to the effort tracker
+		self.effortTracker.append((_finishTime, _startTime)) #adds a tuple (finish time, start time) to the effort tracker
 
 	'''To String Operations'''
 	def toString(self):
@@ -410,7 +410,7 @@ class Goal(object):
         '''
 		return copy.deepcopy(self.effortTracker) #returns a copy of the Effort Tracker of the Goal
 
-	def getSubGoals(self):
+	def getSubGoalList(self):
 		'''
         @param:
 
@@ -418,7 +418,7 @@ class Goal(object):
 
         @purpose:
         '''
-		return copy.deepcopy(self.subGoals) #returns a copy of the Sub Goals of the Goal
+		return copy.deepcopy(self.subGoalList) #returns a copy of the Sub Goals of the Goal
 
 	def getSortingMethod(self):
 		'''
