@@ -76,8 +76,6 @@ class AddEditViewGoal(QDialog):
                 self.label_status.setText("Status: Complete")
             else:
                 self.label_status.setText("Status: Incomplete")
-            self.dateTimeEdit_due_date.setDate(goal.getDueDate())
-            self.dateTimeEdit_due_date.setTime(goal.getDueDate().time())
 
             if goal.getPriority() == 3:
                 self.radio_priority_low.isChecked()
@@ -89,6 +87,17 @@ class AddEditViewGoal(QDialog):
             self.lineEdit_category.setText(goal.getCategory())
             self.textEdit.setText(goal.getMemo())
             self.refreshListView()
+            if goal.getDueDate() == None:
+                # Set check mark
+                self.hasDueDate = False
+                self.dateTimeEdit_due_date.setDate(QDate.currentDate())
+                self.dateTimeEdit_due_date.setTime(QTime.currentTime())
+                self.checkBox_due_date.setCheckState(True)
+            else:
+                self.dateTimeEdit_due_date.setDate(goal.getDueDate())
+                self.dateTimeEdit_due_date.setTime(goal.getDueDate().time())
+                self.hasDueDate = True
+        self.setDueDateText()
 
     '''********************PYQTSLOT OPERATIONS********************'''
 
@@ -103,7 +112,8 @@ class AddEditViewGoal(QDialog):
 
     @pyqtSlot()
     def toggleDueDate(self): #FUNCTION NEEDS TO BE BUILT
-       pass
+        self.hasDueDate = not self.hasDueDate
+        self.setDueDateText()
 
     @pyqtSlot()
     def loadAddSubGoal(self):
@@ -175,7 +185,7 @@ class AddEditViewGoal(QDialog):
         goalName = self.lineEdit_goal_name.text()
         date = self.dateTimeEdit_due_date.date()
         time = self.dateTimeEdit_due_date.time()
-        dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
+        dueDate = None if not self.hasDueDate else datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
         category = self.lineEdit_category.text()
         if self.radio_priority_low.isChecked():
             priority = 3
@@ -251,6 +261,17 @@ class AddEditViewGoal(QDialog):
         if len(self.model.getGoalList()) != 0:
             subGoalList = self.model.getSubGoalList(self.goalid)
             self.addToListView(subGoalList)
+
+    def setDueDateText(self):
+        date = self.dateTimeEdit_due_date.date()
+        time = self.dateTimeEdit_due_date.time()
+        dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
+        if not self.hasDueDate:
+            self.label_goal_name_4.setText("No Due Date")
+        elif dueDate > datetime.now():
+            self.label_goal_name_4.setText(str((dueDate - datetime.now()).days) + " Days Until Due")
+        else:
+            self.label_goal_name_4.setText("Overdue")
 
 
 class AddEditViewSubGoal(QDialog):
