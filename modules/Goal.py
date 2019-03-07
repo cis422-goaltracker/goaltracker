@@ -111,7 +111,7 @@ class Goal(object):
 		#programmatically updateable features
 		self.initialDueDate = None #DateTime
 		self.finishDate = None #DateTime/Null
-		self.effortTracker = [] #list of tuples (finish time, start time)
+		self.effortTrackingData = [] #list of tuples (finish time, start time)
 		self.subGoalList = [] #list of SubGoals
 		self.sortingMethod = "category" #string
 	
@@ -400,7 +400,7 @@ class Goal(object):
         '''
 		return self.finishDate #returns the Goal Finish Date
 
-	def getEffortTracker(self):
+	def getEffortTrackingData(self):
 		'''
         @param:
 
@@ -408,7 +408,7 @@ class Goal(object):
 
         @purpose:
         '''
-		return copy.deepcopy(self.effortTracker) #returns a copy of the Effort Tracker of the Goal
+		return copy.deepcopy(self.effortTrackingData) #returns a copy of the Effort Tracker of the Goal
 
 	def getSubGoalList(self):
 		'''
