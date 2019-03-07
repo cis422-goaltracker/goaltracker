@@ -57,8 +57,6 @@ class AddEditViewGoal(QDialog):
         self.push_cancel.clicked.connect(self.loadCancelGoal)
         self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
 
-        self.refreshListView()
-
         if self.goalid == None:
             self.method = Method.ADD
             self.setWindowTitle('Add Goal')
@@ -89,6 +87,7 @@ class AddEditViewGoal(QDialog):
 
             self.lineEdit_category.setText(goal.getCategory())
             self.textEdit.setText(goal.getMemo())
+            self.refreshListView()
 
     '''********************PYQTSLOT OPERATIONS********************'''
 
