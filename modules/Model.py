@@ -10,12 +10,12 @@ import copy
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
-	def __init__(self, _goalList, _currGID, _currSGID, _effortTrackingData):
+	def __init__(self, _goalList, _currGID, _currSGID, _effortTracker):
 		'''
 		@param: _goalList (list) - 
 		@param: _currGID (integer) - 
 		@param: _currSGID (integer) - 
-		@param: _effortTrackingData (dictionary) - 
+		@param: _effortTracker (dictionary) - 
 
 		@return: None
 
@@ -24,7 +24,7 @@ class Model(object):
 		self.goalList = _goalList #list of goal objects
 		self.currGID = _currGID #integer
 		self.currSGID = _currSGID #integer
-		self.effortTrackingData = _effortTrackingData #dictionary goalid-starttime pairs
+		self.effortTracker = _effortTracker #dictionary goalid-starttime pairs
 
 	"""METHODS FOR MODEL"""
 	'''********************GOALLIST OPERATIONS********************'''
@@ -206,7 +206,7 @@ class Model(object):
 
 		@purpose
 		'''
-		self.effortTrackingData[_gid] = datetime.now()
+		self.effortTracker[_gid] = datetime.now()
 
 	def isEffortTracking(self, _gid):
 		'''
@@ -216,7 +216,7 @@ class Model(object):
 
 		@purpose
 		'''
-		return _gid in self.effortTrackingData
+		return _gid in self.effortTracker
 
 	def stopEffortTracker(self, _gid):
 		'''
@@ -226,7 +226,7 @@ class Model(object):
 
 		@purpose: This method takes the _gid to find the goal in
 		'''
-		self.goalList[self.getIndex(_gid)].addEffortTrack(datetime.now(), self.effortTrackingData.pop(_gid))
+		self.goalList[self.getIndex(_gid)].addEffortTrack(datetime.now(), self.effortTracker.pop(_gid))
 
 	def manuallyInputEffort(self, _gid, _startTime, _finishTime):
 		'''
@@ -241,7 +241,7 @@ class Model(object):
 		'''
 		self.goalList[self.getIndex(_gid)].addEffortTrack(_finishTime, _startTime)
 
-	def getEffortTrackingData(self):
+	def getEffortTracker(self):
 		'''
 		@param: None
 
@@ -249,7 +249,7 @@ class Model(object):
 
 		@purpose: This method returns a copy of the effort tracking data
 		'''
-		return copy.deepcopy(self.effortTrackingData) #returns the a copy of the effort tracking data
+		return copy.deepcopy(self.effortTracker) #returns the a copy of the effort tracking data
 
 	'''********************GID AND SGID OPERATIONS********************'''
 	def getNewGID(self):

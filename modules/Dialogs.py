@@ -96,6 +96,7 @@ class AddEditViewGoal(QDialog):
         if self.model.isEffortTracking(self.goalid):
             self.model.stopEffortTracker(self.goalid)
             self.push_effort.setText("Start Effort Tracker")
+            print(self.model.getEffortTracker())
         else:
             self.model.startEffortTracker(self.goalid)
             self.push_effort.setText("Stop Effort Tracker")

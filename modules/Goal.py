@@ -277,7 +277,7 @@ class Goal(object):
 
         @purpose:
         '''
-		self.effortTracker.append((_finishTime, _startTime)) #adds a tuple (finish time, start time) to the effort tracker
+		self.effortTrackingData.append((_finishTime, _startTime)) #adds a tuple (finish time, start time) to the effort tracker
 
 	'''To String Operations'''
 	def toString(self):
