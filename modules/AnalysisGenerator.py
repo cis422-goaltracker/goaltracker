@@ -93,7 +93,10 @@ class AnalysisGenerator(object):
 				if goal.isComplete(): #increments completed goal count
 					completedcount += 1
 		completed_before_due = completedcount - reschedulecount #finds number of goals not reschedules
-		return ((completed_before_due/completedcount) * 100) #calculates and returns percentage of goals done befoe duedate
+		if completedcount == 0:
+			return 0
+		else:
+			return ((completed_before_due/completedcount) * 100) #calculates and returns percentage of goals done befoe duedate
 
 
 	def getAfterDuedate(self, _model):
@@ -110,7 +113,10 @@ class AnalysisGenerator(object):
 				if goal.isComplete(): #increments completed goal count
 					completedcount += 1
 
-		return ((reschedulecount/completedcount) * 100) #calculates and returns percentage of goals completed after inital duedate
+		if completedcount == 0:
+			return 0
+		else:
+			return ((reschedulecount/completedcount) * 100) #calculates and returns percentage of goals completed after inital duedate
 		
 	def tranformDatesList(self, _gid, _model):
 		
