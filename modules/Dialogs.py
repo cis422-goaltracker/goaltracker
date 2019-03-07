@@ -18,6 +18,7 @@ from Goal import Goal, SubGoal
 from Model import Model
 from FileManager import FileManager
 from AnalysisGenerator import AnalysisGenerator
+from GenerateGraph import Canvas
 
 # Global variable for storing UI files (HH)
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui", "Analysis": "../UI/Analysis.ui", "UncompletedAnalysis": "../UI/UncompletedAnalysis.ui"}
@@ -329,6 +330,9 @@ class Analysis(QDialog):
         loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
 
         self.ag = AnalysisGenerator()
+
+        canvas = Canvas(self, width=5, height=4)
+        canvas.move(0,0)
 
         self.model = _model
         self.goalid = _goalid
