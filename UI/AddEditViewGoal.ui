@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>853</height>
+    <height>858</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -201,7 +201,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Low</string>
+        <string>&amp;Low</string>
        </property>
        <property name="checked">
         <bool>true</bool>
@@ -219,7 +219,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Medium</string>
+        <string>Medi&amp;um</string>
        </property>
        <property name="checked">
         <bool>false</bool>
@@ -237,7 +237,7 @@
         </font>
        </property>
        <property name="text">
-        <string>High</string>
+        <string>Hi&amp;gh</string>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup</string>
@@ -350,18 +350,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="push_delete_subgoal">
-       <property name="font">
-        <font>
-         <pointsize>16</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Delete</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="push_edit_view_subgoal">
        <property name="font">
         <font>
@@ -370,6 +358,18 @@
        </property>
        <property name="text">
         <string>Edit/View</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="push_delete_subgoal">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Delete</string>
        </property>
       </widget>
      </item>

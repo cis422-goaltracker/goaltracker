@@ -26,7 +26,6 @@ https://pip.pypa.io/en/stable/installing/
 
 https://pypi.org/project/DateTime/
 
-
 ###To install pyqt5 run this bash command:
 ```bash
 $ pip3 install pyqt5

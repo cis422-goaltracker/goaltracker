@@ -59,7 +59,7 @@ class Model(object):
 		@purpose: This function filters the goalList leaving only Goals that are over due.
 		It then returns the filtered list.
 		'''
-		return [goal for goal in self.goalList if goal.isOverDue()]
+		return [goal for goal in self.goalList if goal.isOverDue() and not goal.isComplete()]
 
 	def getGoalList(self):
 		'''
@@ -218,7 +218,7 @@ class Model(object):
 		'''
 		return _gid in self.effortTrackingData
 
-	def stopEffortTracking(self, _gid):
+	def stopEffortTracker(self, _gid):
 		'''
 		@param: _gid (integer) - 
 
@@ -273,6 +273,26 @@ class Model(object):
 		'''
 		self.currSGID = self.currSGID + 1 # increments current subgoal id
 		return self.currSGID #returns current subgoal id
+
+	def getCurrGID(self):
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		return self.currGID
+
+	def getCurrSGID(self):
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		return self.currSGID
 
 	'''********************SORT OPERATIONS********************'''
 	def categorySort(self):
