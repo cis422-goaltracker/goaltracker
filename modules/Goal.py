@@ -296,7 +296,7 @@ class Goal(object):
 		elif self.priority == 1:
 			priority = "High"
 		else:
-			priority = "Super High"
+			priority = "Error"
 
 		status = None
 		if self.isComplete():
@@ -305,7 +305,7 @@ class Goal(object):
 			status = "Incomplete"
 
 		if self.hasDueDate():
-			return "Name: " + self.name + " | Due Date: " + self.dueDate.toString("yyyy.MM.dd") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
+			return "Name: " + self.name + " | Due Date: " + self.dueDate.strftime("%d %b %Y %H:%M") + " | Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 		else:
 			return "Name: " + self.name + "| Category: " + self.category + " | Priority: " + priority + " | Status: " + status
 

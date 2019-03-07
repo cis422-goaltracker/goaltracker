@@ -59,7 +59,7 @@ class Model(object):
 		@purpose: This function filters the goalList leaving only Goals that are over due.
 		It then returns the filtered list.
 		'''
-		return [goal for goal in self.goalList if goal.isOverDue()]
+		return [goal for goal in self.goalList if goal.isOverDue() and not goal.isComplete()]
 
 	def getGoalList(self):
 		'''

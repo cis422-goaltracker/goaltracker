@@ -167,8 +167,6 @@ class MainWindow(QMainWindow):
             goalid = self.selectedListItemId
             self.model.completeGoal(goalid)
             self.refreshListView()
-        else:
-            print("No Goals")
 
     @pyqtSlot()
     def loadEditViewGoal(self):
@@ -184,8 +182,6 @@ class MainWindow(QMainWindow):
             window = AddEditViewGoal(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
             if window.exec():
                 self.refreshListView()
-        else:
-            print("No Goals")
 
     @pyqtSlot()
     def loadDeleteGoal(self):
@@ -202,8 +198,6 @@ class MainWindow(QMainWindow):
                 self.model.stopEffortTracker(goalid)
             self.model.deleteGoal(goalid)
             self.refreshListView()
-        else:
-            print("No Goals")
 
     @pyqtSlot()
     def loadViewAnalysis(self): #FUNCTION NEEDS TO BE BUILT
@@ -222,8 +216,6 @@ class MainWindow(QMainWindow):
                 window = UncompletedAnalysis(self.model)
             if window.exec():
                 self.refreshListView()
-        else:
-            print("No Goals")
 
     '''********************CLASS METHODS********************'''
     def goalIsSelected(self):
