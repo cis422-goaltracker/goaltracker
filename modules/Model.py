@@ -4,133 +4,331 @@
 	GoalTracker
 """
 
-from Goal import Goal as Goal
-from SubGoal import SubGoal as SubGoal
-from Status import Status as Status
-import datetime as DateTime
+from Goal import Goal, SubGoal
+from datetime import datetime, timedelta
+import copy
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
 	def __init__(self, _goalList, _currGID, _currSGID, _effortTrackingData):
+		'''
+		@param: _goalList (list) - 
+		@param: _currGID (integer) - 
+		@param: _currSGID (integer) - 
+		@param: _effortTrackingData (dictionary) - 
+
+		@return: None
+
+		@purpose
+		'''
 		self.goalList = _goalList #list of goal objects
 		self.currGID = _currGID #integer
 		self.currSGID = _currSGID #integer
 		self.effortTrackingData = _effortTrackingData #dictionary goalid-starttime pairs
 
-	"""METHODS FOR MODELVIEW"""
-	'''GOALLIST OPERATIONS'''
-	def getIncompleteGoalList(self):
-		incompleteGoalList = [] #empty list to hold incomplete goals
-		for goal in self.goalList: #cycles through goal list
-			if not goal.isComplete(): #if the goal is not complete
-				incompleteGoalList.append(goal) #append goal to incomplete goal list
-		return incompleteGoalList #return incomplete goal list
+	"""METHODS FOR MODEL"""
+	'''********************GOALLIST OPERATIONS********************'''
+	def getCompletedGoalList(self):
+		'''
+		@param: None
 
-	def getOverDueGoalList(self, _currentDate):
-		overDueGoalList = [] #empty list to hold overdue goals
-		for goal in self.goalList: #cycles through goal list
-			if goal.isOverDue(_currentDate): #if the goal is not complete
-				overDueGoalList.append(goal) #append goal to incomplete goal list
-		return overDueGoalList #return incomplete goal list
+		@return: (list) - A list of Goal objects that have been completed
 
-	'''GOAL OPERATIONS'''
+		@purpose: This function filters the goalList leaving only Goals that have been completed.
+		It then returns the filtered list.
+		'''
+		return [goal for goal in self.goalList if goal.isComplete()]
+
+	def getCurrentGoalList(self):
+		'''
+		@param: None
+
+		@return: (list) - A list of Goal objects that are currently active
+
+		@purpose: This function filters the goalList leaving only Goals that have not been completed.
+		It then returns the filtered list.
+		'''
+		return [goal for goal in self.goalList if not goal.isComplete()]
+
+	def getOverDueGoalList(self):
+		'''
+		@param: None
+
+		@return: (list) - A list of Goal objects that are over due
+
+		@purpose: This function filters the goalList leaving only Goals that are over due.
+		It then returns the filtered list.
+		'''
+		return [goal for goal in self.goalList if goal.isOverDue() and not goal.isComplete()]
+
+	def getGoalList(self):
+		'''
+		@param: None
+
+		@return (list) - A list of all Goal objects
+
+		@purpose: This function makes a copy of the goalList. It then returns the copied list.
+		'''
+		return copy.deepcopy(self.goalList) #returns a copy of the Goal List
+
+	'''********************GOAL OPERATIONS********************'''
+	def addGoal(self):
+		'''
+		@param: None
+
+		@return: None
+
+		@purpose: Creates a Goal object and then appends it to the goalList
+		'''
+		newGID = self.getNewGID()
+		self.goalList.append(Goal(newGID))
+		return newGID
+
+	def editGoal(self, _gid, _goalInformation):
+		'''
+		@param: _gid (integer) - a unique integer representing a goal
+		@param: _goalInformation (dictionary) - a dictionary containing a "name" (string), 
+		a "category" (string), a "priority" (integer), a "memo" (string), and a "dueDate" (DateTime)
+
+		@return: None
+
+		@purpose
+		'''
+		self.goalList[self.getIndex(_gid)].update(_goalInformation)
+
+	def completeGoal(self, _gid, _finishDate = datetime.now()):
+		'''
+		@param: _gid (integer) - 
+		@param: _finishDate (datetime) - 
+
+		@return: None
+
+		@purpose
+		'''
+		self.goalList[self.getIndex(_gid)].complete(_finishDate)
+		#cycle through and complete all subgoals
+
+	def deleteGoal(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		self.goalList.pop(self.getIndex(_gid))
+
 	def getGoal(self, _gid):
-		for goal in self.goalList: #cycles through goal list
-			if goal.getId() == _gid: #if current goal's id matches _gid
-				return goal #return the goal
-		return None #if not found, return Null
+		'''
+		@param: _gid (integer) - 
 
-	def setGoal(self, _goal):
-		for index, goal in enumerate(self.goalList): #cycles through goalList
-			if goal.getId() == _goal.getId(): #if current goal's id matches _goal's id
-				self.goalList[index] = _goal #replace goal with _goal
+		@return: (Goal) - 
 
-	'''SUBGOALLIST OPERATIONS'''
+		@purpose
+		'''
+		return self.goalList[self.getIndex(_gid)]
+
+	'''********************SUBGOALLIST OPERATIONS********************'''
 	def getSubGoalList(self, _gid):
-		for goal in self.goalList: #cycle through goalList
-			if goal.getId() == _gid: #if current goal's id matches _gid
-				return goal.getSubGoals() #return goal's subgoal list
-		return None #if not found return Null
+		'''
+		@param: _gid (integer) - 
 
-	def setSubGoalList(self, _gid, _subGoalList):
-		for goal in self.goalList: #cycles through goalList
-			if goal.getId() == _gid: #if current goal's id matches _goal's id
-				goal.setSubGoals(_subGoalList) #replace subGoals with new _subGoalList
+		@return: None
 
-	'''SUBGOAL OPERATIONS'''
+		@purpose
+		'''
+		return self.goalList[self.getIndex(_gid)].getSubGoals()
+
+	'''********************SUBGOAL OPERATIONS********************'''
+	def addSubGoal(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		newSGID = self.getNewSGID()
+		self.goalList[self.getIndex(_gid)].addSubGoal(newSGID)
+		return newSGID
+
+	def editSubGoal(self, _gid, _sgid, _subGoalInformation):
+		'''
+		@param: _gid (integer) - 
+		@param: _sgid (integer) - 
+		@param: _subGoalInformation (dictionary) - 
+
+		@return: None
+
+		@purpose
+		'''
+		self.goalList[self.getIndex(_gid)].updateSubGoal(_sgid, _subGoalInformation)
+
+	def completeSubGoal(self, _gid, _sgid):
+		'''
+		@param: _gid (integer) - 
+		@param: _sgid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		self.goalList[self.getIndex(_gid)].completeSubGoal(_sgid)
+
+	def deleteSubGoal(self, _gid, _sgid):
+		'''
+		@param: _gid (integer) - 
+		@param: _sgid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		self.goalList[self.getIndex(_gid)].deleteSubGoal(_sgid)
+
 	def getSubGoal(self, _gid, _sgid):
-		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
-		if subGoals != None: #if subgoals is not null
-			for subGoal in subGoals: #cycles through subgoals
-				if subGoal.getId() == _sgid: #if subgoal's id matches _sgid
-					return subGoal #return subgoal
-			return None #return null if subgoal not found
-		else:
-			return None #return null if goal not found
+		'''
+		@param: _gid (integer) - 
+		@param: _sgid (integer) - 
 
-	def setSubGoal(self, _gid, _subGoal):
-		subGoals = self.getSubGoalList(_gid) #gets list of subgoals using _gid
-		if subGoals != None: #if subGoals is not null
-			for index, subGoal in eumerate(subGoals): #cycles through subgoals
-				if subGoal.getId() == _subGoal.getId(): #if subGoal's id matches _subGoal's id
-					subGoals[index] = _subGoal #replaces subGoal with _subGoal in subGoals
-					self.setSubGoalList(_gid, subGoals) #set subGoalList in goal with updated GoalList
-		else:
-			return None #returns null if goal not found
+		@return: None
 
-	'''GID AND SGID OPERATIONS'''
+		@purpose
+		'''
+		return self.goalList[self.getIndex(_gid)].getSubGoal(_sgid)
+
+	'''********************EFFORT TRACKER OPERATIONS********************'''
+	def startEffortTracker(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: None
+
+		@purpose
+		'''
+		self.effortTrackingData[_gid] = datetime.now()
+
+	def isEffortTracking(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: (boolean) - 
+
+		@purpose
+		'''
+		return _gid in self.effortTrackingData
+
+	def stopEffortTracker(self, _gid):
+		'''
+		@param: _gid (integer) - 
+
+		@return: None
+
+		@purpose: This method takes the _gid to find the goal in
+		'''
+		self.goalList[self.getIndex(_gid)].addEffortTrack(datetime.now(), self.effortTrackingData.pop(_gid))
+
+	def manuallyInputEffort(self, _gid, _startTime, _finishTime):
+		'''
+		@param: _gid (integer) - 
+		@param: _startTime (datetime) - 
+		@param: _finishTime (datetime) - 
+
+		@return: None
+
+		@purpose: This method takes the _gid to find the goal in the goal list, then it adds an
+		effort track to the goal with _startTime and _finishTime
+		'''
+		self.goalList[self.getIndex(_gid)].addEffortTrack(_finishTime, _startTime)
+
+	def getEffortTrackingData(self):
+		'''
+		@param: None
+
+		@return: (dictionary) - 
+
+		@purpose: This method returns a copy of the effort tracking data
+		'''
+		return copy.deepcopy(self.effortTrackingData) #returns the a copy of the effort tracking data
+
+	'''********************GID AND SGID OPERATIONS********************'''
 	def getNewGID(self):
+		'''
+		@param: None
+
+		@return: (integer) - 
+
+		@purpose: This method generates a new goal id and then returns it
+		'''
 		self.currGID = self.currGID + 1 #increments current goal id
 		return self.currGID #returns current goal id
 
 	def getNewSGID(self):
+		'''
+		@param: None
+
+		@return: (integer) - 
+
+		@purpose: This method generates a new subgoal id and then returns it
+		'''
 		self.currSGID = self.currSGID + 1 # increments current subgoal id
 		return self.currSGID #returns current subgoal id
 
-	'''SORT OPERATIONS'''
-	def categorySort(self):
-		goalList = self.getGoalList()
-
-		#Sort goalList by category here
-
-		self.setGoalList(goalList)
-
-	def prioritySort(self):
-		goalList = self.getGoalList()
-
-		#Sort goalList by priority here
-
-		self.setGoalList(goalList)
-
-	def dueDateSort(self):
-		goalList = self.getGoalList()
-
-		#Sort goalList by due date here
-
-		self.setGoalList(goalList)
-
-	"""GETTERS FOR MODELVIEW"""
-	def getGoalList(self):
-		return self.goalList.copy() #returns a copy of the Goal List
-
 	def getCurrGID(self):
-		return self.currGID #returns the current goal id
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		return self.currGID
 
 	def getCurrSGID(self):
-		return self.currSGID #returns the current subgoal id
+		'''
+		@param:
 
-	def getEffortTrackingData(self):
-		return self.effortTrackingData.copy() #returns the a copy of the effort tracking data
+		@return:
 
-	"""SETTERS FOR MODELVIEW"""
-	def setGoalList(self, _goalList):
-		self.goalList = _goalList #sets the goal list to the passed _goalList
+		@purpose:
+		'''
+		return self.currSGID
 
-	def setCurrGID(self, _gid):
-		self.currGID = _gid #sets the current goal id to the passed _gid
+	'''********************SORT OPERATIONS********************'''
+	def categorySort(self):
+		'''
+		@param: None
 
-	def setCurrSGID(self, _sgid):
-		self.currSGID = _sgid #sets the current subgoal id to the passed _sgid
+		@return: None
 
-	def setEffortTrackingData(self, _effortTrackingData):
-		self.effortTrackingData = _effortTrackingData #sets the effort tracking data to the passed _effortTrackingData
+		@purpose: This method sets the goal list to be sorted by the category attribute
+		'''
+		for index, goal in enumerate(self.goalList):
+			self.goalList[index].setSortingMethod("category")
+		self.goalList = sorted(self.getGoalList())
+
+	def prioritySort(self):
+		'''
+		@param: None
+
+		@return: None
+
+		@purpose: This method sets the goal list to be sorted by the priority attribute
+		'''
+		for index, goal in enumerate(self.goalList):
+			self.goalList[index].setSortingMethod("priority")
+		self.goalList = sorted(self.getGoalList())
+
+	'''********************MISCELLANEOUS OPERATIONS********************'''
+	def getIndex(self, _gid):
+		'''
+		@param:
+
+		@return:
+
+		@purpose:
+		'''
+		for index, goal in enumerate(self.goalList):
+			if goal.getId() == _gid:
+				return index
+		return -1

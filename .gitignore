@@ -4,6 +4,12 @@
 *.csv
 *.xls
 *.json
+*.garbage
+*.gtd
+*.DS*
+*.gtd.bak
+*.gtd.dat
+*.gtd.dir
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

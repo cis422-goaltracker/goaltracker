@@ -4,9 +4,9 @@
 	GoalTracker
 """
 
-from Goal import Goal as Goal
-from Status import Status as Status
-from Model import Model as Model
+from Goal import Goal
+from Status import Status
+from Model import Model
 import datetime as DateTime
 
 class GoalManager(object):
@@ -16,10 +16,10 @@ class GoalManager(object):
 
 	"""METHODS FOR GOALMANAGER"""
 	'''Goal Modification Operations'''
-	def addGoal(self, _model, _goalInformation, _startDate, _anticipatedFinishDate):
+	def addGoal(self, _model, _goalInformation, _startDate, _dueDate):
 		goalList = _model.getGoalList() #retrieves goalList from the model
 		gid = _model.getNewGID() #retreieves a new goal id from the model
-		goal = Goal(gid, _goalInformation, _startDate, _anticipatedFinishDate) #create new Goal object using _goalInformation
+		goal = Goal(gid, _goalInformation, _startDate, _dueDate) #create new Goal object using _goalInformation
 		goalList.append(goal) #append new Goal to goalList
 		_model.setGoalList(goalList) #sets the updated goallist in the model
 		return _model #returns the model
@@ -30,15 +30,11 @@ class GoalManager(object):
 		_model.setGoal(goal) #replaces old goal with updated goal in model
 		return _model #returns model
 
-	def rescheduleGoal(self, _gid, _model, _anticipatedFinishDate):
+	def rescheduleGoal(self, _gid, _model, _dueDate):
 		goal = _model.getGoal(_gid) #retrieves the goal from the model
-		goal.reschedule(_anticipatedFinishDate) #reschedules goal to the new anticipated finish date
+		goal.reschedule(_dueDate) #reschedules goal to the new due date
 		_model.setGoal(goal) #replaces old goal with update goal in the model
 		return _model #returns model
-
-	def isOverDue(self, _gid, _model, _currentDate):
-		goal = _model.getGoal(_gid) #retrieves the goal from the model
-		return goal.isOverDue(_currentDate) #returns if goal is overdue
 
 	def deleteGoal(self, _gid, _model):
 		goalList = _model.getGoalList() #gets the goallist from the model
