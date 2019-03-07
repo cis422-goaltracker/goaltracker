@@ -74,23 +74,26 @@ class AnalysisGenerator(object):
 
 		timesum = sum(ret.values()) #sum all the values (now as hours)
 
-		return timesum/ len(ret) #return the average per day
+		if len(ret) == 0:
+			return str(0)
+		else:
+			return str(timesum/ len(ret)) #return the average per day
 
 
 	def getBeforeDuedate(self, _model):
-		#should this be changed? it originally relied on having a due date fro every goal. now the stats 
-		#aren't as accurate. should i just be looking at the goals that DID have a due date attached to them?
-
-
 		reschedulecount = 0	#creates counter for number of goals rescheduled
 		completedcount = 0 	#creates counter for completed goals
-		for i in _model:	#looks through goals in model
-			if _model.getGoal(i).hasBeenRescheduled() and _model.getGoal(i).isComplete(): #increments if a completed goal has been rescheduled
-				reschedulecount += 1
-			if _model.getGoal(i).isComplete(): #increments completed goal count
-				completedcount += 1
+		
+		goalList = _model.getGoalList()
+
+		for goal in goalList:	#looks through goals in model
+			if goal.hasDueDate():
+				if goal.hasBeenRescheduled() and goal.isComplete(): #increments if a completed goal has been rescheduled
+					reschedulecount += 1
+				if goal.isComplete(): #increments completed goal count
+					completedcount += 1
 		completed_before_due = completedcount - reschedulecount #finds number of goals not reschedules
-		return completed_before_due/completedcount #calculates and returns percentage of goals done befoe duedate
+		return str(completed_before_due/completedcount) #calculates and returns percentage of goals done befoe duedate
 
 
 	def getAfterDuedate(self, _model):
@@ -99,12 +102,17 @@ class AnalysisGenerator(object):
 
 		reschedulecount = 0 #creates counter for number of goals rescheduled
 		completedcount = 0 	#creates counter for completed goals
-		for i in _model:	#loops through goals in model
-			if _model.getGoal(i).hasBeenRescheduled() and _model.getGoal(i).isComplete(): #increments if completed goal has been rescheduled
-				reschedulecount += 1
-			if _model.getGoal(i).isComplete(): #increments completed goal count
-				completedcount += 1
-		return reschedulecount/completedcount #calculates and returns percentage of goals completed after inital duedate
+		
+		goalList = _model.getGoalList()
+
+		for goal in goalList:	#loops through goals in model
+			if goal.hasDueDate():
+				if goal.hasBeenRescheduled() and goal.isComplete(): #increments if completed goal has been rescheduled
+					reschedulecount += 1
+				if goal.isComplete(): #increments completed goal count
+					completedcount += 1
+
+		return str(reschedulecount/completedcount) #calculates and returns percentage of goals completed after inital duedate
 		
 	#jiazhen looking into this
 	def tranformDatesList(self, _model):

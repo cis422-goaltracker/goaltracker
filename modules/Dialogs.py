@@ -342,29 +342,24 @@ class Analysis(QDialog):
         string2 =   "That is " + self.ag.getFasterSlower(self.goalid, self.model) + " days faster/slower than anticipated"
         string3 =   "You spend on average " + self.ag.getAverageTime(self.goalid, self.model) + " hours a day working on your goal"
 
-        # greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
+        greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
         
-        # # #should this calculation take into account all of the goals?
-        # # #right now I divide the goals that didnt have to be rescheduled from the number of goals
-        # # #should i add the requirement of the goal having a duedate?
-        # if greater_val == self.ag.getBeforeDuedate(self.model):
-        #     string4 =  "You completed %" + greater_val + "of your goals faster than aniticpated!"
-        #     string5 =  "Great job, keep up the good work!"
-        #     string6 =  ""
+        if greater_val == self.ag.getBeforeDuedate(self.model):
+            string4 =  "You completed " + greater_val + "% of your goals faster than aniticpated!"
+            string5 =  "Great job, keep up the good work!"
+            string6 =  ""
 
-        # if greater_val != self.ag.getBeforeDuedate(self.model):
-        #     string4 =  "You completed %" + greater_val + "of your goals slower than aniticpated."
-        #     string5 =  "You seem to have trouble sticking to your goals. Consider giving"
-        #     string6 =  "yourself more time next time!"
+        if greater_val != self.ag.getBeforeDuedate(self.model):
+            string4 =  "You completed " + greater_val + "% of your goals slower than aniticpated."
+            string5 =  "You seem to have trouble sticking to your goals. Consider giving"
+            string6 =  "yourself more time next time!"
 
         self.label_daystook.setText(string1)
         self.label_fasterslower.setText(string2)
         self.label_numhours.setText(string3)
-        # self.label_lowerlinetext_1.setText(string4)
-        # self.label_lowerlinetext_2.setText(string5)
-        # self.label_lowerlinetext_3.setText(string6)
-
-        #need to make graph into a picture.
+        self.label_lowerlinetext_1.setText(string4)
+        self.label_lowerlinetext_2.setText(string5)
+        self.label_lowerlinetext_3.setText(string6)
 
 
 class UncompletedAnalysis(QDialog):
