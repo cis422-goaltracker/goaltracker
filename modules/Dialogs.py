@@ -45,7 +45,7 @@ class AddEditViewGoal(QDialog):
         self.model = _model
         self.goalid = _goalid
         self.selectedListItemId = None
-
+        self.hasDueDate = True
 
         #Signals
         self.push_effort.clicked.connect(self.toggleEffortTracker)
@@ -63,7 +63,7 @@ class AddEditViewGoal(QDialog):
             self.setWindowTitle('Add Goal')
             self.goalid = self.model.addGoal()
             self.dateTimeEdit_due_date.setDate(QDate.currentDate())
-
+            self.dateTimeEdit_due_date.setTime(QTime.currentTime())
         else:
             self.method = Method.EDITVIEW
             self.setWindowTitle('Edit/View Goal')
@@ -103,7 +103,7 @@ class AddEditViewGoal(QDialog):
 
     @pyqtSlot()
     def toggleDueDate(self): #FUNCTION NEEDS TO BE BUILT
-        pass
+       pass
 
     @pyqtSlot()
     def loadAddSubGoal(self):
