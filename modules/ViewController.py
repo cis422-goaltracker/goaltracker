@@ -23,9 +23,10 @@ from AnalysisGenerator import AnalysisGenerator
 #UI Imports
 from Dialogs import AddEditViewGoal, AddEditViewSubGoal, UncompletedAnalysis, Analysis
 
-# Global variable for storing UI files (HH)
+# Global variable for storing UI files
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui", "Analysis": "../UI/Analysis.ui", "UncompletedAnalysis": "../UI/UncompletedAnalysis.ui"}
 
+# Different statuses of goals
 class State(Enum):
     CURRENT = 1
     OVERDUE = 2
@@ -66,11 +67,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadCurrentGoals(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Update main window to display current goals. Update title to "Current Goals",
+                  set the state of the main window to CURRENT, and refresh the list of goals.
         '''
         self.label_listTitle.setText("Current Goals") #set label
         self.state = State.CURRENT #set state
@@ -79,11 +81,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadOverdueGoals(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Update main window to display overdue goals. Update title to "Overdue Goals",
+                  set the state of the main window to OVERDUE, and refresh the list of goals.
         '''
         self.label_listTitle.setText("Overdue Goals") #set label
         self.state = State.OVERDUE #set state
@@ -92,11 +95,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadCompletedGoals(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Update main window to display completed goals. Update title to "Completed Goals",
+                  set the state of the main window to COMPLETED, and refresh the list of goals.
         '''
         self.label_listTitle.setText("Completed Goals") #set label
         self.state = State.COMPLETED #set state
@@ -105,11 +109,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadAllGoals(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Update main window to display all goals. Update title to "All Goals", set the
+                  state of the main window to ALL, and refresh the list of goals.
         '''
         self.label_listTitle.setText("All Goals") #set label
         self.state = State.ALL #set state
@@ -118,11 +123,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadCategorySort(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Sort the goals according to their category. Sort the goals by their category and
+                  refresh the page.
         '''
         self.model.categorySort() #runs category sort on model
         self.refreshListView()
@@ -130,11 +136,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadPrioritySort(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Sort the goals according to their priority. Sort the goals by their priority and
+                  refresh the page.
         '''
         self.model.prioritySort()#runs priority sort on model
         self.refreshListView()
@@ -142,11 +149,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadAddGoal(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Open the Add Goal Window and add the user's goal to the model. If the user cancels
+                  out of the window, then delete the goal from the model.
         '''
         window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
         if window.exec():
@@ -157,11 +165,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadCompleteGoal(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Update the status of the goal to complete. Update the status of the goal in the
+                  model to complete and refresh the list of goals.
         '''
         if self.goalIsSelected():
             goalid = self.selectedListItemId
@@ -171,11 +180,13 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadEditViewGoal(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Open the Edit/View Goal Window and update the user's changes to the goal. Get the
+                  selected goal's information and update the window to display this information, and
+                  refresh the list of goals.
         '''
         if self.goalIsSelected():
             goalid = self.selectedListItemId
@@ -186,11 +197,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadDeleteGoal(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Delete the goal. Get the selected goal's information, delete the goal from the
+                  model, and refresh the list of goals.
         '''
         if self.goalIsSelected():
             goalid = self.selectedListItemId
@@ -202,11 +214,12 @@ class MainWindow(QMainWindow):
     @pyqtSlot()
     def loadViewAnalysis(self): #FUNCTION NEEDS TO BE BUILT
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Open the View Analysis Window. Get the selected goal's information and display the
+                  analysis according to whether it's complete or not, and refresh the list of goals.
         '''
         if self.goalIsSelected():
             goalid = self.selectedListItemId
@@ -220,17 +233,17 @@ class MainWindow(QMainWindow):
     '''********************CLASS METHODS********************'''
     def goalIsSelected(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: 
 
-        @purpose:
+        @purpose: 
         '''
         return self.selectedListItemId != None
 
     def setChosenItem(self):
         '''
-        @param:
+        @param: None
 
         @return:
 
@@ -244,7 +257,7 @@ class MainWindow(QMainWindow):
 
     def addToListView(self, _goalList):
         '''
-        @param:
+        @param: None
 
         @return:
 
@@ -259,7 +272,7 @@ class MainWindow(QMainWindow):
 
     def getGoalStateList(self):
         '''
-        @param:
+        @param: None
 
         @return:
 
@@ -278,7 +291,7 @@ class MainWindow(QMainWindow):
 
     def refreshListView(self):
         '''
-        @param:
+        @param: None
 
         @return:
 
@@ -290,11 +303,13 @@ class MainWindow(QMainWindow):
     
 def main():
     '''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Launches the program. Sets up the File Manager to save information about
+                  the user's goal information, creates a Model with the goal information,
+                  executes the program, and then quits.
         '''
     filemanager = FileManager("potato.gtd") #create FileManager object
     model = filemanager.load() #load File and store
