@@ -370,8 +370,9 @@ class Analysis(QDialog):
 
         self.ag = AnalysisGenerator()
 
-        canvas = Canvas(self, width=5, height=4)
+        canvas = Canvas(self, width=4.5, height=4)
         canvas.move(0,0)
+        canvas.plot_bar()
 
         self.model = _model
         self.goalid = _goalid
@@ -421,6 +422,9 @@ class UncompletedAnalysis(QDialog):
 
         self.model = _model
         self.ag = AnalysisGenerator()
+        canvas = Canvas(self, width=7, height=4)
+        canvas.move(0,0)
+        canvas.plot_ring()
 
         greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
         
