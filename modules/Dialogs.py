@@ -98,6 +98,7 @@ class AddEditViewGoal(QDialog):
             self.checkBox_due_date.setDisabled(True)
             self.push_effort.setDisabled(True)
             self.push_add_subgoal.setDisabled(True)
+            self.label_goal_name_4.setText("")
 
 
 
