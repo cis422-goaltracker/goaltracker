@@ -257,7 +257,7 @@ class MainWindow(QMainWindow):
 
     def addToListView(self, _goalList):
         '''
-        @param: None
+        @param:
 
         @return:
 
