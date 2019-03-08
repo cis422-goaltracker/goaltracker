@@ -182,6 +182,8 @@ class MainWindow(QMainWindow):
         '''
         if self.goalIsSelected(): #if a goal is selected
             goalid = self.selectedListItemId
+            if self.model.isEffortTracking(goalid):
+                self.model.stopEffortTracker(goalid)
             self.model.completeGoal(goalid)
             self.refreshListView()
 

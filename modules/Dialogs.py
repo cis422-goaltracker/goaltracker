@@ -93,6 +93,14 @@ class AddEditViewGoal(QDialog):
                 self.dateTimeEdit_due_date.setTime(goal.getDueDate().time()) 
             self.setDueDateText()
 
+        if self.model.getGoal(self.goalid).isComplete():
+            self.dateTimeEdit_due_date.setDisabled(True)
+            self.checkBox_due_date.setDisabled(True)
+            self.push_effort.setDisabled(True)
+            self.push_add_subgoal.setDisabled(True)
+
+
+
     '''********************PYQTSLOT OPERATIONS********************'''
 
     @pyqtSlot()
@@ -120,6 +128,10 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
+        if self.hasDueDate:
+            self.dateTimeEdit_due_date.setDisabled(False)
+        else:
+            self.dateTimeEdit_due_date.setDisabled(True)
         self.hasDueDate = not self.hasDueDate
         self.setDueDateText()
 
@@ -232,10 +244,13 @@ class AddEditViewGoal(QDialog):
         dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
         if not self.hasDueDate:
             self.label_goal_name_4.setText("No Due Date")
+            self.dateTimeEdit_due_date.setDisabled(True)
         elif dueDate > datetime.now():
             self.label_goal_name_4.setText(str((dueDate - datetime.now()).days) + " Days Until Due")
+            self.dateTimeEdit_due_date.setDisabled(False)
         else:
             self.label_goal_name_4.setText("Overdue")
+            self.dateTimeEdit_due_date.setDisabled(False)
 
     '''********************CLASS METHODS OPERATIONS********************'''
     def subGoalIsSelected(self):

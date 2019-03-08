@@ -100,6 +100,8 @@ class Goal(object):
         @purpose:
         '''
 		self.finishDate = _finishDate #sets the finish date to the passed finish date
+		for index, subgoal in enumerate(self.subGoalList):
+			self.subGoalList[index].complete()
 
 	def isComplete(self):
 		'''
