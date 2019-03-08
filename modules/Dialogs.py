@@ -402,6 +402,10 @@ class Analysis(QDialog):
 
         self.canvas = Canvas(self, width=4.5, height=4)
         self.canvas.move(0,0)
+        width = self.frameGeometry().width()
+        height = self.frameGeometry().height()
+        self.resize(width + 1, height)
+        #print(self.frameGeometry().width(), height)
         self.canvas.plot_bar()
 
         self.model = _model

@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QSizePolicy
 import sys
 import time
 from PyQt5.QtGui import QIcon
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FingureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
 import matplotlib.pyplot as plt
@@ -37,12 +37,16 @@ class Window(QMainWindow):
         button.move(250, 450)
 """
 
-class Canvas(FingureCanvas):
+class Canvas(FigureCanvas):
 	def __init__(self, parent = None, width =5, height = 5, dpi =100):
 
 		self.fig = Figure(figsize=(width, height), dpi=dpi)
 		#self.fig = plt.figure()
-		FingureCanvas.__init__(self, self.fig)
+		FigureCanvas.__init__(self, self.fig)
+		FigureCanvas.setSizePolicy(self,
+			QSizePolicy.Expanding,
+			QSizePolicy.Expanding)
+		FigureCanvas.updateGeometry(self)
 		self.setParent(parent)
 
 	def plot_bar(self):
