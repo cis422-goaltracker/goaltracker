@@ -357,9 +357,9 @@ class Analysis(QDialog):
 
         self.ag = AnalysisGenerator()
 
-        canvas = Canvas(self, width=4.5, height=4)
-        canvas.move(0,0)
-        canvas.plot_bar()
+        self.canvas = Canvas(self, width=4.5, height=4)
+        self.canvas.move(0,0)
+        self.canvas.plot_bar()
 
         self.model = _model
         self.goalid = _goalid
@@ -392,6 +392,14 @@ class Analysis(QDialog):
         self.label_lowerlinetext_1.setText(string4)
         self.label_lowerlinetext_2.setText(string5)
         self.label_lowerlinetext_3.setText(string6)
+        #self.aboutToQuit.connect(stopAnimationOnExit)
+    
+    def closeEvent(self, event):
+        self.stopAnimationOnExit()
+        event.accept()
+
+    def stopAnimationOnExit(self):
+        self.canvas.stopAnimation()
 
 
 class UncompletedAnalysis(QDialog):
@@ -405,13 +413,13 @@ class UncompletedAnalysis(QDialog):
         '''
         super(UncompletedAnalysis, self).__init__()
         
-        loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
+        self.ui = loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
 
         self.model = _model
         self.ag = AnalysisGenerator()
-        canvas = Canvas(self, width=7, height=4)
-        canvas.move(0,0)
-        canvas.plot_ring()
+        self.canvas = Canvas(self, width=7, height=4)
+        self.canvas.move(0,0)
+        self.canvas.plot_ring()
 
         greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
         
@@ -428,3 +436,10 @@ class UncompletedAnalysis(QDialog):
         self.label_lowerlinetext_1.setText(string1)
         self.label_lowerlinetext_2.setText(string2)
         self.label_lowerlinetext_3.setText(string3)
+
+    def closeEvent(self, event):
+        self.stopAnimationOnExit()
+        event.accept()
+
+    def stopAnimationOnExit(self):
+        self.canvas.stopAnimation()
