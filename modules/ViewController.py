@@ -3,6 +3,7 @@
     CIS 422
     GoalTracker
         Reference [0]: https://stackoverflow.com/questions/21213853/pyside-how-to-delete-widgets-from-gridlayout
+        Reference [1]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
 
 """
 #System Imports
@@ -11,7 +12,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from datetime import datetime
+from datetime import datetime, timedelta
 from enum import Enum
 
 #Module Imports
@@ -35,6 +36,13 @@ class State(Enum):
 
 class MainWindow(QMainWindow):
     def __init__(self, _model):
+        '''
+        @param: _model (Model)
+
+        @return: None
+
+        @purpose:
+        '''
         super(MainWindow, self).__init__()
         loadUi(UI_PATHS["MainWindow"], self) # Load the Main Window UI
 
@@ -76,7 +84,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_listTitle.setText("Current Goals") #set label
         self.state = State.CURRENT #set state
-        self.refreshListView()
+        self.refreshListView() #refreshes list of goals
 
     @pyqtSlot()
     def loadOverdueGoals(self):
@@ -90,7 +98,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_listTitle.setText("Overdue Goals") #set label
         self.state = State.OVERDUE #set state
-        self.refreshListView()
+        self.refreshListView() #refreshes list of goals
 
     @pyqtSlot()
     def loadCompletedGoals(self):
@@ -104,7 +112,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_listTitle.setText("Completed Goals") #set label
         self.state = State.COMPLETED #set state
-        self.refreshListView()
+        self.refreshListView() #refreshes list of goals
 
     @pyqtSlot()
     def loadAllGoals(self):
@@ -118,7 +126,7 @@ class MainWindow(QMainWindow):
         '''
         self.label_listTitle.setText("All Goals") #set label
         self.state = State.ALL #set state
-        self.refreshListView()
+        self.refreshListView() #refreshes list of goals
 
     @pyqtSlot()
     def loadCategorySort(self):
@@ -131,7 +139,7 @@ class MainWindow(QMainWindow):
                   refresh the page.
         '''
         self.model.categorySort() #runs category sort on model
-        self.refreshListView()
+        self.refreshListView() #refreshes list of goals
 
     @pyqtSlot()
     def loadPrioritySort(self):
@@ -143,8 +151,8 @@ class MainWindow(QMainWindow):
         @purpose: Sort the goals according to their priority. Sort the goals by their priority and
                   refresh the page.
         '''
-        self.model.prioritySort()#runs priority sort on model
-        self.refreshListView()
+        self.model.prioritySort() #runs priority sort on model
+        self.refreshListView() #refreshes list of goals
 
     @pyqtSlot()
     def loadAddGoal(self):
@@ -157,10 +165,10 @@ class MainWindow(QMainWindow):
                   out of the window, then delete the goal from the model.
         '''
         window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
-        if window.exec():
-            self.refreshListView()
+        if window.exec(): #if successfully exits
+            self.refreshListView() #refresh list of goals
         else:
-            self.model.deleteGoal(self.model.getCurrGID())
+            self.model.deleteGoal(self.model.getCurrGID()) #else, delete the goal from the goal list
 
     @pyqtSlot()
     def loadCompleteGoal(self):
@@ -172,8 +180,10 @@ class MainWindow(QMainWindow):
         @purpose: Update the status of the goal to complete. Update the status of the goal in the
                   model to complete and refresh the list of goals.
         '''
-        if self.goalIsSelected():
+        if self.goalIsSelected(): #if a goal is selected
             goalid = self.selectedListItemId
+            if self.model.isEffortTracking(goalid):
+                self.model.stopEffortTracker(goalid)
             self.model.completeGoal(goalid)
             self.refreshListView()
 
@@ -230,24 +240,14 @@ class MainWindow(QMainWindow):
             if window.exec():
                 self.refreshListView()
 
-    '''********************CLASS METHODS********************'''
-    def goalIsSelected(self):
-        '''
-        @param: None
-
-        @return: 
-
-        @purpose: 
-        '''
-        return self.selectedListItemId != None
-
     def setChosenItem(self):
         '''
         @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: When a selection is made, it determines if it was selected on or off.
+        If selected off, then sets list id to null, otherwise the corresponding goal id.
         '''
         selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()]
         if not selectedlist:
@@ -255,9 +255,20 @@ class MainWindow(QMainWindow):
         else:
             self.selectedListItemId = selectedlist[0]
 
+    '''********************CLASS METHODS********************'''
+    def goalIsSelected(self):
+        '''
+        @param: None
+
+        @return: (boolean)
+
+        @purpose: returns if item is selected by checking if the selected list item id is null
+        '''
+        return self.selectedListItemId != None
+
     def addToListView(self, _goalList):
         '''
-        @param: (list) - A list of goals
+        @param: _goalList (List)
 
         @return: None
 
@@ -276,7 +287,7 @@ class MainWindow(QMainWindow):
         '''
         @param: None
 
-        @return: (list) - A list of goals with a specific status
+        @return: (List)
 
         @purpose: Get a list of goals that have a specific status. Check the status
                   of goals that should be displayed and return a list of goals with
