@@ -7,9 +7,7 @@
 *.garbage
 *.gtd
 *.DS*
-*.gtd.bak
-*.gtd.dat
-*.gtd.dir
+*.gtd.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
