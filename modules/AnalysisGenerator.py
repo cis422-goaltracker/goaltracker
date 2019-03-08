@@ -67,10 +67,14 @@ class AnalysisGenerator(object):
 			else:
 				ret[date] += complete #sum the timedeltas
 
-		for values in ret.keys(): #for the time delta values in the new dictionary made
+		for date in ret.keys():
+			for values in ret.values(): #for the time delta values in the new dictionary made
 
-			seconds = values.total_seconds() #solve for how many hours
-			hours = seconds // 86400 #more computation
+				seconds = values.total_seconds() #solve for how many hours
+
+				hours = seconds // 86400 #more computation
+
+				ret[date] = int(hours) #assign hours to new dictionary
 
 		timesum = sum(ret.values()) #sum all the values (now as hours)
 
@@ -137,10 +141,13 @@ class AnalysisGenerator(object):
 			else:
 				ret[date] += complete #sum the timedeltas
 
-		for values in ret.keys(): #for the time delta values in the new dictionary made
+		for date in ret.keys():
+			for values in ret.values(): #for the time delta values in the new dictionary made
 
-			seconds = values.total_seconds() #solve for how many hours
-			hours = seconds // 86400 #more computation
+				seconds = values.total_seconds() #solve for how many hours
+				hours = seconds // 86400 #more computation
+
+				ret[date] = hours #assign hours to new dictionary
 		
 		for key in ret.keys(): #for every key in the dictionary
 			datetime.strftime(key,'%b %d, %Y') #turn it into a string
@@ -168,12 +175,14 @@ class AnalysisGenerator(object):
 			else:
 				ret[date] += complete #sum the timedeltas
 
-		for values in ret.keys(): #for the time delta values in the new dictionary made
+		for date in ret.keys():
+			for values in ret.values(): #for the time delta values in the new dictionary made
 
-			seconds = values.total_seconds() #solve for how many hours
-			hours = seconds // 86400 #more computation
+				seconds = values.total_seconds() #solve for how many hours
+				
+				hours = seconds // 86400 #more computation
 			
-			ret[values] = hours #assign hours to new dictionary
+				ret[date] = hours #assign hours to new dictionary
 
 		values = list(ret.values()) #make a list of values
 

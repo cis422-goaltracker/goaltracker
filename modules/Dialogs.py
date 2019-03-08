@@ -98,6 +98,7 @@ class AddEditViewGoal(QDialog):
             self.checkBox_due_date.setDisabled(True)
             self.push_effort.setDisabled(True)
             self.push_add_subgoal.setDisabled(True)
+            self.label_goal_name_4.setText("")
 
 
 
@@ -178,6 +179,8 @@ class AddEditViewGoal(QDialog):
             window = AddEditViewSubGoal(self.model, self.goalid, subgoalid) #open AddEditViewSubGoal window, passes it model and subgoal id
             if window.exec():
                 self.refreshListView()
+            else:
+                self.lineEdit_category.setStyleSheet("border: 1px solid red;")
 
     @pyqtSlot()
     def loadDeleteSubGoal(self):
@@ -218,6 +221,16 @@ class AddEditViewGoal(QDialog):
         if goalName.strip() != "" and category.strip() != "":
             self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
             self.accept() #exit dialog
+        else:
+            if goalName.strip() == "":
+                self.lineEdit_goal_name.setStyleSheet("border: 1px solid red;")
+            if category.strip() == "":
+                self.lineEdit_category.setStyleSheet("border: 1px solid red;")
+            if goalName.strip() != "":
+                self.lineEdit_goal_name.setStyleSheet("border: none;")
+            if category.strip() != "":
+                self.lineEdit_category.setStyleSheet("border: none")
+ 
 
     @pyqtSlot()
     def loadCancelGoal(self):
@@ -354,6 +367,8 @@ class AddEditViewSubGoal(QDialog):
         if self.lineEdit.text().strip() != "":
             self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())}) #update subGoal information model
             self.accept() #exit dialog
+        else:
+            self.lineEdit.setStyleSheet("border: 1px solid red;")    
 
     @pyqtSlot()
     def loadCancelSubGoal(self):
