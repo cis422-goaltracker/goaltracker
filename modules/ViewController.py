@@ -257,11 +257,13 @@ class MainWindow(QMainWindow):
 
     def addToListView(self, _goalList):
         '''
-        @param:
+        @param: (list) - A list of goals
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Add a list of goals to the main window. Create a new list item for
+                  each goal, set the text and data of the item, and display this new
+                  item in the list.
         '''
         self.listWidget.clear()
         for goal in _goalList:
@@ -274,9 +276,11 @@ class MainWindow(QMainWindow):
         '''
         @param: None
 
-        @return:
+        @return: (list) - A list of goals with a specific status
 
-        @purpose:
+        @purpose: Get a list of goals that have a specific status. Check the status
+                  of goals that should be displayed and return a list of goals with
+                  that status.
         '''
         if self.state == State.CURRENT:
             return self.model.getCurrentGoalList() #pulls current goal list from model
@@ -293,9 +297,10 @@ class MainWindow(QMainWindow):
         '''
         @param: None
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Updates the goals that are displayed in the list of goals. Get the
+                  goals according to their status and display them as a list.
         '''
         goalList = self.getGoalStateList()
         self.addToListView(goalList)
