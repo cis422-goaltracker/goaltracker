@@ -3,19 +3,21 @@
 	CIS 422
 	GoalTracker
 """
-
-from Goal import Goal, SubGoal
+#System Imports
 from datetime import datetime, timedelta
 import copy
+
+#Module Imports
+from Goal import Goal, SubGoal
 
 class Model(object):
 	"""CONSTRUCTOR FOR MODEL"""
 	def __init__(self, _goalList, _currGID, _currSGID, _effortTracker):
 		'''
-		@param: _goalList (list) - 
-		@param: _currGID (integer) - 
-		@param: _currSGID (integer) - 
-		@param: _effortTracker (dictionary) - 
+		@param: _goalList (list)
+		@param: _currGID (integer)
+		@param: _currSGID (integer)
+		@param: _effortTracker (dictionary)
 
 		@return: None
 
@@ -32,7 +34,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list) - A list of Goal objects that have been completed
+		@return: (list)
 
 		@purpose: This function filters the goalList leaving only Goals that have been completed.
 		It then returns the filtered list.
@@ -43,7 +45,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list) - A list of Goal objects that are currently active
+		@return: (list)
 
 		@purpose: This function filters the goalList leaving only Goals that have not been completed.
 		It then returns the filtered list.
@@ -54,7 +56,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list) - A list of Goal objects that are over due
+		@return: (List)
 
 		@purpose: This function filters the goalList leaving only Goals that are over due.
 		It then returns the filtered list.
@@ -65,7 +67,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return (list) - A list of all Goal objects
+		@return (List)
 
 		@purpose: This function makes a copy of the goalList. It then returns the copied list.
 		'''
@@ -86,67 +88,66 @@ class Model(object):
 
 	def editGoal(self, _gid, _goalInformation):
 		'''
-		@param: _gid (integer) - a unique integer representing a goal
+		@param: _gid (integer)
 		@param: _goalInformation (dictionary) - a dictionary containing a "name" (string), 
 		a "category" (string), a "priority" (integer), a "memo" (string), and a "dueDate" (DateTime)
 
 		@return: None
 
-		@purpose
+		@purpose: updates the goal of the given goal id with the goal information passed
 		'''
 		self.goalList[self.getIndex(_gid)].update(_goalInformation)
 
 	def completeGoal(self, _gid, _finishDate = datetime.now()):
 		'''
-		@param: _gid (integer) - 
-		@param: _finishDate (datetime) - 
+		@param: _gid (integer)
+		@param: _finishDate (datetime) - defaults to current time
 
 		@return: None
 
-		@purpose
+		@purpose: sets the goal of the given id to completed status
 		'''
 		self.goalList[self.getIndex(_gid)].complete(_finishDate)
-		#cycle through and complete all subgoals
 
 	def deleteGoal(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		self.goalList.pop(self.getIndex(_gid))
 
 	def getGoal(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
-		@return: (Goal) - 
+		@return: (Goal)
 
-		@purpose
+		@purpose:
 		'''
 		return self.goalList[self.getIndex(_gid)]
 
 	'''********************SUBGOALLIST OPERATIONS********************'''
 	def getSubGoalList(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		return self.goalList[self.getIndex(_gid)].getSubGoalList()
 
 	'''********************SUBGOAL OPERATIONS********************'''
 	def addSubGoal(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		newSGID = self.getNewSGID()
 		self.goalList[self.getIndex(_gid)].addSubGoal(newSGID)
@@ -154,85 +155,85 @@ class Model(object):
 
 	def editSubGoal(self, _gid, _sgid, _subGoalInformation):
 		'''
-		@param: _gid (integer) - 
-		@param: _sgid (integer) - 
-		@param: _subGoalInformation (dictionary) - 
+		@param: _gid (integer)
+		@param: _sgid (integer)
+		@param: _subGoalInformation (dictionary)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		self.goalList[self.getIndex(_gid)].updateSubGoal(_sgid, _subGoalInformation)
 
 	def completeSubGoal(self, _gid, _sgid):
 		'''
-		@param: _gid (integer) - 
-		@param: _sgid (integer) - 
+		@param: _gid (integer)
+		@param: _sgid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		self.goalList[self.getIndex(_gid)].completeSubGoal(_sgid)
 
 	def deleteSubGoal(self, _gid, _sgid):
 		'''
-		@param: _gid (integer) - 
-		@param: _sgid (integer) - 
+		@param: _gid (integer)
+		@param: _sgid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		self.goalList[self.getIndex(_gid)].deleteSubGoal(_sgid)
 
 	def getSubGoal(self, _gid, _sgid):
 		'''
-		@param: _gid (integer) - 
-		@param: _sgid (integer) - 
+		@param: _gid (integer)
+		@param: _sgid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		return self.goalList[self.getIndex(_gid)].getSubGoal(_sgid)
 
 	'''********************EFFORT TRACKER OPERATIONS********************'''
 	def startEffortTracker(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
 		@return: None
 
-		@purpose
+		@purpose:
 		'''
 		self.effortTracker[_gid] = datetime.now()
 
 	def isEffortTracking(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
-		@return: (boolean) - 
+		@return: (boolean)
 
-		@purpose
+		@purpose: 
 		'''
 		return _gid in self.effortTracker
 
 	def stopEffortTracker(self, _gid):
 		'''
-		@param: _gid (integer) - 
+		@param: _gid (integer)
 
 		@return: None
 
-		@purpose: This method takes the _gid to find the goal in
+		@purpose:
 		'''
 		self.goalList[self.getIndex(_gid)].addEffortTrack(datetime.now(), self.effortTracker.pop(_gid))
 
 	def manuallyInputEffort(self, _gid, _startTime, _finishTime):
 		'''
-		@param: _gid (integer) - 
-		@param: _startTime (datetime) - 
-		@param: _finishTime (datetime) - 
+		@param: _gid (integer)
+		@param: _startTime (datetime)
+		@param: _finishTime (datetime)
 
 		@return: None
 
@@ -245,7 +246,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (dictionary) - 
+		@return: (dictionary)
 
 		@purpose: This method returns a copy of the effort tracking data
 		'''
@@ -256,7 +257,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (integer) - 
+		@return: (integer)
 
 		@purpose: This method generates a new goal id and then returns it
 		'''
@@ -267,7 +268,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (integer) - 
+		@return: (integer)
 
 		@purpose: This method generates a new subgoal id and then returns it
 		'''
@@ -332,3 +333,4 @@ class Model(object):
 			if goal.getId() == _gid:
 				return index
 		return -1
+		

@@ -3,89 +3,9 @@
 	CIS 422
 	GoalTracker
 """
-
+#System Imports
 from datetime import datetime, timedelta
-import datetime
 import copy
-
-class SubGoal(object):
-	"""CONSTRUCTORS FOR SUBGOAL"""
-	def __init__(self, _id):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		self.id = _id
-		self.name = ""
-		self.isCompleted = False
-
-	"""METHODS FOR SUBGOAL"""
-	def update(self, _subGoalInformation):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		self.name = _subGoalInformation["name"]
-
-	def complete(self):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		self.isCompleted = True
-
-	def isComplete(self):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		return self.isCompleted
-
-	def toString(self):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		if self.isCompleted:
-			return "Name: " + self.name + " | Status: Complete"
-		else:
-			return "Name: " + self.name + " | Status: Incomplete"
-
-	"""GETTERS FOR SUBGOAL"""
-	def getId(self):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		return self.id
-
-	def getName(self):
-		'''
-        @param:
-
-        @return:
-
-        @purpose:
-        '''
-		return self.name
 
 class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
@@ -99,7 +19,7 @@ class Goal(object):
         '''
 		#constant features
 		self.id = _id #integer
-		self.startDate = datetime.datetime.now() #DateTime
+		self.startDate = datetime.now() #DateTime
 
 		#user updateable features
 		self.name = "" #string
@@ -200,7 +120,7 @@ class Goal(object):
         @purpose:
         '''
 		if self.hasDueDate():
-			return self.dueDate < datetime.datetime.now() #if current date is greater than due date, its overdue
+			return self.dueDate < datetime.now() #if current date is greater than due date, its overdue
 		else:
 			return False
 
@@ -440,3 +360,82 @@ class Goal(object):
         @purpose:
         '''
 		self.sortingMethod = _sortingMethod
+
+class SubGoal(object):
+	"""CONSTRUCTORS FOR SUBGOAL"""
+	def __init__(self, _id):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		self.id = _id
+		self.name = ""
+		self.isCompleted = False
+
+	"""METHODS FOR SUBGOAL"""
+	def update(self, _subGoalInformation):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		self.name = _subGoalInformation["name"]
+
+	def complete(self):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		self.isCompleted = True
+
+	def isComplete(self):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		return self.isCompleted
+
+	def toString(self):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		if self.isCompleted:
+			return "Name: " + self.name + " | Status: Complete"
+		else:
+			return "Name: " + self.name + " | Status: Incomplete"
+
+	"""GETTERS FOR SUBGOAL"""
+	def getId(self):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		return self.id
+
+	def getName(self):
+		'''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
+		return self.name
