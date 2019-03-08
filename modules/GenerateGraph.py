@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton
 import sys
+import time
 from PyQt5.QtGui import QIcon
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FingureCanvas
 from matplotlib.figure import Figure
@@ -41,41 +42,33 @@ class Canvas(FingureCanvas):
 
 		self.fig = Figure(figsize=(width, height), dpi=dpi)
 		#self.fig = plt.figure()
-		self.axes_bar = self.fig.add_subplot(121)
-		self.axes_ring = self.fig.add_subplot(122)
 		FingureCanvas.__init__(self, self.fig)
 		self.setParent(parent)
-		self.plot()
 
-	def plot(self):
+	def plot_bar(self):
 		# Draw Bar Graph
 		x = ['1/10/19', '1/11/19', '1/13/19', '1/14/19', '1/15/19', '1/16/19']
 		y_heights = [10.0, 2.0, 7.0, 5.0, 2.0, 9.0]
-		p1 = self.axes_bar.bar(x, y_heights,width = 0.7,color='g')
-		#ax = self.figure.add_subplot(111)
+		axes_bar = self.fig.add_subplot(111)
+		p1 = axes_bar.bar(x, y_heights,width = 0.7,color='g')
 		def animate_bar(i):
-			for rect, y in zip(p1, [i*y/60 for y in y_heights]):
+			for rect, y in zip(p1, [(i+1)*y/60 for y in y_heights]):
 				rect.set_height(y)
-		anim_bar = animation.FuncAnimation(self.fig,animate_bar,repeat=False,frames=60,interval=10,blit=False)
-		
+			#print("Frame", i)
+			return p1
+		anim_bar = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=True)
+		self.draw()
+
+	def plot_ring(self):
 		#Draw Ring Graph
-		self.axes_ring.set_xlim([0, 10])
-		self.axes_ring.set_ylim([0, 10])
-
-		#patches = [mpatches.Wedge((5,5), 4, 0, 0, width = 1.2, color = 'g', label='Finished'),\
-		#		   mpatches.Wedge((5,5), 4, 180, 180, width = 1.2, color = 'r', label='Unfinished')]
-		patch_one = mpatches.Wedge((5,5), 4, 90, 90, width = 1.2, color = 'g', label='Finished')
-		self.axes_ring.add_patch(patch_one)
-		#self.axes_ring.add_patch(patch_two)
-		#p = PatchCollection(patches)
-		#self.axes_ring.add_collection(p)
-		self.axes_ring.legend()
-		#patches_children = p.get_children()
-		def animate_ring(i):
-			patch_one.set_theta2(90+i+1)
-			return patch_one,
-
-		self.axes_ring.axis('off')
-		anim_ring = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=270, interval=10, blit=True)
-
+		axes_ring = self.fig.add_subplot(111)
+		labels = ["Finished", "Unfinished"]
+		colors = ['g', 'r']
+		percentage = [70, 30]
+		ring_chart = axes_ring.pie(percentage, wedgeprops=dict(width=0.5), startangle=90, labels = labels, colors = colors)
+		def animate_ring(i): 
+			ring_chart[0][1].set_theta1(90+i+1)
+			return ring_chart[0][0], ring_chart[0][1]
+		axes_ring.axis('off')
+		anim_ring = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=int(360*percentage[0]/100), interval=10, blit=True)
 		self.draw()
