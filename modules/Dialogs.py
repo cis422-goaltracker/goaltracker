@@ -57,7 +57,7 @@ class AddEditViewGoal(QDialog):
         self.push_save.clicked.connect(self.loadSaveGoal)
         self.push_cancel.clicked.connect(self.loadCancelGoal)
         self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
-        self.dateTimeEdit_due_date.dateTimeChanged.connect(self.updateGoalStatus)
+        self.dateTimeEdit_due_date.dateTimeChanged.connect(self.setDueDateText)
 
         if self.goalid == None:
             self.method = Method.ADD
@@ -211,8 +211,16 @@ class AddEditViewGoal(QDialog):
         self.close() #exit dialog
 
     @pyqtSlot()
-    def updateGoalStatus(self):
-        self.setDueDateText()
+    def setDueDateText(self):
+        date = self.dateTimeEdit_due_date.date()
+        time = self.dateTimeEdit_due_date.time()
+        dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
+        if not self.hasDueDate:
+            self.label_goal_name_4.setText("No Due Date")
+        elif dueDate > datetime.now():
+            self.label_goal_name_4.setText(str((dueDate - datetime.now()).days) + " Days Until Due")
+        else:
+            self.label_goal_name_4.setText("Overdue")
 
     '''********************CLASS METHODS OPERATIONS********************'''
     def subGoalIsSelected(self):
@@ -266,17 +274,6 @@ class AddEditViewGoal(QDialog):
         if len(self.model.getGoalList()) != 0:
             subGoalList = self.model.getSubGoalList(self.goalid)
             self.addToListView(subGoalList)
-
-    def setDueDateText(self):
-        date = self.dateTimeEdit_due_date.date()
-        time = self.dateTimeEdit_due_date.time()
-        dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
-        if not self.hasDueDate:
-            self.label_goal_name_4.setText("No Due Date")
-        elif dueDate > datetime.now():
-            self.label_goal_name_4.setText(str((dueDate - datetime.now()).days) + " Days Until Due")
-        else:
-            self.label_goal_name_4.setText("Overdue")
 
 
 class AddEditViewSubGoal(QDialog):
