@@ -57,6 +57,7 @@ class AddEditViewGoal(QDialog):
         self.push_save.clicked.connect(self.loadSaveGoal)
         self.push_cancel.clicked.connect(self.loadCancelGoal)
         self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
+        self.dateTimeEdit_due_date.dateTimeChanged.connect(self.updateGoalStatus)
 
         if self.goalid == None:
             self.method = Method.ADD
@@ -208,6 +209,10 @@ class AddEditViewGoal(QDialog):
         @purpose:
         '''
         self.close() #exit dialog
+
+    @pyqtSlot()
+    def updateGoalStatus(self):
+        self.setDueDateText()
 
     '''********************CLASS METHODS OPERATIONS********************'''
     def subGoalIsSelected(self):
