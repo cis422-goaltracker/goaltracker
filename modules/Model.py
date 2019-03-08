@@ -21,7 +21,8 @@ class Model(object):
 
 		@return: None
 
-		@purpose
+		@purpose: Initialize the model by setting the list of goals, the current goal ID,
+                          the current subgoal ID, and the effort tracker.
 		'''
 		self.goalList = _goalList #list of goal objects
 		self.currGID = _currGID #integer
@@ -34,7 +35,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list)
+		@return: (list) - goals that are completed.
 
 		@purpose: This function filters the goalList leaving only Goals that have been completed.
 		It then returns the filtered list.
@@ -45,7 +46,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (list)
+		@return: (list) - goals that are current (not completed - may be overdue).
 
 		@purpose: This function filters the goalList leaving only Goals that have not been completed.
 		It then returns the filtered list.
@@ -56,7 +57,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (List)
+		@return: (List) - goals that are overdue.
 
 		@purpose: This function filters the goalList leaving only Goals that are over due.
 		It then returns the filtered list.
@@ -67,7 +68,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return (List)
+		@return (List) - goals
 
 		@purpose: This function makes a copy of the goalList. It then returns the copied list.
 		'''
@@ -115,7 +116,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Deletes a goal from the goal list.
 		'''
 		self.goalList.pop(self.getIndex(_gid))
 
@@ -125,7 +126,7 @@ class Model(object):
 
 		@return: (Goal)
 
-		@purpose:
+		@purpose: Gets a goal from the goal list.
 		'''
 		return self.goalList[self.getIndex(_gid)]
 
@@ -136,7 +137,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Gets the subgoal list. 
 		'''
 		return self.goalList[self.getIndex(_gid)].getSubGoalList()
 
@@ -147,7 +148,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Adds a new goal to the list.
 		'''
 		newSGID = self.getNewSGID()
 		self.goalList[self.getIndex(_gid)].addSubGoal(newSGID)
@@ -161,7 +162,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Edit a goal from the list.
 		'''
 		self.goalList[self.getIndex(_gid)].updateSubGoal(_sgid, _subGoalInformation)
 
@@ -172,7 +173,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Complete a subgoal from the list.
 		'''
 		self.goalList[self.getIndex(_gid)].completeSubGoal(_sgid)
 
@@ -183,7 +184,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Deletes a subgoal from the list.
 		'''
 		self.goalList[self.getIndex(_gid)].deleteSubGoal(_sgid)
 
@@ -194,7 +195,7 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Gets a subgoal from the list.
 		'''
 		return self.goalList[self.getIndex(_gid)].getSubGoal(_sgid)
 
@@ -205,7 +206,8 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Starts a timer to keep track of how much time - or effort -
+                          a user puts in to accomplishing a goal.
 		'''
 		self.effortTracker[_gid] = datetime.now()
 
@@ -215,7 +217,7 @@ class Model(object):
 
 		@return: (boolean)
 
-		@purpose: 
+		@purpose: Returns the goal's ID whose timer is going.
 		'''
 		return _gid in self.effortTracker
 
@@ -225,7 +227,8 @@ class Model(object):
 
 		@return: None
 
-		@purpose:
+		@purpose: Stops the timer that is keeping track of how much time
+                          - or effort - a user puts in to accomplishing a goal.
 		'''
 		self.goalList[self.getIndex(_gid)].addEffortTrack(datetime.now(), self.effortTracker.pop(_gid))
 
@@ -246,7 +249,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (dictionary)
+		@return: (dictionary) - list of times the user has put into accomplishing a goal.
 
 		@purpose: This method returns a copy of the effort tracking data
 		'''
@@ -257,7 +260,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (integer)
+		@return: (integer) - goal ID
 
 		@purpose: This method generates a new goal id and then returns it
 		'''
@@ -268,7 +271,7 @@ class Model(object):
 		'''
 		@param: None
 
-		@return: (integer)
+		@return: (integer) - subgoal ID
 
 		@purpose: This method generates a new subgoal id and then returns it
 		'''
@@ -277,21 +280,21 @@ class Model(object):
 
 	def getCurrGID(self):
 		'''
-		@param:
+		@param: None 
 
-		@return:
+		@return: (integer) - current goal ID
 
-		@purpose:
+		@purpose: Gets the current goal's ID.
 		'''
 		return self.currGID
 
 	def getCurrSGID(self):
 		'''
-		@param:
+		@param: None
 
-		@return:
+		@return: (integer) - current subgoal ID
 
-		@purpose:
+		@purpose: Gets the current subgoal's ID.
 		'''
 		return self.currSGID
 
@@ -323,11 +326,11 @@ class Model(object):
 	'''********************MISCELLANEOUS OPERATIONS********************'''
 	def getIndex(self, _gid):
 		'''
-		@param:
+		@param: _gid (integer)
 
-		@return:
+		@return: (integer) - an index of the goal in the list.
 
-		@purpose:
+		@purpose: Gets the index of the goal's index in the list.
 		'''
 		for index, goal in enumerate(self.goalList):
 			if goal.getId() == _gid:
