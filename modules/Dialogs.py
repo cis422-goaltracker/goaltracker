@@ -196,8 +196,10 @@ class AddEditViewGoal(QDialog):
             priority = 1
         memo = self.textEdit.toPlainText()
 
-        self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
-        self.accept() #exit dialog
+
+        if goalName.strip() != "" and category.strip() != "":
+            self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
+            self.accept() #exit dialog
 
     @pyqtSlot()
     def loadCancelGoal(self):
@@ -322,8 +324,9 @@ class AddEditViewSubGoal(QDialog):
 
         @purpose:
         '''
-        self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())}) #update subGoal information model
-        self.accept() #exit dialog
+        if self.lineEdit.text().strip() != "":
+            self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())}) #update subGoal information model
+            self.accept() #exit dialog
 
     @pyqtSlot()
     def loadCancelSubGoal(self):
