@@ -60,7 +60,7 @@ class Canvas(FigureCanvas):
 				rect.set_height(y)
 			#print("Frame", i)
 			return p1
-		self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=True)
+		self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
 		self.draw()
 
 	def plot_ring(self):
@@ -74,7 +74,7 @@ class Canvas(FigureCanvas):
 			ring_chart[0][1].set_theta1(90+i+1)
 			return ring_chart[0][0], ring_chart[0][1]
 		axes_ring.axis('off')
-		self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=int(360*percentage[0]/100), interval=10, blit=True)
+		self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=int(360*percentage[0]/100), interval=10, blit=False)
 		self.draw()
 
 	def stopAnimation(self):
