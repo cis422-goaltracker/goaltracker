@@ -29,10 +29,10 @@ UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEd
 
 # Different statuses of goals
 class State(Enum):
-    CURRENT = 1
-    OVERDUE = 2
-    COMPLETED = 3
-    ALL = 4
+    CURRENT = 1 # Constant for when Main Window is displaying Current goals
+    OVERDUE = 2 # Constant for when Main Window is displaying Overdue goals
+    COMPLETED = 3 # Constant for when Main Window is displaying Completed goals
+    ALL = 4 # Constant for when Main Window is displaying All goals
 
 class MainWindow(QMainWindow):
     def __init__(self, _model):
@@ -41,29 +41,29 @@ class MainWindow(QMainWindow):
 
         @return: None
 
-        @purpose:
+        @purpose: Initialize the main window.
         '''
-        super(MainWindow, self).__init__()
+        super(MainWindow, self).__init__() # Supercharge Main Window
         loadUi(UI_PATHS["MainWindow"], self) # Load the Main Window UI
 
         #Class Variables
-        self.model = _model
-        self.state = State.CURRENT
-        self.selectedListItemId = None
+        self.model = _model # Initialize model class
+        self.state = State.CURRENT # Initialize the status of goals to display Current goals
+        self.selectedListItemId = None # Initialize the selected goal to None
         
         #Signals
-        self.push_CurrentGoals.clicked.connect(self.loadCurrentGoals)
-        self.push_OverdueGoals.clicked.connect(self.loadOverdueGoals)
-        self.push_CompleteGoals.clicked.connect(self.loadCompletedGoals)
-        self.push_AllGoals.clicked.connect(self.loadAllGoals)
-        self.push_sort_category.clicked.connect(self.loadCategorySort)
-        self.push_sort_priority.clicked.connect(self.loadPrioritySort)
-        self.push_add_goal.clicked.connect(self.loadAddGoal)
-        self.push_complete.clicked.connect(self.loadCompleteGoal)
-        self.push_edit_view.clicked.connect(self.loadEditViewGoal)
-        self.push_delete_goal.clicked.connect(self.loadDeleteGoal)
-        self.push_view_analysis.clicked.connect(self.loadViewAnalysis)
-        self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
+        self.push_CurrentGoals.clicked.connect(self.loadCurrentGoals) # Connect Current Goals button with loadCurrentGoals method
+        self.push_OverdueGoals.clicked.connect(self.loadOverdueGoals) # Connect Overdue Goals button with loadOverdueGoals method
+        self.push_CompleteGoals.clicked.connect(self.loadCompletedGoals) # Connect Complete GOals button with loadCompletedGoals method
+        self.push_AllGoals.clicked.connect(self.loadAllGoals) # Connect All Goals button with loadAllGoals method
+        self.push_sort_category.clicked.connect(self.loadCategorySort) # Connect Category button with loadCategorySort method
+        self.push_sort_priority.clicked.connect(self.loadPrioritySort) # Connect Priority button with loadPrioritySort method
+        self.push_add_goal.clicked.connect(self.loadAddGoal) # Connect Add Goal button with loadAddGoal method
+        self.push_complete.clicked.connect(self.loadCompleteGoal) # Connect Complete button with loadComplete method
+        self.push_edit_view.clicked.connect(self.loadEditViewGoal) # Connect Edit/View button with loadEditView method
+        self.push_delete_goal.clicked.connect(self.loadDeleteGoal) # Connect Delete button with loadDeleteGoal method
+        self.push_view_analysis.clicked.connect(self.loadViewAnalysis) # Connect View Analysis button with loadViewAnalysis method
+        self.listWidget.itemSelectionChanged.connect(self.setChosenItem) # Connect clicking a goal from the list with setChosenItem method
 
         # Update the window's title
         self.setWindowTitle('Goal Tracker')
@@ -82,9 +82,9 @@ class MainWindow(QMainWindow):
         @purpose: Update main window to display current goals. Update title to "Current Goals",
                   set the state of the main window to CURRENT, and refresh the list of goals.
         '''
-        self.label_listTitle.setText("Current Goals") #set label
-        self.state = State.CURRENT #set state
-        self.refreshListView() #refreshes list of goals
+        self.label_listTitle.setText("Current Goals") # Set label
+        self.state = State.CURRENT # Set state
+        self.refreshListView() # Refreshes list of goals
 
     @pyqtSlot()
     def loadOverdueGoals(self):
@@ -96,9 +96,9 @@ class MainWindow(QMainWindow):
         @purpose: Update main window to display overdue goals. Update title to "Overdue Goals",
                   set the state of the main window to OVERDUE, and refresh the list of goals.
         '''
-        self.label_listTitle.setText("Overdue Goals") #set label
-        self.state = State.OVERDUE #set state
-        self.refreshListView() #refreshes list of goals
+        self.label_listTitle.setText("Overdue Goals") # Set label
+        self.state = State.OVERDUE # Set state
+        self.refreshListView() # Refreshes list of goals
 
     @pyqtSlot()
     def loadCompletedGoals(self):
@@ -110,9 +110,9 @@ class MainWindow(QMainWindow):
         @purpose: Update main window to display completed goals. Update title to "Completed Goals",
                   set the state of the main window to COMPLETED, and refresh the list of goals.
         '''
-        self.label_listTitle.setText("Completed Goals") #set label
-        self.state = State.COMPLETED #set state
-        self.refreshListView() #refreshes list of goals
+        self.label_listTitle.setText("Completed Goals") # Set label
+        self.state = State.COMPLETED # Set state
+        self.refreshListView() # Refreshes list of goals
 
     @pyqtSlot()
     def loadAllGoals(self):
@@ -124,9 +124,9 @@ class MainWindow(QMainWindow):
         @purpose: Update main window to display all goals. Update title to "All Goals", set the
                   state of the main window to ALL, and refresh the list of goals.
         '''
-        self.label_listTitle.setText("All Goals") #set label
-        self.state = State.ALL #set state
-        self.refreshListView() #refreshes list of goals
+        self.label_listTitle.setText("All Goals") # Set label
+        self.state = State.ALL # Set state
+        self.refreshListView() # Refreshes list of goals
 
     @pyqtSlot()
     def loadCategorySort(self):
@@ -138,8 +138,8 @@ class MainWindow(QMainWindow):
         @purpose: Sort the goals according to their category. Sort the goals by their category and
                   refresh the page.
         '''
-        self.model.categorySort() #runs category sort on model
-        self.refreshListView() #refreshes list of goals
+        self.model.categorySort() # Runs category sort on model
+        self.refreshListView() # Refreshes list of goals
 
     @pyqtSlot()
     def loadPrioritySort(self):
@@ -151,8 +151,8 @@ class MainWindow(QMainWindow):
         @purpose: Sort the goals according to their priority. Sort the goals by their priority and
                   refresh the page.
         '''
-        self.model.prioritySort() #runs priority sort on model
-        self.refreshListView() #refreshes list of goals
+        self.model.prioritySort() # Runs priority sort on model
+        self.refreshListView() # Refreshes list of goals
 
     @pyqtSlot()
     def loadAddGoal(self):
@@ -164,11 +164,11 @@ class MainWindow(QMainWindow):
         @purpose: Open the Add Goal Window and add the user's goal to the model. If the user cancels
                   out of the window, then delete the goal from the model.
         '''
-        window = AddEditViewGoal(self.model) #open add AddEditViewGoal window, pass it model
-        if window.exec(): #if successfully exits
-            self.refreshListView() #refresh list of goals
-        else:
-            self.model.deleteGoal(self.model.getCurrGID()) #else, delete the goal from the goal list
+        window = AddEditViewGoal(self.model) # Opens AddEditViewGoal window, pass it model
+        if window.exec(): # If successfully exits
+            self.refreshListView() # Refresh list of goals
+        else: # Otherwise...
+            self.model.deleteGoal(self.model.getCurrGID()) # Delete the goal from the goal list
 
     @pyqtSlot()
     def loadCompleteGoal(self):
@@ -180,12 +180,12 @@ class MainWindow(QMainWindow):
         @purpose: Update the status of the goal to complete. Update the status of the goal in the
                   model to complete and refresh the list of goals.
         '''
-        if self.goalIsSelected(): #if a goal is selected
-            goalid = self.selectedListItemId
-            if self.model.isEffortTracking(goalid):
-                self.model.stopEffortTracker(goalid)
-            self.model.completeGoal(goalid)
-            self.refreshListView()
+        if self.goalIsSelected(): # If a goal is selected
+            goalid = self.selectedListItemId # Get the selected goal's ID
+            if self.model.isEffortTracking(goalid): # If the model is keeping track of an effort's goal
+                self.model.stopEffortTracker(goalid) # Stop the effort timer
+            self.model.completeGoal(goalid) # Update the goal's status to Completed
+            self.refreshListView() # Refresh the list of goals displayed
 
     @pyqtSlot()
     def loadEditViewGoal(self):
@@ -198,11 +198,11 @@ class MainWindow(QMainWindow):
                   selected goal's information and update the window to display this information, and
                   refresh the list of goals.
         '''
-        if self.goalIsSelected():
-            goalid = self.selectedListItemId
-            window = AddEditViewGoal(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
-            if window.exec():
-                self.refreshListView()
+        if self.goalIsSelected(): # If a goal is selected
+            goalid = self.selectedListItemId # Get the selected goal's ID
+            window = AddEditViewGoal(self.model, goalid) # Open AddEditViewGoal window
+            if window.exec(): # If successfully exits
+                self.refreshListView() # Refresh the list of goals displayed
 
     @pyqtSlot()
     def loadDeleteGoal(self):
@@ -214,12 +214,12 @@ class MainWindow(QMainWindow):
         @purpose: Delete the goal. Get the selected goal's information, delete the goal from the
                   model, and refresh the list of goals.
         '''
-        if self.goalIsSelected():
-            goalid = self.selectedListItemId
-            if self.model.isEffortTracking(goalid):
-                self.model.stopEffortTracker(goalid)
-            self.model.deleteGoal(goalid)
-            self.refreshListView()
+        if self.goalIsSelected(): # If a goal is selected
+            goalid = self.selectedListItemId # Get the selected goal's ID
+            if self.model.isEffortTracking(goalid): # If the model is keeping track of an effort's goal
+                self.model.stopEffortTracker(goalid) # Stop the effort timer
+            self.model.deleteGoal(goalid) # Delete the goal from the list
+            self.refreshListView() # Refresh the list of goals displayed
 
     @pyqtSlot()
     def loadViewAnalysis(self): #FUNCTION NEEDS TO BE BUILT
@@ -231,14 +231,14 @@ class MainWindow(QMainWindow):
         @purpose: Open the View Analysis Window. Get the selected goal's information and display the
                   analysis according to whether it's complete or not, and refresh the list of goals.
         '''
-        if self.goalIsSelected():
-            goalid = self.selectedListItemId
-            if self.model.getGoal(goalid).isComplete() == True:
-                window = Analysis(self.model, goalid) #open AddEditViewGoal window, passes it model and goalid
-            else:
-                window = UncompletedAnalysis(self.model)
-            if window.exec():
-                self.refreshListView()
+        if self.goalIsSelected(): # If a goal is selected
+            goalid = self.selectedListItemId # Get the selected goal's ID
+            if self.model.getGoal(goalid).isComplete() == True: # If the selected goal is completed
+                window = Analysis(self.model, goalid) # Open Analysis window
+            else: # Otherwise...
+                window = UncompletedAnalysis(self.model) # Open UncompletedAnalysis window
+            if window.exec(): # If sucessfully exits
+                self.refreshListView() # Refresh the list of goals displayed
 
     def setChosenItem(self):
         '''
@@ -249,11 +249,11 @@ class MainWindow(QMainWindow):
         @purpose: When a selection is made, it determines if it was selected on or off.
         If selected off, then sets list id to null, otherwise the corresponding goal id.
         '''
-        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()]
-        if not selectedlist:
-            self.selectedListItemId = None
-        else:
-            self.selectedListItemId = selectedlist[0]
+        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()] # Get the list of selected goals
+        if not selectedlist: # If there isn't a list of selected goals
+            self.selectedListItemId = None # Set the selected item ID to None
+        else: # Otherwise... 
+            self.selectedListItemId = selectedlist[0] # Set it to the first item in the selected goals
 
     '''********************CLASS METHODS********************'''
     def goalIsSelected(self):
@@ -264,7 +264,7 @@ class MainWindow(QMainWindow):
 
         @purpose: returns if item is selected by checking if the selected list item id is null
         '''
-        return self.selectedListItemId != None
+        return self.selectedListItemId != None # Return the selected goal
 
     def addToListView(self, _goalList):
         '''
@@ -276,12 +276,12 @@ class MainWindow(QMainWindow):
                   each goal, set the text and data of the item, and display this new
                   item in the list.
         '''
-        self.listWidget.clear()
-        for goal in _goalList:
-            item = QListWidgetItem()
-            item.setText(goal.toString())
-            item.setData(Qt.UserRole, goal.getId())
-            self.listWidget.addItem(item)
+        self.listWidget.clear() # Clear the goals that are listed
+        for goal in _goalList: # For every goal in the goal list
+            item = QListWidgetItem() # Create an item for the list
+            item.setText(goal.toString()) # Set the text of the item to the name of the goal
+            item.setData(Qt.UserRole, goal.getId()) # Set the data of the item to the data of the goal
+            self.listWidget.addItem(item) # Add the item to the list
 
     def getGoalStateList(self):
         '''
@@ -293,16 +293,16 @@ class MainWindow(QMainWindow):
                   of goals that should be displayed and return a list of goals with
                   that status.
         '''
-        if self.state == State.CURRENT:
-            return self.model.getCurrentGoalList() #pulls current goal list from model
-        elif self.state == State.OVERDUE:
-            return self.model.getOverDueGoalList() #pulls overdue goal list from model
-        elif self.state == State.COMPLETED:
-            return self.model.getCompletedGoalList() #pulls completed goal list from model
-        elif self.state == State.ALL:
-            return self.model.getGoalList() #pulls all goal list from model
-        else:
-            return ["ERROR", "ERROR", "ERROR"]
+        if self.state == State.CURRENT: # If the status of the goals to display is current
+            return self.model.getCurrentGoalList() # Get the current goal list from model
+        elif self.state == State.OVERDUE: # If the status of the goals to display is overdue
+            return self.model.getOverDueGoalList() # Get the overdue goal list from model
+        elif self.state == State.COMPLETED: # If the status of the goals to display is completed
+            return self.model.getCompletedGoalList() # Get the completed goal list from model
+        elif self.state == State.ALL: # If the status of the goals to display is all
+            return self.model.getGoalList() # Get the goal list from model
+        else: # Otherwise...
+            return ["ERROR", "ERROR", "ERROR"] # Report an error
 
     def refreshListView(self):
         '''
@@ -313,8 +313,8 @@ class MainWindow(QMainWindow):
         @purpose: Updates the goals that are displayed in the list of goals. Get the
                   goals according to their status and display them as a list.
         '''
-        goalList = self.getGoalStateList()
-        self.addToListView(goalList)
+        goalList = self.getGoalStateList() # Get the list of goals to display
+        self.addToListView(goalList) # Add the goals to the list
 
     
 def main():
@@ -332,8 +332,8 @@ def main():
     app = QApplication(sys.argv) # Initialize PyQT application
     window = MainWindow(model) # Create a window of the main display of the Goal Tracker
     window.show() # Show the window
-    app.exec()
-    filemanager.save(model)
+    app.exec() # Execute the program
+    filemanager.save(model) # Save the model
     sys.exit() # Exit the program
 
 if __name__ == '__main__':
