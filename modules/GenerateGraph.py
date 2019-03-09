@@ -55,6 +55,8 @@ class Canvas(FigureCanvas):
 		y_heights = valuesList
 		axes_bar = self.fig.add_subplot(111)
 		axes_bar.set_title('Efforts')
+		axes_bar.set_xlabel('Dates')
+		axes_bar.set_ylabel('Hours')
 		p1 = axes_bar.bar(x, y_heights,width = 0.7,color='g')
 		def animate_bar(i):
 			for rect, y in zip(p1, [(i+1)*y/60 for y in y_heights]):
