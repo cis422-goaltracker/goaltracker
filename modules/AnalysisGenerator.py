@@ -131,15 +131,15 @@ class AnalysisGenerator(object):
 		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
 		ret = {} #create a dictionary to add these values to
-        if test:
-            ret = {
-            "3/8/2019" : 4,
-            "3/9/2019" : 3,
-            "3/10/2019" : 5,
-            "3/11/2019" : 2,
-            }
-            dates = list(ret.values()) #make a list of values
-            return dates
+		if test:
+			ret = {
+			"3/8/2019" : 4,
+			"3/9/2019" : 3,
+			"3/10/2019" : 5,
+			"3/11/2019" : 2,
+			}
+			dates = list(ret.values()) #make a list of values
+			return dates
 		for pair in effortTrackingData: #for the pair in efforttracking data
 			fintime = pair[0] #get finish time
 			starttime= pair[1] #get end time
@@ -151,7 +151,7 @@ class AnalysisGenerator(object):
 				ret[date] = complete #add it
 			else:
 				ret[date] += complete #sum the timedeltas
-
+		ret = self.sortDict(ret)
 		dates = list(ret.keys()) #make a list of date strings
 
 		return dates
@@ -162,15 +162,15 @@ class AnalysisGenerator(object):
 		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
 		ret = {} #create a dictionary to add these values to
-        if test:
-            ret = {
-            "3/8/2019" : 4,
-            "3/9/2019" : 3,
-            "3/10/2019" : 5,
-            "3/11/2019" : 2,
-            }
-            values = list(ret.values()) #make a list of values
-            return values
+		if test:
+			ret = {
+			"3/8/2019" : 4,
+			"3/9/2019" : 3,
+			"3/10/2019" : 5,
+			"3/11/2019" : 2,
+			}
+			values = list(ret.values()) #make a list of values
+			return values
 		for pair in effortTrackingData: #for the pair in efforttracking data
 			fintime = pair[0] #get finish time
 			starttime= pair[1] #get end time
@@ -193,6 +193,15 @@ class AnalysisGenerator(object):
 		
 			ret[date] = hours #assign hours to new dictionary
 
+		ret = self.sortDict(ret)
 		values = list(ret.values()) #make a list of values
 
 		return values
+
+	def sortDict(self, adict):
+		temp = sorted(adict.items())
+		ret = {}
+		for tup in temp:
+			ret[tup[0]] = tup[1]
+		return ret
+
