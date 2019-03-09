@@ -1,3 +1,10 @@
+"""
+	Authors: Jiazhen Cao
+	Date: 03/09/2019
+	CIS422
+	GoalTracker
+"""
+
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QSizePolicy
 import sys
 import time

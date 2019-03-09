@@ -1,7 +1,8 @@
 """
-    Test file
-    Goal
-    Isaac Lance 2/28/19
+    Author: Isaac Lance
+    Date: 2/28/19
+    CIS422
+    GoalTracker
 """
 #Standard imports: pytest and the file to be tested
 import pytest

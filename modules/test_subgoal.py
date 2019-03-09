@@ -1,8 +1,8 @@
 """
-    Test file
-    Subgoal
-    Isaac Lance 2/28/19
-    Weigang An 3/2/19
+    Authors: Isaac Lance, Weigang An
+    Date: 03/02/19
+    CIS422
+    GoalTracker
 """
 #Standard imports: pytest and the file to be tested
 import pytest

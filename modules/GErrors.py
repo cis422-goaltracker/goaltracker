@@ -1,6 +1,8 @@
 """
-Error classes used by modules
-Isaac Lance 3/2/19
+	Author: Isaac Lance
+	Date: 03/09/2019
+ 	CIS422
+	GoalTracker
 """
 
 class BaseError(Exception):

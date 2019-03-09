@@ -1,5 +1,6 @@
 """
-	Names Kellie Hawks 
+	Authors: Kellie Hawks, Isaac Lance, Jiazhen Cao
+        Date: 03/09/2019
 	CIS 422
 	GoalTracker
 """
