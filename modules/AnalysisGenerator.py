@@ -125,13 +125,21 @@ class AnalysisGenerator(object):
 		else:
 			return ((reschedulecount/completedcount) * 100) #calculates and returns percentage of goals completed after inital duedate
 		
-	def tranformDatesList(self, _gid, _model):
+	def tranformDatesList(self, _gid, _model, test = False):
 		
 		goal = _model.getGoal(_gid) #get goal from model
 		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
 		ret = {} #create a dictionary to add these values to
-
+        if test:
+            ret = {
+            "3/8/2019" : 4,
+            "3/9/2019" : 3,
+            "3/10/2019" : 5,
+            "3/11/2019" : 2,
+            }
+            dates = list(ret.values()) #make a list of values
+            return dates
 		for pair in effortTrackingData: #for the pair in efforttracking data
 			fintime = pair[0] #get finish time
 			starttime= pair[1] #get end time
@@ -148,13 +156,21 @@ class AnalysisGenerator(object):
 
 		return dates
 
-	def tranformValuesList(self, _gid, _model):
+	def tranformValuesList(self, _gid, _model, test = False):
 		
 		goal = _model.getGoal(_gid) #get goal from model
 		effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
 		ret = {} #create a dictionary to add these values to
-
+        if test:
+            ret = {
+            "3/8/2019" : 4,
+            "3/9/2019" : 3,
+            "3/10/2019" : 5,
+            "3/11/2019" : 2,
+            }
+            values = list(ret.values()) #make a list of values
+            return values
 		for pair in effortTrackingData: #for the pair in efforttracking data
 			fintime = pair[0] #get finish time
 			starttime= pair[1] #get end time
