@@ -397,15 +397,15 @@ class Analysis(QDialog):
         super(Analysis, self).__init__()
         
         loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
-
-        self.ag = AnalysisGenerator()
-
-        self.canvas = Canvas(self, width=4.5, height=4)
-        self.canvas.move(0,0)
-        self.canvas.plot_bar()
-
         self.model = _model
         self.goalid = _goalid
+        self.ag = AnalysisGenerator()
+        self.datesList = self.ag.tranformDatesList(self.goalid, self.model)
+        self.valuesList = self.ag.tranformValuesList(self.goalid, self.model)
+        self.canvas = Canvas(self, width=4.5, height=4)
+        self.canvas.move(0,0)
+        print(self.datesList)
+        self.canvas.plot_bar(self.datesList, self.valuesList)
 
         string1 = "This Goal took you " + self.ag.getActiveTime(self.goalid, self.model) + " days to complete"
         if self.ag.getFasterSlower(self.goalid, self.model) == -10000:

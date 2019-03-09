@@ -49,10 +49,10 @@ class Canvas(FigureCanvas):
 		FigureCanvas.updateGeometry(self)
 		self.setParent(parent)
 
-	def plot_bar(self):
+	def plot_bar(self, datesList, valuesList):
 		# Draw Bar Graph
-		x = ['1/10/19', '1/11/19', '1/13/19', '1/14/19', '1/15/19', '1/16/19']
-		y_heights = [10.0, 2.0, 7.0, 5.0, 2.0, 9.0]
+		x = datesList
+		y_heights = valuesList
 		axes_bar = self.fig.add_subplot(111)
 		axes_bar.set_title('Efforts')
 		p1 = axes_bar.bar(x, y_heights,width = 0.7,color='g')

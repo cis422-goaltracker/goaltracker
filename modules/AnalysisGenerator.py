@@ -152,8 +152,9 @@ class AnalysisGenerator(object):
 				ret[date] = hours #assign hours to new dictionary
 		
 		for key in ret.keys(): #for every key in the dictionary
-			datetime.strftime(key,'%b %d, %Y') #turn it into a string
-		
+			#datetime.strftime(key,'%b %d, %Y') #turn it into a string
+			ret[str(key)] = ret.pop(key)
+			pass
 		dates = list(ret.keys()) #make a list of date strings
 
 		return dates
@@ -182,7 +183,7 @@ class AnalysisGenerator(object):
 
 				seconds = values.total_seconds() #solve for how many hours
 				
-				hours = seconds // 86400 #more computation
+				hours = seconds / 86400 #more computation
 			
 				ret[date] = hours #assign hours to new dictionary
 
