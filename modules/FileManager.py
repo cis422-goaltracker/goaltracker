@@ -19,9 +19,10 @@ class FileManager(object):
 		'''
         @param: None
 
-        @return:
+        @return: (Model)
 
-        @purpose:
+        @purpose: Tries open shelve and extract the model, if can't find the data, generates a
+        an empty model and returns that instead
         '''
 		db = shelve.open(self.fileName) #open file
 		try:
@@ -36,16 +37,14 @@ class FileManager(object):
 		'''
         @param: _model (Model)
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Stores model in the shelve
         '''
 		_fileName = self.fileName if _fileName == None else _fileName #defaults to original file name unless a new one is specified
 		db = shelve.open(_fileName) #open file
 		try:
 			db['model'] = _model #store model in shelve
 			db.close() #close file
-			return _model #Success
 		except:
 			db.close() #close file
-			return None #IO ERROR

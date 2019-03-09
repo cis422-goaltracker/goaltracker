@@ -218,18 +218,28 @@ class AddEditViewGoal(QDialog):
             priority = 1
         memo = self.textEdit.toPlainText()
 
-        if goalName.strip() != "" and category.strip() != "":
+        overDue = False
+        if dueDate != None:
+            if dueDate <= datetime.now():
+                overDue = True
+
+        if goalName.strip() != "" and category.strip() != "" and not overDue:
             self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
             self.accept() #exit dialog
         else:
             if goalName.strip() == "":
                 self.lineEdit_goal_name.setStyleSheet("border: 1px solid red;")
+            else:
+                self.lineEdit_goal_name.setStyleSheet("border: none;")
             if category.strip() == "":
                 self.lineEdit_category.setStyleSheet("border: 1px solid red;")
-            if goalName.strip() != "":
-                self.lineEdit_goal_name.setStyleSheet("border: none;")
-            if category.strip() != "":
+            else:
                 self.lineEdit_category.setStyleSheet("border: none")
+            if overDue:
+                self.dateTimeEdit_due_date.setStyleSheet("border: 1px solid red;")
+            else:
+                self.dateTimeEdit_due_date.setStyleSheet("border: none")
+                
  
 
     @pyqtSlot()
@@ -326,7 +336,7 @@ class AddEditViewSubGoal(QDialog):
         @param: _goalid (integer)
         @param: _subgoalid (integer) - defaults to None
 
-        @return:
+        @return: None
 
         @purpose:
         '''
