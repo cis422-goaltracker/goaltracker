@@ -224,12 +224,13 @@ class AddEditViewGoal(QDialog):
         else:
             if goalName.strip() == "":
                 self.lineEdit_goal_name.setStyleSheet("border: 1px solid red;")
+            else:
+                self.lineEdit_goal_name.setStyleSheet("border: none;")
             if category.strip() == "":
                 self.lineEdit_category.setStyleSheet("border: 1px solid red;")
-            if goalName.strip() != "":
-                self.lineEdit_goal_name.setStyleSheet("border: none;")
-            if category.strip() != "":
+            else:
                 self.lineEdit_category.setStyleSheet("border: none")
+                
  
 
     @pyqtSlot()
@@ -326,7 +327,7 @@ class AddEditViewSubGoal(QDialog):
         @param: _goalid (integer)
         @param: _subgoalid (integer) - defaults to None
 
-        @return:
+        @return: None
 
         @purpose:
         '''

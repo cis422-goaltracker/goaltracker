@@ -11,9 +11,9 @@ class Goal(object):
 	"""CONSTRUCTORS FOR GOAL"""
 	def __init__(self, _id):
 		'''
-        @param:
+        @param: _id (integer)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -38,9 +38,9 @@ class Goal(object):
 	"""Special Methods"""
 	def __lt__(self, other):
 		'''
-        @param:
+        @param: other (Goal)
 
-        @return:
+        @return: (boolean)
 
         @purpose: Override less than, aka "<", so self<right_goal
         '''
@@ -54,9 +54,9 @@ class Goal(object):
 	'''Goal Operations'''
 	def hasDueDate(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (boolean)
 
         @purpose:
         '''
@@ -64,9 +64,9 @@ class Goal(object):
 
 	def hasBeenRescheduled(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (boolean)
 
         @purpose:
         '''
@@ -77,9 +77,9 @@ class Goal(object):
 
 	def update(self, _goalInformation):
 		'''
-        @param:
+        @param: _goalInformation (Dictionary)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -93,9 +93,9 @@ class Goal(object):
 
 	def complete(self, _finishDate):
 		'''
-        @param:
+        @param: _finishDate (DateTime)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -105,9 +105,9 @@ class Goal(object):
 
 	def isComplete(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (boolean)
 
         @purpose:
         '''
@@ -115,9 +115,9 @@ class Goal(object):
 
 	def isOverDue(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (boolean)
 
         @purpose:
         '''
@@ -129,9 +129,9 @@ class Goal(object):
 	'''Subgoal Operations'''
 	def addSubGoal(self, _sgid):
 		'''
-        @param:
+        @param: _sgid (integer)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -139,9 +139,10 @@ class Goal(object):
 
 	def updateSubGoal(self, _sgid, _subGoalInformation):
 		'''
-        @param:
+        @param: _sgid (integer)
+        @param: _subGoalInformation (Dictionary)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -149,9 +150,9 @@ class Goal(object):
 
 	def completeSubGoal(self, _sgid):
 		'''
-        @param:
+        @param: _sgid (integer)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -159,9 +160,9 @@ class Goal(object):
 
 	def deleteSubGoal(self, _sgid):
 		'''
-        @param:
+        @param: _sgid (integer)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -169,9 +170,9 @@ class Goal(object):
 
 	def getSubGoal(self, _sgid):
 		'''
-        @param:
+        @param: _sgid (integer)
 
-        @return:
+        @return: (SubGoal)
 
         @purpose:
         '''
@@ -179,9 +180,9 @@ class Goal(object):
 
 	def getIndex(self, _sgid):
 		'''
-        @param:
+        @param: _sgid (integer)
 
-        @return:
+        @return: (integer)
 
         @purpose:
         '''
@@ -193,9 +194,10 @@ class Goal(object):
 	'''Effort Tracker Operations'''
 	def addEffortTrack(self, _finishTime, _startTime):
 		'''
-        @param:
+        @param: _finishTime (DateTime)
+        @param: _startTime (DateTime)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -204,9 +206,9 @@ class Goal(object):
 	'''To String Operations'''
 	def toString(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (string)
 
         @purpose:
         '''
@@ -234,9 +236,9 @@ class Goal(object):
 	"""GETTERS FOR GOAL"""
 	def getId(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (integer)
 
         @purpose:
         '''
@@ -244,9 +246,9 @@ class Goal(object):
 
 	def getName(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (string)
 
         @purpose:
         '''
@@ -254,9 +256,9 @@ class Goal(object):
 
 	def getCategory(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (string)
 
         @purpose:
         '''
@@ -264,9 +266,9 @@ class Goal(object):
 
 	def getPriority(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (integer)
 
         @purpose:
         '''
@@ -274,9 +276,9 @@ class Goal(object):
 
 	def getMemo(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (string)
 
         @purpose:
         '''
@@ -284,9 +286,9 @@ class Goal(object):
 
 	def getStartDate(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (DateTime)
 
         @purpose:
         '''
@@ -294,9 +296,9 @@ class Goal(object):
 
 	def getDueDate(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (DateTime)
 
         @purpose:
         '''
@@ -304,9 +306,9 @@ class Goal(object):
 
 	def getInitialDueDate(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (DateTime)
 
         @purpose:
         '''
@@ -314,9 +316,9 @@ class Goal(object):
 
 	def getFinishDate(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (DateTime)
 
         @purpose:
         '''
@@ -324,9 +326,9 @@ class Goal(object):
 
 	def getEffortTrackingData(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (List)
 
         @purpose:
         '''
@@ -334,9 +336,9 @@ class Goal(object):
 
 	def getSubGoalList(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (List)
 
         @purpose:
         '''
@@ -344,9 +346,9 @@ class Goal(object):
 
 	def getSortingMethod(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: (string)
 
         @purpose:
         '''
@@ -355,9 +357,9 @@ class Goal(object):
 	"""SETTERS FOR GOAL"""
 	def setSortingMethod(self, _sortingMethod):
 		'''
-        @param:
+        @param:_sortingMethod (string)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -367,9 +369,9 @@ class SubGoal(object):
 	"""CONSTRUCTORS FOR SUBGOAL"""
 	def __init__(self, _id):
 		'''
-        @param:
+        @param: _id (integer)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -380,9 +382,9 @@ class SubGoal(object):
 	"""METHODS FOR SUBGOAL"""
 	def update(self, _subGoalInformation):
 		'''
-        @param:
+        @param: _subGoalInformation (Dictionary)
 
-        @return:
+        @return: None
 
         @purpose:
         '''
@@ -390,9 +392,9 @@ class SubGoal(object):
 
 	def complete(self):
 		'''
-        @param:
+        @param: None
 
-        @return:
+        @return: None
 
         @purpose:
         '''
