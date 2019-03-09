@@ -1,8 +1,8 @@
 """
-    Names: Holly Hardin (HH)
+    Authors: Noah Palmer, Holly Hardin, Jiazhen Cao, Kellie Hawks, Isaac Lance, Weigang An
+    Date: 03/09/2019
     CIS 422
     GoalTracker
-        Reference [0]: https://stackoverflow.com/questions/21213853/pyside-how-to-delete-widgets-from-gridlayout
 
 """
 #System Imports
@@ -20,7 +20,7 @@ from FileManager import FileManager
 from AnalysisGenerator import AnalysisGenerator
 from GenerateGraph import Canvas
 
-# Global variable for storing UI files (HH)
+# Global variable for storing UI files
 UI_PATHS = {"MainWindow": "../UI/MainWindow.ui", "AddEditViewGoal": "../UI/AddEditViewGoal.ui", "AddEditViewSubgoal": "../UI/AddEditViewSubgoal.ui", "Analysis": "../UI/Analysis.ui", "UncompletedAnalysis": "../UI/UncompletedAnalysis.ui"}
 
 class AddEditViewGoal(QDialog):
