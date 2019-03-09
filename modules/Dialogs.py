@@ -411,10 +411,12 @@ class Analysis(QDialog):
         self.goalid = _goalid
         self.ag = AnalysisGenerator()
         # ************************************ FAKE TESTING EFFORT DATA ******************************************************
+        '''
         for i in range(6):
             start = datetime(2019, 2, 17 + i, 0 + i, 30, 30, 400000)
             end = datetime(2019, 2, 17 + i, 4 + 2 * i, 30, 30, 400000)
             self.model.manuallyInputEffort(self.goalid, start, end)
+        '''
         # ************************************ Finish Faking *****************************************************************
         self.datesList = self.ag.tranformDatesList(self.goalid, self.model)
         self.valuesList = self.ag.tranformValuesList(self.goalid, self.model)
