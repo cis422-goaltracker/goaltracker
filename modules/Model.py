@@ -1,5 +1,5 @@
 """
-	Authors: Noah Palmer, Holly Hardin
+	Authors: Noah Palmer, Holly Hardin, Isaac Lance
 	Date: 03/09/2019
 	CIS 422
 	GoalTracker
