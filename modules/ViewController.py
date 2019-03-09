@@ -236,7 +236,7 @@ class MainWindow(QMainWindow):
             if self.model.getGoal(goalid).isComplete() == True: # If the selected goal is completed
                 window = Analysis(self.model, goalid) # Open Analysis window
             else: # Otherwise...
-                window = UncompletedAnalysis(self.model) # Open UncompletedAnalysis window
+                window = UncompletedAnalysis(self.model, goalid) # Open UncompletedAnalysis window
             if window.exec(): # If sucessfully exits
                 self.refreshListView() # Refresh the list of goals displayed
 
