@@ -142,7 +142,7 @@ class AnalysisGenerator(object):
 				ret[date] = complete #add it
 			else:
 				ret[date] += complete #sum the timedeltas
-
+		'''
 		for date in ret.keys():
 			for values in ret.values(): #for the time delta values in the new dictionary made
 
@@ -150,7 +150,7 @@ class AnalysisGenerator(object):
 				hours = seconds // 86400 #more computation
 
 				ret[date] = hours #assign hours to new dictionary
-		
+		'''
 		for key in ret.keys(): #for every key in the dictionary
 			#datetime.strftime(key,'%b %d, %Y') #turn it into a string
 			ret[str(key)] = ret.pop(key)
@@ -178,14 +178,17 @@ class AnalysisGenerator(object):
 			else:
 				ret[date] += complete #sum the timedeltas
 
+		print(ret)
 		for date in ret.keys():
-			for values in ret.values(): #for the time delta values in the new dictionary made
-
-				seconds = values.total_seconds() #solve for how many hours
-				
-				hours = seconds / 86400 #more computation
+			print(date)
+			#for values in ret[date]: #for the time delta values in the new dictionary made
+			values = ret[date]
+			print("value: ", values)
+			seconds = values.total_seconds() #solve for how many hours
 			
-				ret[date] = hours #assign hours to new dictionary
+			hours = seconds / 86400 #more computation
+		
+			ret[date] = hours #assign hours to new dictionary
 
 		values = list(ret.values()) #make a list of values
 
