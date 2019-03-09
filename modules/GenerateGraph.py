@@ -16,39 +16,11 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.collections import PatchCollection
 from matplotlib import animation
-"""
-class Window(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        title = "Embed Matplotlib In PyQt5"
-        top = 400
-        left = 400
-        width = 900
-        height = 500
-        #icon = "icon.png"
-
-        self.setWindowTitle(title)
-        self.setGeometry(top,left, width, height)
-        #self.setWindowIcon(QIcon("icon.png"))
-        self.MyUI()
-
-    def MyUI(self):
-
-		canvas = Canvas(self, width=8, height=4)
-		canvas.move(0,0)
-
-        button = QPushButton( "Button 1", self)
-        button.move(100, 450)
-
-        button = QPushButton("Button 2", self)
-        button.move(250, 450)
-"""
 
 class Canvas(FigureCanvas):
 	def __init__(self, parent = None, width =5, height = 5, dpi =100):
 
 		self.fig = Figure(figsize=(width, height), dpi=dpi)
-		#self.fig = plt.figure()
 		FigureCanvas.__init__(self, self.fig)
 		FigureCanvas.setSizePolicy(self,
 			QSizePolicy.Expanding,
