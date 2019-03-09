@@ -54,6 +54,7 @@ class Canvas(FigureCanvas):
 		x = ['1/10/19', '1/11/19', '1/13/19', '1/14/19', '1/15/19', '1/16/19']
 		y_heights = [10.0, 2.0, 7.0, 5.0, 2.0, 9.0]
 		axes_bar = self.fig.add_subplot(111)
+		axes_bar.set_title('Efforts')
 		p1 = axes_bar.bar(x, y_heights,width = 0.7,color='g')
 		def animate_bar(i):
 			for rect, y in zip(p1, [(i+1)*y/60 for y in y_heights]):
@@ -63,18 +64,20 @@ class Canvas(FigureCanvas):
 		self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
 		self.draw()
 
-	def plot_ring(self):
+	def plot_ring(self, f_perc, uf_perc):
 		#Draw Ring Graph
 		axes_ring = self.fig.add_subplot(111)
-		labels = ["Finished", "Unfinished"]
+		axes_ring.set_title('Goal Progress')
+		labels = ["{0:.2f}% Finished".format(f_perc), "{0:.2f}% Unfinished".format(uf_perc)]
 		colors = ['g', 'r']
-		percentage = [70, 30]
+		percentage = [f_perc, uf_perc]
 		ring_chart = axes_ring.pie(percentage, wedgeprops=dict(width=0.5), startangle=90, labels = labels, colors = colors)
 		def animate_ring(i): 
 			ring_chart[0][1].set_theta1(90+i+1)
 			return ring_chart[0][0], ring_chart[0][1]
 		axes_ring.axis('off')
-		self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=int(360*percentage[0]/100), interval=10, blit=False)
+		if percentage[0] != 0:
+			self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=int(360*percentage[0]/100), interval=10, blit=False)
 		self.draw()
 
 	def stopAnimation(self):

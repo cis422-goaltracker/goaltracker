@@ -402,10 +402,6 @@ class Analysis(QDialog):
 
         self.canvas = Canvas(self, width=4.5, height=4)
         self.canvas.move(0,0)
-        width = self.frameGeometry().width()
-        height = self.frameGeometry().height()
-        self.resize(width + 1, height)
-        #print(self.frameGeometry().width(), height)
         self.canvas.plot_bar()
 
         self.model = _model
@@ -450,7 +446,7 @@ class Analysis(QDialog):
 
 
 class UncompletedAnalysis(QDialog):
-    def __init__(self, _model): #FUNCTION NEEDS TO BE BUILT
+    def __init__(self, _model, _goalid): #FUNCTION NEEDS TO BE BUILT
         '''
         @param:
 
@@ -463,10 +459,12 @@ class UncompletedAnalysis(QDialog):
         self.ui = loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
 
         self.model = _model
+        self.goalid = _goalid
         self.ag = AnalysisGenerator()
+        self.finished_percentage = self.ag.trackProgress(self.goalid, self.model) * 100
         self.canvas = Canvas(self, width=7, height=4)
         self.canvas.move(0,0)
-        self.canvas.plot_ring()
+        self.canvas.plot_ring(self.finished_percentage, 100 - self.finished_percentage)
 
         greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
         
@@ -485,7 +483,8 @@ class UncompletedAnalysis(QDialog):
         self.label_lowerlinetext_3.setText(string3)
 
     def closeEvent(self, event):
-        self.stopAnimationOnExit()
+        if self.finished_percentage != 0:
+            self.stopAnimationOnExit()
         event.accept()
 
     def stopAnimationOnExit(self):

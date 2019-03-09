@@ -30,11 +30,13 @@ class AnalysisGenerator(object):
 	def trackProgress(self, _gid, _model):
 		
 		goal = _model.getGoal(_gid) #gets the goal from the model
-		subgoallist = goal.getSubGoalList(_gid)	#grabs the dictionary of subgoals
+		subgoallist = goal.getSubGoalList()	#grabs the dictionary of subgoals
 		subcompletedcount = 0			#starts a counter for completed subgoals
 		for subgoal in subgoallist:	#for every value in dictionary
 			if subgoal.isComplete():	#if that value is true i.e. goal is completed
 				subcompletedcount += 1	#increase goal count
+		if len(subgoallist) == 0:
+			return 0
 		return subcompletedcount/ len(subgoallist) #return number completed over number of subgoals
 
 
