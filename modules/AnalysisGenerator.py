@@ -70,13 +70,14 @@ class AnalysisGenerator(object):
 				ret[date] += complete #sum the timedeltas
 
 		for date in ret.keys():
-			for values in ret.values(): #for the time delta values in the new dictionary made
+			#for the time delta values in the new dictionary made
+			values = ret[date]
 
-				seconds = values.total_seconds() #solve for how many hours
+			seconds = values.total_seconds() #solve for how many hours
 
-				hours = seconds // 86400 #more computation
+			hours = seconds // 86400 #more computation
 
-				ret[date] = int(hours) #assign hours to new dictionary
+			ret[date] = int(hours) #assign hours to new dictionary
 
 		timesum = sum(ret.values()) #sum all the values (now as hours)
 
@@ -136,25 +137,13 @@ class AnalysisGenerator(object):
 			starttime= pair[1] #get end time
 
 			complete = fintime - starttime #find total amoutn of time
-			date = fintime.date() #get the data
+			date = str(fintime.date()) #get the data
 
 			if not (date in ret): #if the date does not exist in the return dictionary
 				ret[date] = complete #add it
 			else:
 				ret[date] += complete #sum the timedeltas
-		'''
-		for date in ret.keys():
-			for values in ret.values(): #for the time delta values in the new dictionary made
 
-				seconds = values.total_seconds() #solve for how many hours
-				hours = seconds // 86400 #more computation
-
-				ret[date] = hours #assign hours to new dictionary
-		'''
-		for key in ret.keys(): #for every key in the dictionary
-			#datetime.strftime(key,'%b %d, %Y') #turn it into a string
-			ret[str(key)] = ret.pop(key)
-			pass
 		dates = list(ret.keys()) #make a list of date strings
 
 		return dates
@@ -178,12 +167,10 @@ class AnalysisGenerator(object):
 			else:
 				ret[date] += complete #sum the timedeltas
 
-		print(ret)
 		for date in ret.keys():
-			print(date)
 			#for values in ret[date]: #for the time delta values in the new dictionary made
 			values = ret[date]
-			print("value: ", values)
+			
 			seconds = values.total_seconds() #solve for how many hours
 			
 			hours = seconds / 86400 #more computation

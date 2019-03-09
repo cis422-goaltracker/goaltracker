@@ -414,14 +414,12 @@ class Analysis(QDialog):
         for i in range(6):
             start = datetime(2019, 2, 17 + i, 0 + i, 30, 30, 400000)
             end = datetime(2019, 2, 17 + i, 4 + 2 * i, 30, 30, 400000)
-            print(start, end)
             self.model.manuallyInputEffort(self.goalid, start, end)
         # ************************************ Finish Faking *****************************************************************
         self.datesList = self.ag.tranformDatesList(self.goalid, self.model)
         self.valuesList = self.ag.tranformValuesList(self.goalid, self.model)
         self.canvas = Canvas(self, width=4.5, height=4)
         self.canvas.move(0,0)
-        print(self.datesList)
         self.canvas.plot_bar(self.datesList, self.valuesList)
 
         string1 = "This Goal took you " + self.ag.getActiveTime(self.goalid, self.model) + " days to complete"
