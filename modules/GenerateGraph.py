@@ -56,12 +56,19 @@ class Canvas(FigureCanvas):
 		axes_bar = self.fig.add_subplot(111)
 		axes_bar.set_title('Efforts')
 		axes_bar.set_xlabel('Dates')
-		axes_bar.set_ylabel('Hours')
+		if max(y_heights) < 1:
+			if max(y_heights) < 1/60:
+				y_heights = [y * 60 * 60 for y in y_heights]
+				axes_bar.set_ylabel('Seconds')
+			else:
+				y_heights = [y * 60 for y in y_heights]
+				axes_bar.set_ylabel('Minutes')
+		else:
+			axes_bar.set_ylabel('Hours')
 		p1 = axes_bar.bar(x, y_heights,width = 0.7,color='g')
 		def animate_bar(i):
 			for rect, y in zip(p1, [(i+1)*y/60 for y in y_heights]):
 				rect.set_height(y)
-			#print("Frame", i)
 			return p1
 		self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
 		self.draw()
