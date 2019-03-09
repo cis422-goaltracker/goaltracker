@@ -65,8 +65,9 @@ $ pip3 install matplotlib
 ```
 
 ### To run the application run this bash command:
+Where pythonversion is the name of the python version you are using. 
 ```bash
-$ python ViewController.py
+$ pythonversion ViewController.py
 ```
 
 ## Usage
