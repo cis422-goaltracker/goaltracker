@@ -67,6 +67,24 @@
       </spacer>
      </item>
      <item>
+      <widget class="QLCDNumber" name="lcdNumber">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="push_effort">
        <property name="font">
         <font>
@@ -91,13 +109,6 @@
        </property>
        <property name="text">
         <string>No Due Date</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLCDNumber" name="lcdNumber">
-       <property name="lineWidth">
-        <number>0</number>
        </property>
       </widget>
      </item>

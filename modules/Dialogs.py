@@ -33,70 +33,74 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: Initializes the Add/Edit/View Goal window to either Add Goal or Edit/View Goal
         '''
-        super(AddEditViewGoal, self).__init__()
+        super(AddEditViewGoal, self).__init__() #Initializes parent constructor
         
         loadUi(UI_PATHS["AddEditViewGoal"], self) # Load the AddEditViewGoal UI
 
         #Class Variables
-        self.model = _model
-        self.goalid = _goalid
-        self.selectedListItemId = None
-        self.hasDueDate = True
-        self.timerOn = False
+        self.model = _model #intializes the model
+        self.goalid = _goalid #initializes the goal id
+        self.selectedListItemId = None #starts the selected item as none
+        self.hasDueDate = True #defaults hasDueDate to true
+        self.timerOn = False #defaults timeOn to False
 
         #Signals
-        self.push_effort.clicked.connect(self.toggleEffortTracker)
-        self.checkBox_due_date.clicked.connect(self.toggleDueDate)
-        self.push_add_subgoal.clicked.connect(self.loadAddSubGoal)
-        self.push_complete_subgoal.clicked.connect(self.loadCompleteSubGoal)
-        self.push_edit_view_subgoal.clicked.connect(self.loadEditViewSubGoal)
-        self.push_delete_subgoal.clicked.connect(self.loadDeleteSubGoal)
-        self.push_save.clicked.connect(self.loadSaveGoal)
-        self.push_cancel.clicked.connect(self.loadCancelGoal)
-        self.listWidget.itemSelectionChanged.connect(self.setChosenItem)
-        self.dateTimeEdit_due_date.dateTimeChanged.connect(self.setDueDateText)
+        self.push_effort.clicked.connect(self.toggleEffortTracker) #set up effort tracker signal
+        self.checkBox_due_date.clicked.connect(self.toggleDueDate) #set up toggle due date signal
+        self.push_add_subgoal.clicked.connect(self.loadAddSubGoal) # set up add subgoal signal
+        self.push_complete_subgoal.clicked.connect(self.loadCompleteSubGoal) #set up complete subgoal signal
+        self.push_edit_view_subgoal.clicked.connect(self.loadEditViewSubGoal) #set up edit view subgoal signal
+        self.push_delete_subgoal.clicked.connect(self.loadDeleteSubGoal) #set up delete subgoal signal
+        self.push_save.clicked.connect(self.loadSaveGoal) #set up save goal signal
+        self.push_cancel.clicked.connect(self.loadCancelGoal) #set up cancel goal signal
+        self.listWidget.itemSelectionChanged.connect(self.setChosenItem) #set up chosen item signal
+        self.dateTimeEdit_due_date.dateTimeChanged.connect(self.setDueDateText) #set up due date text signal
 
-        if self.goalid == None:
-            self.setWindowTitle('Add Goal')
-            self.goalid = self.model.addGoal()
-            self.dateTimeEdit_due_date.setDate(QDate.currentDate())
-            self.dateTimeEdit_due_date.setTime(QTime.currentTime())
-            self.label_goal_name_4.setText("")
-        else:
-            self.setWindowTitle('Edit/View Goal')
-            goal = self.model.getGoal(self.goalid)
-            self.lineEdit_goal_name.setText(goal.getName())
-            if self.model.isEffortTracking(self.goalid):
-                self.push_effort.setText("Stop Effort Tracker")
+        if self.goalid == None: #if there is no goal id, its an add goal process
+            self.setWindowTitle('Add Goal') #sets the window title
+            self.goalid = self.model.addGoal() #gets a new goalid for this new goal
+            self.dateTimeEdit_due_date.setDate(QDate.currentDate()) #sets date to the current date
+            self.dateTimeEdit_due_date.setTime(QTime.currentTime()) #sets time to the current time
+            self.label_goal_name_4.setText("") #hides the status text
+        else: #if there is a goal id, its an edit/view goal process
+            self.setWindowTitle('Edit/View Goal') #sets the window title
+            goal = self.model.getGoal(self.goalid) #retrieves the goal from the model
+            self.lineEdit_goal_name.setText(goal.getName()) #sets the goal name section of the editor
+            if self.model.isEffortTracking(self.goalid): #if the goal is currently tracking
+                self.push_effort.setText("Stop Effort Tracker") #set the effort tracker to say stop effort tracker
+                goalstarttime = self.model.peekEffortTracker(self.goalid) #retrieve the start time of the goal track from the effort tracker
+                #@JIAZHEN, PUT CODE HERE TO SET THE TIMER
+                #@JIAZHEN "goalstarttime" is when the goal started the effort tracker
+                #@JIAZHEN I put your function "onTimerOut" in the Class Methods Section rather than the PyQTSlot Section, no code changed
 
-            if goal.isComplete():
-                self.label_status.setText("Status: Complete")
+            if goal.isComplete(): #if the goal is complete
+                self.label_status.setText("Status: Complete") #set the status as complete
             else:
-                self.label_status.setText("Status: Incomplete")
+                self.label_status.setText("Status: Incomplete") #else, set the status as incomplete
 
-            if goal.getPriority() == 3:
-                self.radio_priority_low.isChecked()
-            elif goal.getPriority() == 2:
-                self.radio_priority_medium.isChecked()
+            if goal.getPriority() == 3: #if the priority is 3
+                self.radio_priority_low.isChecked() #set low as checked
+            elif goal.getPriority() == 2: #if the priority is 2
+                self.radio_priority_medium.isChecked() #set medium as checked
             else:
-                self.radio_priority_high.isChecked()
+                self.radio_priority_high.isChecked() #else, set high as checked
 
-            self.lineEdit_category.setText(goal.getCategory())
-            self.textEdit.setText(goal.getMemo())
-            self.refreshListView()
-            if goal.getDueDate() == None:
-                self.hasDueDate = False
-                self.checkBox_due_date.setCheckState(True)
-                self.dateTimeEdit_due_date.setDate(QDate.currentDate())
-                self.dateTimeEdit_due_date.setTime(QTime.currentTime())
-            else:
-                self.dateTimeEdit_due_date.setDate(goal.getDueDate())
-                self.dateTimeEdit_due_date.setTime(goal.getDueDate().time()) 
-            self.setDueDateText()
+            self.lineEdit_category.setText(goal.getCategory()) #set the category as the goal's category
+            self.textEdit.setText(goal.getMemo()) #set the memo as the goal's memo
+            self.refreshListView() #refresh the listview
+            if goal.getDueDate() == None: #if no due date
+                self.hasDueDate = False #set has due date to false
+                self.checkBox_due_date.setChecked(True) #check the no due date checkbox
+                self.dateTimeEdit_due_date.setDate(QDate.currentDate()) #set the date as the current date
+                self.dateTimeEdit_due_date.setTime(QTime.currentTime()) #set the time as the current time
+            else: #otherwise
+                self.dateTimeEdit_due_date.setDate(goal.getDueDate()) #set date as the current duedate
+                self.dateTimeEdit_due_date.setTime(goal.getDueDate().time()) #set time as the current due time
+            self.setDueDateText() #update status
 
-        if self.model.getGoal(self.goalid).isComplete():
+        if self.model.getGoal(self.goalid).isComplete(): #if the goal is complete
             self.dateTimeEdit_due_date.setDisabled(True)
             self.checkBox_due_date.setDisabled(True)
             self.push_effort.setDisabled(True)
@@ -130,10 +134,6 @@ class AddEditViewGoal(QDialog):
             self.effortTimer_lcd.start()
             temp = datetime.now()
             self.effortTimer_lcd.timeout.connect(lambda : self.onTimerOut(temp))
-
-    def onTimerOut(self, start_time):
-        self.lcdNumber.display(str(datetime.now() - start_time).split('.', 2)[0])
-
 
     @pyqtSlot()
     def toggleDueDate(self):
@@ -291,6 +291,16 @@ class AddEditViewGoal(QDialog):
             self.dateTimeEdit_due_date.setDisabled(False)
 
     '''********************CLASS METHODS OPERATIONS********************'''
+    def onTimerOut(self, start_time):
+        '''
+        @param: None
+
+        @return: (boolean)
+
+        @purpose:
+        '''
+        self.lcdNumber.display(str(datetime.now() - start_time).split('.', 2)[0])
+
     def subGoalIsSelected(self):
         '''
         @param: None
@@ -323,9 +333,8 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
-        #cycle through list, to string every goal and place into listview
-        self.listWidget.clear()
-        for subGoal in _subGoalList:
+        self.listWidget.clear() #clears the list widget
+        for subGoal in _subGoalList: #cycles through subgoal list
             item = QListWidgetItem()
             item.setText(subGoal.toString())
             item.setData(Qt.UserRole, subGoal.getId())

@@ -221,6 +221,16 @@ class Model(object):
 		'''
 		return _gid in self.effortTracker #checks if a specific goal is still tracking
 
+	def peekEffortTracker(self, _gid):
+		'''
+		@param: _gid (integer)
+
+		@return: (DateTime)
+
+		@purpose: Returns the start time of the specfic goal in the effort tracker
+		'''
+		return self.effortTracker[_gid] #returns the start time of the specific goal effort track
+
 	def stopEffortTracker(self, _gid):
 		'''
 		@param: _gid (integer)

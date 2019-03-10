@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
 
         @purpose: Initialize the main window.
         '''
-        super(MainWindow, self).__init__() # Supercharge Main Window
+        super(MainWindow, self).__init__() #Initializes parent constructor
         loadUi(UI_PATHS["MainWindow"], self) # Load the Main Window UI
 
         #Class Variables
