@@ -1,6 +1,6 @@
 """
     Authors: Noah Palmer, Holly Hardin, Jiazhen Cao, Kellie Hawks, Isaac Lance, Weigang An
-    Date: 03/09/2019
+    Date: 03/10/2019
     CIS 422
     GoalTracker
     Reference [0]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
@@ -222,7 +222,7 @@ class MainWindow(QMainWindow):
             self.refreshListView() # Refresh the list of goals displayed
 
     @pyqtSlot()
-    def loadViewAnalysis(self): #FUNCTION NEEDS TO BE BUILT
+    def loadViewAnalysis(self):
         '''
         @param: None
 
@@ -240,21 +240,6 @@ class MainWindow(QMainWindow):
             if window.exec(): # If sucessfully exits
                 self.refreshListView() # Refresh the list of goals displayed
 
-    def setChosenItem(self):
-        '''
-        @param: None
-
-        @return: None
-
-        @purpose: When a selection is made, it determines if it was selected on or off.
-        If selected off, then sets list id to null, otherwise the corresponding goal id.
-        '''
-        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()] # Get the list of selected goals
-        if not selectedlist: # If there isn't a list of selected goals
-            self.selectedListItemId = None # Set the selected item ID to None
-        else: # Otherwise... 
-            self.selectedListItemId = selectedlist[0] # Set it to the first item in the selected goals
-
     '''********************CLASS METHODS********************'''
     def goalIsSelected(self):
         '''
@@ -265,6 +250,22 @@ class MainWindow(QMainWindow):
         @purpose: returns if item is selected by checking if the selected list item id is null
         '''
         return self.selectedListItemId != None # Return the selected goal
+
+    def setChosenItem(self):
+        '''
+        @param: None
+
+        @return: None
+
+        @purpose: When a selection is made, it determines if it was selected on or off.
+        If selected off, then sets list id to null, otherwise the corresponding goal id.
+        Reference [0]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
+        '''
+        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()] # Get the list of selected goals
+        if not selectedlist: # If there isn't a list of selected goals
+            self.selectedListItemId = None # Set the selected item ID to None
+        else: # Otherwise... 
+            self.selectedListItemId = selectedlist[0] # Set it to the first item in the selected goals
 
     def addToListView(self, _goalList):
         '''
@@ -327,7 +328,7 @@ def main():
                   the user's goal information, creates a Model with the goal information,
                   executes the program, and then quits.
         '''
-    filemanager = FileManager("potato.gtd") #create FileManager object
+    filemanager = FileManager("GOALTRACKERDATA.gtd") #create FileManager object
     model = filemanager.load() #load File and store
     app = QApplication(sys.argv) # Initialize PyQT application
     window = MainWindow(model) # Create a window of the main display of the Goal Tracker

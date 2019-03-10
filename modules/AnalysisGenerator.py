@@ -1,8 +1,8 @@
 """
-	Authors: Kellie Hawks, Isaac Lance, Jiazhen Cao
+    Authors: Kellie Hawks, Isaac Lance, Jiazhen Cao
         Date: 03/09/2019
-	CIS 422
-	GoalTracker
+    CIS 422
+    GoalTracker
 """
 import sys
 from PyQt5.QtGui import *

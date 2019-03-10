@@ -1,8 +1,10 @@
 """
     Authors: Noah Palmer, Holly Hardin, Jiazhen Cao, Kellie Hawks, Isaac Lance, Weigang An
-    Date: 03/09/2019
+    Date: 03/10/2019
     CIS 422
     GoalTracker
+
+    Reference [0]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
 
 """
 #System Imports
@@ -101,11 +103,11 @@ class AddEditViewGoal(QDialog):
             self.setDueDateText() #update status
 
         if self.model.getGoal(self.goalid).isComplete(): #if the goal is complete
-            self.dateTimeEdit_due_date.setDisabled(True)
-            self.checkBox_due_date.setDisabled(True)
-            self.push_effort.setDisabled(True)
-            self.push_add_subgoal.setDisabled(True)
-            self.label_goal_name_4.setText("")
+            self.dateTimeEdit_due_date.setDisabled(True) #disable the due date editor
+            self.checkBox_due_date.setDisabled(True) #disable the checkbox editor
+            self.push_effort.setDisabled(True) #disable the effort tracker
+            self.push_add_subgoal.setDisabled(True) #disable the add subgoal button
+            self.label_goal_name_4.setText("") #set status to blank
 
         self.lcdNumber.setDigitCount(8)
         self.lcdNumber.display("0:00:00")
@@ -119,18 +121,18 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: Toggles the effort tracker from on to off depending if it is currently running or not.
         '''
         self.effortTimer_lcd = QTimer()
         self.lcdNumber.display("0:00:00")
-        if self.model.isEffortTracking(self.goalid):
-            self.model.stopEffortTracker(self.goalid)
-            self.push_effort.setText("Start Effort Tracker")
+        if self.model.isEffortTracking(self.goalid): #if the effort tracker is current running for the goalid
+            self.model.stopEffortTracker(self.goalid) #stop the effort tracker
+            self.push_effort.setText("Start Effort Tracker") #set text to say start effort tracker
             self.effortTimer_lcd.setSingleShot(True)
             self.effortTimer_lcd.stop()
         else:
-            self.model.startEffortTracker(self.goalid)
-            self.push_effort.setText("Stop Effort Tracker")          
+            self.model.startEffortTracker(self.goalid) #start the effort tracker
+            self.push_effort.setText("Stop Effort Tracker") #set the text to say stop effort tracker        
             self.effortTimer_lcd.start()
             temp = datetime.now()
             self.effortTimer_lcd.timeout.connect(lambda : self.onTimerOut(temp))
@@ -142,14 +144,14 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: Toggles the duedate editing ability
         '''
-        if self.hasDueDate:
-            self.dateTimeEdit_due_date.setDisabled(False)
+        if self.hasDueDate: #if has duedate
+            self.dateTimeEdit_due_date.setDisabled(False) #set disabled to false
         else:
-            self.dateTimeEdit_due_date.setDisabled(True)
-        self.hasDueDate = not self.hasDueDate
-        self.setDueDateText()
+            self.dateTimeEdit_due_date.setDisabled(True) #otherwise, set disabled to true
+        self.hasDueDate = not self.hasDueDate #flip hasDueDate value
+        self.setDueDateText() #reset status
 
     @pyqtSlot()
     def loadAddSubGoal(self):
@@ -158,13 +160,13 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: opens the add subgoal window
         '''
-        window = AddEditViewSubGoal(self.model, self.goalid) #open add AddEditViewGoal window, pass it model
-        if window.exec():
-            self.refreshListView()
+        window = AddEditViewSubGoal(self.model, self.goalid) #open add AddEditViewGoal window, pass it model and a goalid
+        if window.exec(): #if accepted upon exit
+            self.refreshListView() #refresh list
         else:
-            self.model.deleteSubGoal(self.goalid, self.model.getCurrSGID())
+            self.model.deleteSubGoal(self.goalid, self.model.getCurrSGID()) #otherwise, delete the subgoal
 
     @pyqtSlot()
     def loadCompleteSubGoal(self):
@@ -173,12 +175,12 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: Completes the subgoal that is selected
         '''
-        if self.subGoalIsSelected():
-            subgoalid = self.selectedListItemId
-            self.model.completeSubGoal(self.goalid, subgoalid)
-            self.refreshListView()
+        if self.subGoalIsSelected(): #if a subgoal is selected
+            subgoalid = self.selectedListItemId #get the subgoal id of selected item
+            self.model.completeSubGoal(self.goalid, subgoalid) #complete the subgoal
+            self.refreshListView() #refresh the list view of subgoals
 
     @pyqtSlot()
     def loadEditViewSubGoal(self):
@@ -187,15 +189,13 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: opens the editor for the subgoal
         '''
-        if self.subGoalIsSelected():
-            subgoalid = self.selectedListItemId
+        if self.subGoalIsSelected(): #if a subgoal is selected
+            subgoalid = self.selectedListItemId #get the selected subgoal's id
             window = AddEditViewSubGoal(self.model, self.goalid, subgoalid) #open AddEditViewSubGoal window, passes it model and subgoal id
-            if window.exec():
-                self.refreshListView()
-            else:
-                self.lineEdit_category.setStyleSheet("border: 1px solid red;")
+            if window.exec(): #if accepted
+                self.refreshListView() #refresh the list
 
     @pyqtSlot()
     def loadDeleteSubGoal(self):
@@ -204,12 +204,12 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: deletes the selected subgoal
         '''
-        if self.subGoalIsSelected():
-            subgoalid = self.selectedListItemId
-            self.model.deleteSubGoal(self.goalid, subgoalid)
-            self.refreshListView()
+        if self.subGoalIsSelected(): #if a subgoal is selected
+            subgoalid = self.selectedListItemId #get the subgoal id
+            self.model.deleteSubGoal(self.goalid, subgoalid) #delete the subgoal
+            self.refreshListView() #refresh the list view
 
     @pyqtSlot()
     def loadSaveGoal(self):
@@ -218,45 +218,43 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: saves the goal state information
         '''
-        goalName = self.lineEdit_goal_name.text()
-        date = self.dateTimeEdit_due_date.date()
-        time = self.dateTimeEdit_due_date.time()
-        dueDate = None if not self.hasDueDate else datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
-        category = self.lineEdit_category.text()
-        if self.radio_priority_low.isChecked():
-            priority = 3
-        elif self.radio_priority_medium.isChecked():
-            priority = 2
+        goalName = self.lineEdit_goal_name.text() #gets the name
+        date = self.dateTimeEdit_due_date.date() #gets the date
+        time = self.dateTimeEdit_due_date.time() #gets the time
+        dueDate = None if not self.hasDueDate else datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second()) #creates a datetime object
+        category = self.lineEdit_category.text() #gets the category
+        if self.radio_priority_low.isChecked(): #if low priority is checked
+            priority = 3 #set priority to 3
+        elif self.radio_priority_medium.isChecked(): #if medium priority is checked
+            priority = 2 #set priority to 2
         else:
-            priority = 1
-        memo = self.textEdit.toPlainText()
+            priority = 1 #else, set priority to 1
+        memo = self.textEdit.toPlainText() #get the memo
 
-        overDue = False
-        if dueDate != None:
-            if dueDate <= datetime.now():
-                overDue = True
+        overDue = False #sets overdue to false
+        if dueDate != None: #if duedate doesn't equal none
+            if dueDate <= datetime.now(): #if duedate is less than or equal to now
+                overDue = True #overdue is true
 
-        if goalName.strip() != "" and category.strip() != "" and not overDue:
-            self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate})
+        if goalName.strip() != "" and category.strip() != "" and not overDue: #if valid
+            self.model.editGoal(self.goalid, {"name": goalName, "category": category, "priority": priority, "memo": memo, "dueDate": dueDate}) #save goal information
             self.accept() #exit dialog
         else:
-            if goalName.strip() == "":
-                self.lineEdit_goal_name.setStyleSheet("border: 1px solid red;")
+            if goalName.strip() == "": #if goal is empty
+                self.lineEdit_goal_name.setStyleSheet("border: 1px solid red;") #highlight in red
             else:
-                self.lineEdit_goal_name.setStyleSheet("border: none;")
-            if category.strip() == "":
-                self.lineEdit_category.setStyleSheet("border: 1px solid red;")
+                self.lineEdit_goal_name.setStyleSheet("border: none;") #else reset
+            if category.strip() == "": #if category is empty
+                self.lineEdit_category.setStyleSheet("border: 1px solid red;") #highlight in red
             else:
-                self.lineEdit_category.setStyleSheet("border: none")
-            if overDue:
-                self.dateTimeEdit_due_date.setStyleSheet("border: 1px solid red;")
+                self.lineEdit_category.setStyleSheet("border: none") #else, reset
+            if overDue: #if it is overdue
+                self.dateTimeEdit_due_date.setStyleSheet("border: 1px solid red;") #highlight in red
             else:
-                self.dateTimeEdit_due_date.setStyleSheet("border: none")
+                self.dateTimeEdit_due_date.setStyleSheet("border: none") #else, reset
                 
- 
-
     @pyqtSlot()
     def loadCancelGoal(self):
         '''
@@ -264,7 +262,7 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: closes the dialog
         '''
         self.close() #exit dialog
 
@@ -275,20 +273,20 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: sets the status of the goal as a notification depending on status
         '''
-        date = self.dateTimeEdit_due_date.date()
-        time = self.dateTimeEdit_due_date.time()
-        dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second())
-        if not self.hasDueDate:
-            self.label_goal_name_4.setText("No Due Date")
-            self.dateTimeEdit_due_date.setDisabled(True)
-        elif dueDate > datetime.now():
-            self.label_goal_name_4.setText(str((dueDate - datetime.now()).days) + " Days Until Due")
-            self.dateTimeEdit_due_date.setDisabled(False)
+        date = self.dateTimeEdit_due_date.date() #gets the date
+        time = self.dateTimeEdit_due_date.time() #gets the time
+        dueDate = datetime(date.year(), date.month(), date.day(), time.hour(), time.minute(), time.second()) #creates datetime object
+        if not self.hasDueDate: #if doesn't have due date
+            self.label_goal_name_4.setText("No Due Date") #set status as no due date
+            self.dateTimeEdit_due_date.setDisabled(True) #disable date editor
+        elif dueDate > datetime.now(): #if not overdue
+            self.label_goal_name_4.setText(str((dueDate - datetime.now()).days) + " Days Until Due") #tell how many days till due
+            self.dateTimeEdit_due_date.setDisabled(False) #enable date editor
         else:
-            self.label_goal_name_4.setText("Overdue")
-            self.dateTimeEdit_due_date.setDisabled(False)
+            self.label_goal_name_4.setText("Overdue") #else, set status as ovedue
+            self.dateTimeEdit_due_date.setDisabled(False) #enable date editor
 
     '''********************CLASS METHODS OPERATIONS********************'''
     def onTimerOut(self, start_time):
@@ -307,9 +305,9 @@ class AddEditViewGoal(QDialog):
 
         @return: (boolean)
 
-        @purpose:
+        @purpose: returns if a subgoal is selected
         '''
-        return self.selectedListItemId != None
+        return self.selectedListItemId != None #returns true if not equal to none, else false
 
     def setChosenItem(self):
         '''
@@ -317,13 +315,14 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: sets the selected item id when an item gets selected
+        Reference [0]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
         '''
-        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()]
-        if not selectedlist:
-            self.selectedListItemId = None
+        selectedlist = [item.data(Qt.UserRole) for item in self.listWidget.selectedItems()] #gets list of selected items
+        if not selectedlist: #if selected list is empty
+            self.selectedListItemId = None #set id to none
         else:
-            self.selectedListItemId = selectedlist[0]
+            self.selectedListItemId = selectedlist[0] #else, set id to selected id
 
     def addToListView(self, _subGoalList):
         '''
@@ -331,14 +330,14 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: adds a subgoallist to the listview
         '''
         self.listWidget.clear() #clears the list widget
         for subGoal in _subGoalList: #cycles through subgoal list
-            item = QListWidgetItem()
-            item.setText(subGoal.toString())
-            item.setData(Qt.UserRole, subGoal.getId())
-            self.listWidget.addItem(item)
+            item = QListWidgetItem() #creats a list widget item
+            item.setText(subGoal.toString()) #sets the text of the item
+            item.setData(Qt.UserRole, subGoal.getId()) #sets the data (id) of the item
+            self.listWidget.addItem(item) #adds the item to the list widget
 
     def refreshListView(self):
         '''
@@ -346,11 +345,11 @@ class AddEditViewGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: refreshes the list view
         '''
-        if len(self.model.getGoalList()) != 0:
-            subGoalList = self.model.getSubGoalList(self.goalid)
-            self.addToListView(subGoalList)
+        if len(self.model.getGoalList()) != 0: #if the length of the goal list doesn't equal 0
+            subGoalList = self.model.getSubGoalList(self.goalid) #gets the goal's subgoal list
+            self.addToListView(subGoalList) #adds the subgoal list  to the the list view
 
 
 class AddEditViewSubGoal(QDialog):
@@ -362,33 +361,34 @@ class AddEditViewSubGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: intializes the add edit view subgoal window, setting it to either add subgoal or editview subgoal
         '''
-        super(AddEditViewSubGoal, self).__init__()
+        super(AddEditViewSubGoal, self).__init__() #initializes the parent window
         
         loadUi(UI_PATHS["AddEditViewSubgoal"], self) # Load the AddEditViewSubGoal UI
 
         #Class Variables
-        self.model = _model
-        self.goalid = _goalid
-        self.subgoalid = _subgoalid
+        self.model = _model #initializes the model
+        self.goalid = _goalid #sets the goalid
+        self.subgoalid = _subgoalid #set the subgoal id
 
         #Signals
-        self.push_save.clicked.connect(self.loadSaveSubGoal)
-        self.push_cancel.clicked.connect(self.loadCancelSubGoal)
+        self.push_save.clicked.connect(self.loadSaveSubGoal) #sets save subgoal signal
+        self.push_cancel.clicked.connect(self.loadCancelSubGoal) #sets cancel subgoal signal
 
-        if self.subgoalid == None:
-            self.setWindowTitle('Add Subgoal')
-            self.subgoalid = self.model.addSubGoal(self.goalid)
-        else:
-            self.setWindowTitle('Edit/View Subgoal')
-            subgoal = self.model.getSubGoal(self.goalid, self.subgoalid)
-            self.lineEdit.setText(subgoal.getName())
-            if subgoal.isComplete():
-                self.label_status.setText("Status: Complete")
+        if self.subgoalid == None: #if subgoal id is none, its an add operation
+            self.setWindowTitle('Add Subgoal') #sets window title
+            self.subgoalid = self.model.addSubGoal(self.goalid) #retrieves the subgoal id from the model
+        else: #otherwise, its an edit view operation
+            self.setWindowTitle('Edit/View Subgoal') #sets the window title
+            subgoal = self.model.getSubGoal(self.goalid, self.subgoalid) #gets the subgoal from the model
+            self.lineEdit.setText(subgoal.getName()) #sets the subgoal name
+            if subgoal.isComplete(): #if its complete
+                self.label_status.setText("Status: Complete") #sets status as complete
             else:
-                self.label_status.setText("Status: Incomplete")
+                self.label_status.setText("Status: Incomplete") #otherwise, incomplete
 
+    '''********************PYQTSLOT OPERATIONS********************'''
     @pyqtSlot()
     def loadSaveSubGoal(self):
         '''
@@ -396,13 +396,13 @@ class AddEditViewSubGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: saves the subgoal
         '''
-        if self.lineEdit.text().strip() != "":
+        if self.lineEdit.text().strip() != "": #if goal name isn't blank
             self.model.editSubGoal(self.goalid, self.subgoalid, {"name": str(self.lineEdit.text())}) #update subGoal information model
             self.accept() #exit dialog
         else:
-            self.lineEdit.setStyleSheet("border: 1px solid red;")    
+            self.lineEdit.setStyleSheet("border: 1px solid red;")    #otherwise, highlights 
 
     @pyqtSlot()
     def loadCancelSubGoal(self):
@@ -411,13 +411,13 @@ class AddEditViewSubGoal(QDialog):
 
         @return: None
 
-        @purpose:
+        @purpose: closes dialog
         '''
         self.close() #exit dialog
 
 
 class Analysis(QDialog):
-    def __init__(self, _model, _goalid): #FUNCTION NEEDS TO BE BUILT
+    def __init__(self, _model, _goalid):
         '''
         @param: _model (Model)
         @param: _goalid (integer)
@@ -426,22 +426,19 @@ class Analysis(QDialog):
 
         @purpose:
         '''
-        #how do I access these functions? ask noah. is everything connected right
-
         super(Analysis, self).__init__()
         
         loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
         self.model = _model
         self.goalid = _goalid
         self.ag = AnalysisGenerator(_goalid, _model)
-        # ************************************ FAKE TESTING EFFORT DATA ******************************************************
+        #FAKE TESTING EFFORT DATA
         '''
         for i in range(6):
             start = datetime(2019, 2, 17 + i, 0 + i, 30, 30, 400000)
             end = datetime(2019, 2, 17 + i, 4 + 2 * i, 30, 30, 400000)
             self.model.manuallyInputEffort(self.goalid, start, end)
         '''
-        # ************************************ Finish Faking *****************************************************************
         self.datesList = self.ag.tranformDatesList()
         self.valuesList = self.ag.tranformValuesList()
         self.canvas = Canvas(self, width=4.5, height=4)
@@ -487,7 +484,7 @@ class Analysis(QDialog):
 
 
 class UncompletedAnalysis(QDialog):
-    def __init__(self, _model, _goalid): #FUNCTION NEEDS TO BE BUILT
+    def __init__(self, _model, _goalid):
         '''
         @param:
 
