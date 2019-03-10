@@ -421,9 +421,9 @@ class Analysis(QDialog):
         self.datesList = self.ag.tranformDatesList()
         self.valuesList = self.ag.tranformValuesList()
         self.canvas = Canvas(self, width=4.5, height=4)
-        self.canvas.move(0,0)
         self.canvas.plot_bar(self.datesList, self.valuesList)
-
+        layout = self.gridLayout
+        layout.addWidget(self.canvas, 0, 0)
         string1 = "This Goal took you " + self.ag.getActiveTime() + " days to complete"
         if self.ag.getFasterSlower() == -10000:
             string2 = ""
@@ -472,15 +472,17 @@ class UncompletedAnalysis(QDialog):
         @purpose:
         '''
         super(UncompletedAnalysis, self).__init__()
-        
-        self.ui = loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
 
+        loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.setWindowTitle("Analysis")
         self.model = _model
         self.goalid = _goalid
         self.ag = AnalysisGenerator(_goalid, _model)
         self.finished_percentage = self.ag.trackProgress() * 100
         self.canvas = Canvas(self, width=7, height=4)
-        self.canvas.move(0,0)
+        layout = self.gridLayout_2
+        layout.addWidget(self.canvas, 0, 0)
         self.canvas.plot_ring(self.finished_percentage, 100 - self.finished_percentage)
 
         greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
