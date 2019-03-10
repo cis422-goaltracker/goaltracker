@@ -15,7 +15,6 @@ import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore, QtGui
 
 class AnalysisGenerator(object):
-<<<<<<< HEAD
     """CONSTRUCTOR FOR ANALYSISGENERATOR"""
     def __init__(self, _gid, _model):
         self.gid = _gid
