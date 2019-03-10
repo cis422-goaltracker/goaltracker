@@ -23,10 +23,10 @@ class AnalysisGenerator(object):
     def getActiveTime(self):
         goal = self.model.getGoal(self.gid) #gets the goal form the model
         if goal.isComplete(): #if goal is complete
-            return str((goal.getFinishDate() - goal.getStartDate()).seconds // 86400) #find the difference between finish and start date
+            return (goal.getStartDate() - goal.getFinishDate()).seconds / 86400 #find the difference between finish and start date
             
         else:
-            return str((datetime.datetime.now() - goal.getStartDate()).seconds // 86400) #find the difference between the current date and start date
+            return (goal.getStartDate() - datetime.datetime.now()).seconds / 86400 #find the difference between the current date and start date
 
     def trackProgress(self):
         
@@ -38,17 +38,17 @@ class AnalysisGenerator(object):
                 subcompletedcount += 1  #increase goal count
         if len(subgoallist) == 0:
             return 0
-        return subcompletedcount/ len(subgoallist) #return number completed over number of subgoals
+        return subcompletedcount / len(subgoallist) #return number completed over number of subgoals
 
 
     def getFasterSlower(self):
         
         goal = self.model.getGoal(self.gid) #gets the goal from the model
-        if goal.hasDueDate() == False:  #if the goal does not have a due date #???? Does this function exist ????
-            return -10000;  #return -10000 (a number that is almost possible to achieve in normal day to day use)
+        if goal.hasDueDate() == False:  #if the goal does not have a due date
+            return False;  #return False
         else:
             if goal.isComplete():   #if goal is complete
-                return ((goal.getInitialDueDate() - goal.getFinishDate()).seconds // 86400) #calculates the number of days from anticipated finish date
+                return ((goal.getInitialDueDate() - goal.getFinishDate()).seconds / 86400) #calculates the number of days from anticipated finish date
 
 
     def getAverageTime(self):
@@ -83,9 +83,9 @@ class AnalysisGenerator(object):
         timesum = sum(ret.values()) #sum all the values (now as hours)
 
         if len(ret) == 0: #if the length of the return dictionary is zero
-            return str(0) #return zero because can't div by zero
+            return 0 #return zero because can't div by zero
         else:
-            return str(timesum/ len(ret)) #return the average per day
+            return timesum / len(ret) #return the average per day
 
 
     def getBeforeDuedate(self):

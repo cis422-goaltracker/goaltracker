@@ -424,25 +424,25 @@ class Analysis(QDialog):
         self.canvas.plot_bar(self.datesList, self.valuesList)
         layout = self.gridLayout
         layout.addWidget(self.canvas, 0, 0)
-        string1 = "This Goal took you " + self.ag.getActiveTime() + " days to complete"
-        if self.ag.getFasterSlower() == -10000:
-            string2 = ""
+        string1 = "This Goal took you {0:.2f} days to complete.".format(self.ag.getActiveTime())
+        if self.ag.getFasterSlower() == False:
+            string2 = "This Goal doesn't have an anticipated due date."
         else:
             if self.ag.getFasterSlower() > 0:
-                string2 = "That is " + str(self.ag.getFasterSlower()) + " days faster than anticipated"
+                string2 = "That is {0:.2f} days faster than anticipated.".format(self.ag.getFasterSlower())
             else:
-                string2 = "That is " + str(self.ag.getFasterSlower()) + " days slower than anticipated" 
-        string3 =   "You spend on average " + self.ag.getAverageTime() + " hours a day working on your goal"
+                string2 = "That is {0:.2f} days slower than anticipated.".format(self.ag.getFasterSlower())
+        string3 =   "You spend on average {0:.1f} hours a day working on your goal.".format(self.ag.getAverageTime())
 
         greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
         
         if greater_val == self.ag.getBeforeDuedate():
-            string4 =  "You completed " + str(greater_val) + "% of your goals faster than aniticpated!"
+            string4 =  "You completed {0:.2f}% of your goals faster than aniticpated!".format(greater_val)
             string5 =  "Great job, keep up the good work!"
             string6 =  ""
 
         if greater_val != self.ag.getBeforeDuedate():
-            string4 =  "You completed " + str(greater_val) + "% of your goals slower than aniticpated."
+            string4 =  "You completed {0:.2f}% of your goals slower than aniticpated.".format(greater_val)
             string5 =  "You seem to have trouble sticking to your goals. Consider giving"
             string6 =  "yourself more time next time!"
 
@@ -488,12 +488,12 @@ class UncompletedAnalysis(QDialog):
         greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
         
         if greater_val == self.ag.getBeforeDuedate():
-            string1 =  "You completed " + str(greater_val) + "% of your goals faster than aniticpated!"
+            string1 =  "You completed {0:.2f}% of your goals faster than aniticpated!".format(greater_val)
             string2 =  "Great job, keep up the good work!"
             string3 =  ""
 
         if greater_val != self.ag.getBeforeDuedate():
-            string1 =  "You completed " + str(greater_val) + "% of your goals slower than aniticpated."
+            string1 =  "You completed {0:.2f}% of your goals slower than aniticpated.".format(greater_val)
             string2 =  "You seem to have trouble sticking to your goals. Consider giving"
             string3 =  "yourself more time next time!"
 
