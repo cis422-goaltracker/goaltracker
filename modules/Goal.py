@@ -1,5 +1,6 @@
 """
-	Names
+	Authors: Noah Palmer, Isaac Lance
+	Date: 03/09/2019
 	CIS 422
 	GoalTracker
 """

@@ -1,9 +1,9 @@
 """
-    Names: Holly Hardin (HH)
+    Authors: Noah Palmer, Holly Hardin, Jiazhen Cao, Kellie Hawks, Isaac Lance, Weigang An
+    Date: 03/09/2019
     CIS 422
     GoalTracker
-        Reference [0]: https://stackoverflow.com/questions/21213853/pyside-how-to-delete-widgets-from-gridlayout
-        Reference [1]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
+    Reference [0]: https://stackoverflow.com/questions/41772092/how-can-i-get-all-selected-items-for-a-qlistwidget-when-the-user-interacts-with
 
 """
 #System Imports

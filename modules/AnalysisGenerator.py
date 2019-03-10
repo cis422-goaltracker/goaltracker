@@ -1,7 +1,8 @@
 """
-    Names Kellie Hawks 
-    CIS 422
-    GoalTracker
+	Authors: Kellie Hawks, Isaac Lance, Jiazhen Cao
+        Date: 03/09/2019
+	CIS 422
+	GoalTracker
 """
 import sys
 from PyQt5.QtGui import *
@@ -14,6 +15,7 @@ import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore, QtGui
 
 class AnalysisGenerator(object):
+<<<<<<< HEAD
     """CONSTRUCTOR FOR ANALYSISGENERATOR"""
     def __init__(self, _gid, _model):
         self.gid = _gid
