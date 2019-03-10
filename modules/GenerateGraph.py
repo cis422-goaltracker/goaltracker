@@ -39,7 +39,7 @@ class Canvas(FigureCanvas):
 		axes_bar.set_title('Efforts')
 		axes_bar.set_xlabel('Dates')
 		axes_bar.set_facecolor('None')
-		if max(y_heights) < 1:
+		if len(y_heights) != 0 and max(y_heights) < 1:
 			if max(y_heights) < 1/60:
 				if max(y_heights) < 1/(60 * 60):
 					y_heights = [y * 60 * 60 * 1000 for y in y_heights]
