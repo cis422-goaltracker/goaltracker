@@ -27,6 +27,8 @@ class Canvas(FigureCanvas):
 			QSizePolicy.Expanding,
 			QSizePolicy.Expanding)
 		FigureCanvas.updateGeometry(self)
+		self.fig.set_facecolor('None')
+		self.setStyleSheet("background-color:transparent;")
 		self.setParent(parent)
 
 	def plot_bar(self, datesList, valuesList):
@@ -36,6 +38,7 @@ class Canvas(FigureCanvas):
 		axes_bar = self.fig.add_subplot(111)
 		axes_bar.set_title('Efforts')
 		axes_bar.set_xlabel('Dates')
+		axes_bar.set_facecolor('None')
 		if max(y_heights) < 1:
 			if max(y_heights) < 1/60:
 				if max(y_heights) < 1/(60 * 60):
@@ -61,6 +64,7 @@ class Canvas(FigureCanvas):
 		#Draw Ring Graph
 		axes_ring = self.fig.add_subplot(111)
 		axes_ring.set_title('Goal Progress')
+		axes_ring.set_facecolor('None')
 		labels = ["{0:.2f}% Finished".format(f_perc), "{0:.2f}% Unfinished".format(uf_perc)]
 		colors = ['g', 'r']
 		percentage = [f_perc, uf_perc]
