@@ -140,7 +140,7 @@ List:</string>
            </font>
           </property>
           <property name="text">
-           <string>sorting:</string>
+           <string>Sorting:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

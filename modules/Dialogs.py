@@ -496,8 +496,8 @@ class UncompletedAnalysis(QDialog):
             string3 =  "yourself more time next time!"
 
         self.label_lowerlinetext_1.setText(string1)
-        self.label_lowerlinetext_2.setText(string2)
-        self.label_lowerlinetext_3.setText(string3)
+        self.label_lowerlinetext_2.setText(string2 + string3)
+        #self.label_lowerlinetext_3.setText(string3)
 
     def closeEvent(self, event):
         if self.finished_percentage != 0:
