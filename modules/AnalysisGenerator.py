@@ -76,7 +76,7 @@ class AnalysisGenerator(object):
 
             seconds = values.total_seconds() #solve for how many hours
 
-            hours = seconds // 86400 #more computation
+            hours = seconds // 3600 #more computation
 
             ret[date] = int(hours) #assign hours to new dictionary
 
@@ -190,7 +190,7 @@ class AnalysisGenerator(object):
             
             seconds = values.total_seconds() #solve for how many hours
             
-            hours = seconds / 86400 #more computation
+            hours = seconds / 3600 #more computation
         
             ret[date] = hours #assign hours to new dictionary
 
