@@ -12,6 +12,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from datetime import datetime, timedelta
 import pyqtgraph as pg
+import time
+import threading
 
 #Module Imports
 from Goal import Goal, SubGoal
@@ -42,6 +44,7 @@ class AddEditViewGoal(QDialog):
         self.goalid = _goalid
         self.selectedListItemId = None
         self.hasDueDate = True
+        self.timerOn = False
 
         #Signals
         self.push_effort.clicked.connect(self.toggleEffortTracker)
@@ -100,7 +103,8 @@ class AddEditViewGoal(QDialog):
             self.push_add_subgoal.setDisabled(True)
             self.label_goal_name_4.setText("")
 
-
+        self.lcdNumber.setDigitCount(8)
+        self.lcdNumber.display("0:00:00")
 
     '''********************PYQTSLOT OPERATIONS********************'''
 
@@ -113,12 +117,23 @@ class AddEditViewGoal(QDialog):
 
         @purpose:
         '''
+        self.effortTimer_lcd = QTimer()
+        self.lcdNumber.display("0:00:00")
         if self.model.isEffortTracking(self.goalid):
             self.model.stopEffortTracker(self.goalid)
             self.push_effort.setText("Start Effort Tracker")
+            self.effortTimer_lcd.setSingleShot(True)
+            self.effortTimer_lcd.stop()
         else:
             self.model.startEffortTracker(self.goalid)
-            self.push_effort.setText("Stop Effort Tracker")
+            self.push_effort.setText("Stop Effort Tracker")          
+            self.effortTimer_lcd.start()
+            temp = datetime.now()
+            self.effortTimer_lcd.timeout.connect(lambda : self.onTimerOut(temp))
+
+    def onTimerOut(self, start_time):
+        self.lcdNumber.display(str(datetime.now() - start_time).split('.', 2)[0])
+
 
     @pyqtSlot()
     def toggleDueDate(self):
