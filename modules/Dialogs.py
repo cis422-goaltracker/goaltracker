@@ -409,7 +409,7 @@ class Analysis(QDialog):
         loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
         self.model = _model
         self.goalid = _goalid
-        self.ag = AnalysisGenerator()
+        self.ag = AnalysisGenerator(_goalid, _model)
         # ************************************ FAKE TESTING EFFORT DATA ******************************************************
         '''
         for i in range(6):
@@ -418,30 +418,30 @@ class Analysis(QDialog):
             self.model.manuallyInputEffort(self.goalid, start, end)
         '''
         # ************************************ Finish Faking *****************************************************************
-        self.datesList = self.ag.tranformDatesList(self.goalid, self.model)
-        self.valuesList = self.ag.tranformValuesList(self.goalid, self.model)
+        self.datesList = self.ag.tranformDatesList()
+        self.valuesList = self.ag.tranformValuesList()
         self.canvas = Canvas(self, width=4.5, height=4)
         self.canvas.move(0,0)
         self.canvas.plot_bar(self.datesList, self.valuesList)
 
-        string1 = "This Goal took you " + self.ag.getActiveTime(self.goalid, self.model) + " days to complete"
-        if self.ag.getFasterSlower(self.goalid, self.model) == -10000:
+        string1 = "This Goal took you " + self.ag.getActiveTime() + " days to complete"
+        if self.ag.getFasterSlower() == -10000:
             string2 = ""
         else:
-            if self.ag.getFasterSlower(self.goalid, self.model) > 0:
-                string2 = "That is " + str(self.ag.getFasterSlower(self.goalid, self.model)) + " days faster than anticipated"
+            if self.ag.getFasterSlower() > 0:
+                string2 = "That is " + str(self.ag.getFasterSlower()) + " days faster than anticipated"
             else:
-                string2 = "That is " + str(self.ag.getFasterSlower(self.goalid, self.model)) + " days slower than anticipated" 
-        string3 =   "You spend on average " + self.ag.getAverageTime(self.goalid, self.model) + " hours a day working on your goal"
+                string2 = "That is " + str(self.ag.getFasterSlower()) + " days slower than anticipated" 
+        string3 =   "You spend on average " + self.ag.getAverageTime() + " hours a day working on your goal"
 
-        greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
+        greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
         
-        if greater_val == self.ag.getBeforeDuedate(self.model):
+        if greater_val == self.ag.getBeforeDuedate():
             string4 =  "You completed " + str(greater_val) + "% of your goals faster than aniticpated!"
             string5 =  "Great job, keep up the good work!"
             string6 =  ""
 
-        if greater_val != self.ag.getBeforeDuedate(self.model):
+        if greater_val != self.ag.getBeforeDuedate():
             string4 =  "You completed " + str(greater_val) + "% of your goals slower than aniticpated."
             string5 =  "You seem to have trouble sticking to your goals. Consider giving"
             string6 =  "yourself more time next time!"
@@ -477,20 +477,20 @@ class UncompletedAnalysis(QDialog):
 
         self.model = _model
         self.goalid = _goalid
-        self.ag = AnalysisGenerator()
-        self.finished_percentage = self.ag.trackProgress(self.goalid, self.model) * 100
+        self.ag = AnalysisGenerator(_goalid, _model)
+        self.finished_percentage = self.ag.trackProgress() * 100
         self.canvas = Canvas(self, width=7, height=4)
         self.canvas.move(0,0)
         self.canvas.plot_ring(self.finished_percentage, 100 - self.finished_percentage)
 
-        greater_val = max(self.ag.getBeforeDuedate(self.model), self.ag.getAfterDuedate(self.model))
+        greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
         
-        if greater_val == self.ag.getBeforeDuedate(self.model):
+        if greater_val == self.ag.getBeforeDuedate():
             string1 =  "You completed " + str(greater_val) + "% of your goals faster than aniticpated!"
             string2 =  "Great job, keep up the good work!"
             string3 =  ""
 
-        if greater_val != self.ag.getBeforeDuedate(self.model):
+        if greater_val != self.ag.getBeforeDuedate():
             string1 =  "You completed " + str(greater_val) + "% of your goals slower than aniticpated."
             string2 =  "You seem to have trouble sticking to your goals. Consider giving"
             string3 =  "yourself more time next time!"
