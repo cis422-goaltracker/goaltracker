@@ -429,16 +429,17 @@ class Analysis(QDialog):
         @param: _model (Model)
         @param: _goalid (integer)
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Analysis the data of the model, the completed goal selected, display graph analysis, and statistics.
         '''
         super(Analysis, self).__init__()
         
         loadUi(UI_PATHS["Analysis"], self) # Load the AddEditViewSubGoal UI
-        self.model = _model
-        self.goalid = _goalid
-        self.ag = AnalysisGenerator(_goalid, _model)
+        self.setWindowTitle("Completed Goal Analysis") # set the child window title
+        self.model = _model # assign model object
+        self.goalid = _goalid # assign goalid
+        self.ag = AnalysisGenerator(_goalid, _model) # create AnalysisGenerator to process data
         #FAKE TESTING EFFORT DATA
         '''
         for i in range(6):
@@ -446,93 +447,132 @@ class Analysis(QDialog):
             end = datetime(2019, 2, 17 + i, 4 + 2 * i, 30, 30, 400000)
             self.model.manuallyInputEffort(self.goalid, start, end)
         '''
-        self.datesList = self.ag.tranformDatesList()
-        self.valuesList = self.ag.tranformValuesList()
-        self.canvas = Canvas(self, width=4.5, height=4)
-        self.canvas.plot_bar(self.datesList, self.valuesList)
-        layout = self.gridLayout
-        layout.addWidget(self.canvas, 0, 0)
-        string1 = "This Goal took you {0:.2f} days to complete.".format(self.ag.getActiveTime())
-        if self.ag.getFasterSlower() == False:
-            string2 = "This Goal doesn't have an anticipated due date."
-        else:
-            if self.ag.getFasterSlower() > 0:
+        self.datesList = self.ag.tranformDatesList() # get a list of dates that have effort tracker data
+        self.valuesList = self.ag.tranformValuesList() # get a list of effort tracker durations related to dates in datesList
+        self.canvas = Canvas(self) # create a Canvas object
+        self.canvas.plot_bar(self.datesList, self.valuesList) # call the plot_bar function to plot bar chart
+        layout = self.gridLayout # get the layout named 'gridLayout' of the ui file
+        layout.addWidget(self.canvas, 0, 0) # add the canvas widget to layout
+        string1 = "This Goal took you {0:.2f} days to complete.".format(self.ag.getActiveTime()) # assign a string with a goals' active time
+        if self.ag.getFasterSlower() == False: # check if a goal has due date
+            string2 = "This Goal doesn't have an anticipated due date." # assign a string for message
+        else: # if a goal has due date
+            if self.ag.getFasterSlower() > 0: # if a goal finished before the due date
                 string2 = "That is {0:.2f} days faster than anticipated.".format(self.ag.getFasterSlower())
-            else:
+                # assign the message string to show how many days before the due date
+            else: # if a goal finished after the anticipated due date
                 string2 = "That is {0:.2f} days slower than anticipated.".format(self.ag.getFasterSlower())
+                # assign the message string to show how many days late than the due date.
         string3 =   "You spend on average {0:.1f} hours a day working on your goal.".format(self.ag.getAverageTime())
+        # assign the message string to show the average hours spent on the goal
 
         greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
+        # get the greater one of the two dates
         
-        if greater_val == self.ag.getBeforeDuedate():
-            string4 =  "You completed {0:.2f}% of your goals faster than aniticpated!".format(greater_val)
-            string5 =  "Great job, keep up the good work!"
-            string6 =  ""
+        if greater_val == self.ag.getBeforeDuedate(): # if the greater date is the beforeDueDate
+            string4 =  "You completed {0:.2f}% of your goals faster than anticipated!".format(greater_val)
+            # assign a message string that display what percentage faster than the anticipated date
+            string5 =  "Great job, keep up the good work!" # assign message string
+            string6 =  "" # assign message string
 
-        if greater_val != self.ag.getBeforeDuedate():
-            string4 =  "You completed {0:.2f}% of your goals slower than aniticpated.".format(greater_val)
-            string5 =  "You seem to have trouble sticking to your goals. Consider giving"
-            string6 =  "yourself more time next time!"
+        if greater_val != self.ag.getBeforeDuedate(): # if the greater date is the afterDueDate
+            string4 =  "You completed {0:.2f}% of your goals slower than anticipated.".format(greater_val)
+            # assign a message string that display what percentage slower than the anticipated date
+            string5 =  "You seem to have trouble sticking to your goals. Consider giving" # assign message string
+            string6 =  "yourself more time next time!" # assign message string
 
-        self.label_daystook.setText(string1)
-        self.label_fasterslower.setText(string2)
-        self.label_numhours.setText(string3)
-        self.label_lowerlinetext_1.setText(string4)
-        self.label_lowerlinetext_2.setText(string5)
-        self.label_lowerlinetext_3.setText(string6)
+        self.label_daystook.setText(string1) # set the label text 
+        self.label_fasterslower.setText(string2) # set the label text 
+        self.label_numhours.setText(string3) # set the label text 
+        self.label_lowerlinetext_1.setText(string4) # set the label text 
+        self.label_lowerlinetext_2.setText(string5) # set the label text 
+        self.label_lowerlinetext_3.setText(string6) # set the label text 
         #self.aboutToQuit.connect(stopAnimationOnExit)
     
     def closeEvent(self, event):
-        self.stopAnimationOnExit()
-        event.accept()
+        '''
+        Override the closeEvent function of the qt
+        @param: event
+
+        @return: None
+
+        @purpose: close the child window with animation stoped
+        '''
+        self.stopAnimationOnExit() # call the stop animation function
+        event.accept() # close the child window
 
     def stopAnimationOnExit(self):
-        self.canvas.stopAnimation()
+        '''
+        @param: None
+
+        @return: None
+
+        @purpose: call the stopAnimation function
+        '''
+        self.canvas.stopAnimation() # call the stopAnimation of the canvas object
 
 
 class UncompletedAnalysis(QDialog):
     def __init__(self, _model, _goalid):
         '''
-        @param:
+        @param: _model (Model)
+        @param: _goalid (integer)
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Analysis the data of the model, the incompleted goal selected, display graph analysis, and statistics.
         '''
         super(UncompletedAnalysis, self).__init__()
 
         loadUi(UI_PATHS["UncompletedAnalysis"], self) # Load the AddEditViewSubGoal UI
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setWindowTitle("Analysis")
-        self.model = _model
-        self.goalid = _goalid
-        self.ag = AnalysisGenerator(_goalid, _model)
-        self.finished_percentage = self.ag.trackProgress() * 100
-        self.canvas = Canvas(self, width=7, height=4)
-        layout = self.gridLayout_2
-        layout.addWidget(self.canvas, 0, 0)
-        self.canvas.plot_ring(self.finished_percentage, 100 - self.finished_percentage)
+        self.setWindowTitle("Uncompleted Goal Analysis") # set the child window title
+        self.model = _model # assign model object
+        self.goalid = _goalid # assign goalid
+        self.ag = AnalysisGenerator(_goalid, _model) # create an AnalysisGenerator object
+        self.finished_percentage = self.ag.trackProgress() * 100 # get finished subgoal percentage 
+        self.canvas = Canvas(self) # create a Canvas object
+        layout = self.gridLayout_2 # get the layout named 'gridLayout_2' of the ui file
+        layout.addWidget(self.canvas, 0, 0) # add the widget to the layout
+        self.canvas.plot_ring(self.finished_percentage, 100 - self.finished_percentage) # call the plot_ring to plot the ring chart
 
         greater_val = max(self.ag.getBeforeDuedate(), self.ag.getAfterDuedate())
-        
-        if greater_val == self.ag.getBeforeDuedate():
+        # get the greater one of the two dates
+
+        if greater_val == self.ag.getBeforeDuedate(): # if the greater date is the beforeDueDate
             string1 =  "You completed {0:.2f}% of your goals faster than aniticpated!".format(greater_val)
-            string2 =  "Great job, keep up the good work!"
-            string3 =  ""
+            # assign a message string that display what percentage faster than the anticipated date
+            string2 =  "Great job, keep up the good work!" # assign a message string
+            string3 =  "" # assign a message string
 
-        if greater_val != self.ag.getBeforeDuedate():
+        if greater_val != self.ag.getBeforeDuedate(): # if the greater date is the afterDueDate
             string1 =  "You completed {0:.2f}% of your goals slower than aniticpated.".format(greater_val)
-            string2 =  "You seem to have trouble sticking to your goals. Consider giving"
-            string3 =  "yourself more time next time!"
+            # assign a message string that display what percentage slower than the anticipated date
+            string2 =  "You seem to have trouble sticking to your goals. Consider giving" # assign a message string
+            string3 =  "yourself more time next time!" # assign a message string
 
-        self.label_lowerlinetext_1.setText(string1)
-        self.label_lowerlinetext_2.setText(string2 + string3)
+        self.label_lowerlinetext_1.setText(string1) # set the text to the label
+        self.label_lowerlinetext_2.setText(string2 + string3) # set the text to the label
         #self.label_lowerlinetext_3.setText(string3)
 
     def closeEvent(self, event):
-        if self.finished_percentage != 0:
-            self.stopAnimationOnExit()
-        event.accept()
+        '''
+        Override the closeEvent function of the qt
+        @param: event
+
+        @return: None
+
+        @purpose: close the child window with animation stoped
+        '''
+        if self.finished_percentage != 0: # if percentage is not 0
+            self.stopAnimationOnExit() # stop the animation
+        event.accept() # close the child window
 
     def stopAnimationOnExit(self):
-        self.canvas.stopAnimation()
+        '''
+        @param: None
+
+        @return: None
+
+        @purpose: call the stopAnimation function
+        '''
+        self.canvas.stopAnimation() # call the stopAnimation of the canvas object
