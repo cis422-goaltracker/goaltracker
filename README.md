@@ -26,12 +26,12 @@ This application is runnable on 6 different Operating Systems.
 - Fedora (29 Workstation)
 - Chrome OS (72.0.3626.117)
 
-It is implemented in Python ver 3.6. You need Python, PyQt5 and PyQtGraph to launch this application.
+It is implemented in Python ver 3.6. You need Python, PyQt5, Matplotlib, DateTime and PyQtGraph to launch this application.
 
 We recommend using a 64-bit (x64) processor to run the application.
 
 For those without python or pyqt5, they can be downloaded from these links. 
-Note: Pip3 can be used to quickly install pyqt5, pyqtgraph and DateTime.
+Note: Pip3 can be used to quickly install pyqt5, matplotlib, pyqtgraph and DateTime.
 
 https://www.python.org/
 
@@ -59,9 +59,15 @@ $ pip3 install DateTime
 $ pip3 install pyqtgraph
 ```
 
-### To run the application run this bash command:
+### To install matplotlib run this bash command:
 ```bash
-$ python ViewController.py
+$ pip3 install matplotlib
+```
+
+### To run the application run this bash command:
+Where pythonversion is the name of the python version you are using. 
+```bash
+$ pythonversion ViewController.py
 ```
 
 ## Usage
