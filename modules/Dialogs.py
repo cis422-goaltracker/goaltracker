@@ -72,10 +72,12 @@ class AddEditViewGoal(QDialog):
             self.lineEdit_goal_name.setText(goal.getName()) #sets the goal name section of the editor
             if self.model.isEffortTracking(self.goalid): #if the goal is currently tracking
                 self.push_effort.setText("Stop Effort Tracker") #set the effort tracker to say stop effort tracker
-                goalstarttime = self.model.peekEffortTracker(self.goalid) #retrieve the start time of the goal track from the effort tracker
-                #@JIAZHEN, PUT CODE HERE TO SET THE TIMER
-                #@JIAZHEN "goalstarttime" is when the goal started the effort tracker
-                #@JIAZHEN I put your function "onTimerOut" in the Class Methods Section rather than the PyQTSlot Section, no code changed
+                goalstarttime = self.model.peekEffortTracker(self.goalid) #retrieve the start time of the goal track from the effort tracker 
+                self.effortStopWatch_lcd = QTimer() #create a QTimer object
+                self.effortStopWatch_lcd.start() #start the Timer
+                self.effortStopWatch_lcd.timeout.connect(lambda : self.onTimerOut(goalstarttime)) #comment on the next line:
+                #calculate the time difference between the current time and the last time used the effort tracker
+                #display it on the LCD widget
 
             if goal.isComplete(): #if the goal is complete
                 self.label_status.setText("Status: Complete") #set the status as complete
@@ -108,7 +110,7 @@ class AddEditViewGoal(QDialog):
             self.push_effort.setDisabled(True) #disable the effort tracker
             self.push_add_subgoal.setDisabled(True) #disable the add subgoal button
             self.label_goal_name_4.setText("") #set status to blank
-
+        self.push_effort.setMinimumWidth(400)
         self.lcdNumber.setDigitCount(8)
         self.lcdNumber.display("0:00:00")
 
@@ -123,19 +125,22 @@ class AddEditViewGoal(QDialog):
 
         @purpose: Toggles the effort tracker from on to off depending if it is currently running or not.
         '''
-        self.effortTimer_lcd = QTimer()
-        self.lcdNumber.display("0:00:00")
+        self.effortStopWatch_lcd = QTimer() #initialize a new QTimer object upon stop.
         if self.model.isEffortTracking(self.goalid): #if the effort tracker is current running for the goalid
             self.model.stopEffortTracker(self.goalid) #stop the effort tracker
             self.push_effort.setText("Start Effort Tracker") #set text to say start effort tracker
-            self.effortTimer_lcd.setSingleShot(True)
-            self.effortTimer_lcd.stop()
+            #time.sleep(1)
+            self.lcdNumber.display("0:00:00")
+            self.effortStopWatch_lcd.setSingleShot(True) #set the QTimer Object only use once
+            self.effortStopWatch_lcd.stop() #stop the QTimer
         else:
             self.model.startEffortTracker(self.goalid) #start the effort tracker
             self.push_effort.setText("Stop Effort Tracker") #set the text to say stop effort tracker        
-            self.effortTimer_lcd.start()
-            temp = datetime.now()
-            self.effortTimer_lcd.timeout.connect(lambda : self.onTimerOut(temp))
+            self.effortStopWatch_lcd.start() #start the QTimer counting time
+            temp = datetime.now() #assign the current time to temp for future subtraction
+            self.effortStopWatch_lcd.timeout.connect(lambda : self.onTimerOut(temp))
+            #calculate the time difference between the current time and the time started the effort tracker
+            #display it on the LCD widget
 
     @pyqtSlot()
     def toggleDueDate(self):
@@ -291,13 +296,15 @@ class AddEditViewGoal(QDialog):
     '''********************CLASS METHODS OPERATIONS********************'''
     def onTimerOut(self, start_time):
         '''
-        @param: None
+        @param: start_time
 
-        @return: (boolean)
+        @return: void function
 
-        @purpose:
+        @purpose: calculate the time difference between the current time and the effort tracker start time,
+                  display it on the LCD widget.
         '''
         self.lcdNumber.display(str(datetime.now() - start_time).split('.', 2)[0])
+        #split()[0] format the datetime object into a format used by LCD widget
 
     def subGoalIsSelected(self):
         '''
