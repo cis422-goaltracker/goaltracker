@@ -498,7 +498,8 @@ class Analysis(QDialog):
 
         @purpose: close the child window with animation stoped
         '''
-        self.stopAnimationOnExit() # call the stop animation function
+        if len(self.valuesList) != 0: # if percentage is not 0
+            self.stopAnimationOnExit() # stop the animation
         event.accept() # close the child window
 
     def stopAnimationOnExit(self):

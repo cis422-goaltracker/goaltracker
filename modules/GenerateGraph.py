@@ -46,24 +46,28 @@ class Canvas(FigureCanvas):
         x = datesList # assign dataList to x
         y_heights = valuesList # assign valuesList to y_heights
         axes_bar = self.fig.add_subplot(111) # add a subplot at position 1,1,1 of the figure
-        axes_bar.set_title('Efforts') # set the plot title
-        axes_bar.set_xlabel('Dates') # set the x axis label
+        axes_bar.set_title('Efforts', fontsize = 20) # set the plot title
+        axes_bar.set_xlabel('Dates', fontsize = 16) # set the x axis label
         axes_bar.set_facecolor('None') # set the background of the plot to transparent
         if len(y_heights) != 0 and max(y_heights) < 1: # if valuesList is not empty and the max effort data is less than 1 hour
             if max(y_heights) < 1/60: # if the max effort data is less than 1 minute
                 if max(y_heights) < 1/(60 * 60): # if the max effort data is less than 1 second
                     y_heights = [y * 60 * 60 * 1000 for y in y_heights] # convert effort data into milliseconds
-                    axes_bar.set_ylabel('Milliseconds') # set the y axis label
+                    axes_bar.set_ylabel('Milliseconds', fontsize = 16) # set the y axis label
                 else: # if the max effort data is greater than 1 second but less than a minute
                     y_heights = [y * 60 * 60 for y in y_heights] # convert effort data into seconds
-                    axes_bar.set_ylabel('Seconds') # set the y axis label
+                    axes_bar.set_ylabel('Seconds', fontsize = 16) # set the y axis label
             else: # if the max effort data is less than an hour but greater than a minute
                 y_heights = [y * 60 for y in y_heights] # convert effort data into minute
-                axes_bar.set_ylabel('Minutes') # set the y axis label
+                axes_bar.set_ylabel('Minutes', fontsize = 16) # set the y axis label
         else: # if the effort data exist and greater than an hour
-            axes_bar.set_ylabel('Hours') # set the y axis label
+            axes_bar.set_ylabel('Hours', fontsize = 16) # set the y axis label
         p1 = axes_bar.bar(x, y_heights, width = 0.7,color='g') # draw the bar chart with color green 
-
+        if len(y_heights) == 0: # if y_heights is empty, don't do animation, otherwise, error
+            p1 = axes_bar.text(0, 0, "You have not used Effort Tracker yet.", horizontalalignment='center', \
+                verticalalignment='center', fontsize = 16)
+            # plot a text information
+        
         def animate_bar(i):
             '''
             @param: i - index
@@ -75,8 +79,8 @@ class Canvas(FigureCanvas):
             for rect, y in zip(p1, [(i+1)*y/60 for y in y_heights]): # get each bar and the y height
                 rect.set_height(y) # update each bar's height 
             return p1 #return the bar container
-
-        self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
+        if len(y_heights) != 0: # if y_heights is empty, don't do animation
+            self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
         # Matplotlib built in animation function which take the animate_bar as the iterating function.
         self.draw() # display the figure
 
@@ -90,13 +94,16 @@ class Canvas(FigureCanvas):
         @purpose: Draw the ring chart by using the percentage data with animation
         '''
         axes_ring = self.fig.add_subplot(111) # add a subplot at position 1,1,1 of the figure
-        axes_ring.set_title('Subgoal Progress') # set the title of the plot
+        axes_ring.set_title('Subgoal Progress', fontsize = 20) # set the title of the plot
         axes_ring.set_facecolor('None') # set the background color to None, i.e. transparent
         labels = ["{0:.2f}% Finished".format(f_perc), "{0:.2f}% Unfinished".format(uf_perc)] # format the labels for data
         colors = ['g', 'r'] # set the brush color for plotting
         percentage = [f_perc, uf_perc] # create a list of percentage
-        ring_chart = axes_ring.pie(percentage, wedgeprops=dict(width=0.5), startangle=90, labels = labels, colors = colors)
+        ring_chart = axes_ring.pie(percentage, wedgeprops=dict(width=0.5), startangle=90, \
+            labels = labels, colors = colors)
         # draw a pie chart that used wedgeprops to display as a ring chart
+        ring_chart[1][0].set_fontsize(16) # set label size
+        ring_chart[1][1].set_fontsize(16) # set label size
 
         def animate_ring(i):
             '''
@@ -111,7 +118,8 @@ class Canvas(FigureCanvas):
         
         axes_ring.axis('off') # turn off the axis
         if percentage[0] != 0: # if percentage of finished portion is 0, don't do animation, otherwise, error
-            self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False,frames=int(360*percentage[0]/100), interval=10, blit=False)
+            self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False, \
+                frames=int(360*percentage[0]/100), interval=10, blit=False)
             # Matplotlib built in animation function which take the animate_bar as the iterating function.
         self.draw() # display the figure
 
