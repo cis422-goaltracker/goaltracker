@@ -81,7 +81,7 @@ class Canvas(FigureCanvas):
             return p1 #return the bar container
 
         if len(y_heights) != 0: # if y_heights is empty, don't do animation
-            self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
+            self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=0,blit=True)
         # Matplotlib built in animation function which take the animate_bar as the iterating function.
         self.draw() # display the figure
 
@@ -114,13 +114,14 @@ class Canvas(FigureCanvas):
 
             @purpose: update the first theta of the green colored 'finished' portion
             ''' 
+            ring_chart[0][0].set_theta2(90+i+1)
             ring_chart[0][1].set_theta1(90+i+1) # update the theta1 of the wedge which represents finished portion
             return ring_chart[0][0], ring_chart[0][1] # return the two wedges in a sequence
         
         axes_ring.axis('off') # turn off the axis
         if percentage[0] != 0: # if percentage of finished portion is 0, don't do animation, otherwise, error
             self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False, \
-                frames=int(360*percentage[0]/100), interval=10, blit=False)
+                frames=int(360*percentage[0]/100), interval=0, blit=True)
             # Matplotlib built in animation function which take the animate_bar as the iterating function.
         self.draw() # display the figure
 
