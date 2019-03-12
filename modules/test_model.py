@@ -22,19 +22,22 @@ bgoalInformation = {"name": "btest", "category" : "btest_category", "priority" :
 cgoalInformation = {"name": "ctest", "category" : "ctest_category", "priority" : 3,  "memo" : "testc", "dueDate" : cdue}
 
 goalsinfo = [agoalInformation, bgoalInformation, cgoalInformation]
-
+#Due to behavior of the system it is easier in this case to test multiple functions in one test function
 def test_goal_management():
     for i in range(3):
+        #Test add goal
         gid = m.addGoal()
         assert len(m.goalList) == i+1
         goal = m.getGoal(gid)
+        #Test edit goal, and getGoal implicitly
         m.editGoal(gid, goalsinfo[gid-1])
         assert goal.priority == goalsinfo[gid-1]["priority"]
-    
+    #Test complete goal
     m.completeGoal(gid)
     assert len(m.getCompletedGoalList()) == 1
     assert m.getCompletedGoalList()[0].id == gid
     assert len(m.getGoalList()) == 3
+    #Test delete goal
     m.deleteGoal(gid)
     assert len(m.getCompletedGoalList()) == 0
     assert len(m.getGoalList()) == 2
