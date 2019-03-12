@@ -30,3 +30,11 @@ def test_goal_management():
         goal = m.getGoal(gid)
         m.editGoal(gid, goalsinfo[gid-1])
         assert goal.priority == goalsinfo[gid-1]["priority"]
+    
+    m.completeGoal(gid)
+    assert len(m.getCompletedGoalList()) == 1
+    assert m.getCompletedGoalList()[0].id == gid
+    assert len(m.getGoalList()) == 3
+    m.deleteGoal(gid)
+    assert len(m.getCompletedGoalList()) == 0
+    assert len(m.getGoalList()) == 2
