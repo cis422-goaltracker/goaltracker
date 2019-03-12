@@ -83,13 +83,13 @@ class AddEditViewGoal(QDialog):
                 self.label_status.setText("Status: Complete") #set the status as complete
             else:
                 self.label_status.setText("Status: Incomplete") #else, set the status as incomplete
-
+            print(goal.getPriority())
             if goal.getPriority() == 3: #if the priority is 3
-                self.radio_priority_low.isChecked() #set low as checked
+                self.radio_priority_low.setChecked(True) #set low as checked
             elif goal.getPriority() == 2: #if the priority is 2
-                self.radio_priority_medium.isChecked() #set medium as checked
+                self.radio_priority_medium.setChecked(True) #set medium as checked
             else:
-                self.radio_priority_high.isChecked() #else, set high as checked
+                self.radio_priority_high.setChecked(True) #else, set high as checked
 
             self.lineEdit_category.setText(goal.getCategory()) #set the category as the goal's category
             self.textEdit.setText(goal.getMemo()) #set the memo as the goal's memo
