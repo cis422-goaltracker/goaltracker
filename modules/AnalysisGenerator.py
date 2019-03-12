@@ -17,10 +17,25 @@ from pyqtgraph.Qt import QtCore, QtGui
 class AnalysisGenerator(object):
     """CONSTRUCTOR FOR ANALYSISGENERATOR"""
     def __init__(self, _gid, _model):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         self.gid = _gid
         self.model = _model
 
+    """METHODS FOR ANALYSISGENERATOR"""
     def getActiveTime(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goal = self.model.getGoal(self.gid) #gets the goal form the model
         if goal.isComplete(): #if goal is complete
             return (goal.getStartDate() - goal.getFinishDate()).seconds / 86400 #find the difference between finish and start date
@@ -29,7 +44,13 @@ class AnalysisGenerator(object):
             return (goal.getStartDate() - datetime.datetime.now()).seconds / 86400 #find the difference between the current date and start date
 
     def trackProgress(self):
-        
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goal = self.model.getGoal(self.gid) #gets the goal from the model
         subgoallist = goal.getSubGoalList() #grabs the dictionary of subgoals
         subcompletedcount = 0           #starts a counter for completed subgoals
@@ -42,7 +63,13 @@ class AnalysisGenerator(object):
 
 
     def getFasterSlower(self):
-        
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goal = self.model.getGoal(self.gid) #gets the goal from the model
         if goal.hasDueDate() == False:  #if the goal does not have a due date
             return False;  #return False
@@ -52,7 +79,13 @@ class AnalysisGenerator(object):
 
 
     def getAverageTime(self):
-        
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goal = self.model.getGoal(self.gid) #get goal from model
         effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
@@ -89,6 +122,13 @@ class AnalysisGenerator(object):
 
 
     def getBeforeDuedate(self):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         reschedulecount = 0 #creates counter for number of goals rescheduled
         completedcount = 0  #creates counter for completed goals
         
@@ -108,7 +148,13 @@ class AnalysisGenerator(object):
 
 
     def getAfterDuedate(self):
+        '''
+        @param:
 
+        @return:
+
+        @purpose:
+        '''
         reschedulecount = 0 #creates counter for number of goals rescheduled
         completedcount = 0  #creates counter for completed goals
         
@@ -127,7 +173,13 @@ class AnalysisGenerator(object):
             return ((reschedulecount/completedcount) * 100) #calculates and returns percentage of goals completed after inital duedate
         
     def tranformDatesList(self, test = False):
-        
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goal = self.model.getGoal(self.gid) #get goal from model
         effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
@@ -158,7 +210,13 @@ class AnalysisGenerator(object):
         return dates
 
     def tranformValuesList(self, test = False):
-        
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         goal = self.model.getGoal(self.gid) #get goal from model
         effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
 
@@ -200,6 +258,13 @@ class AnalysisGenerator(object):
         return values
 
     def sortDict(self, adict):
+        '''
+        @param:
+
+        @return:
+
+        @purpose:
+        '''
         temp = sorted(adict.items())
         ret = {}
         for tup in temp:

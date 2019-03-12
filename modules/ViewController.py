@@ -295,12 +295,20 @@ class MainWindow(QMainWindow):
                   that status.
         '''
         if self.state == State.CURRENT: # If the status of the goals to display is current
+            self.push_edit_view.setText("Edit/View") #sets text to default
+            self.push_complete.setDisabled(False) #enables clicking
             return self.model.getCurrentGoalList() # Get the current goal list from model
         elif self.state == State.OVERDUE: # If the status of the goals to display is overdue
+            self.push_edit_view.setText("Reschedule") #sets text to reschedule
+            self.push_complete.setDisabled(False) #enables clicking
             return self.model.getOverDueGoalList() # Get the overdue goal list from model
         elif self.state == State.COMPLETED: # If the status of the goals to display is completed
+            self.push_edit_view.setText("Edit/View") #sets text to default
+            self.push_complete.setDisabled(True) #disables clicking
             return self.model.getCompletedGoalList() # Get the completed goal list from model
         elif self.state == State.ALL: # If the status of the goals to display is all
+            self.push_edit_view.setText("Edit/View") #sets text to default
+            self.push_complete.setDisabled(False) #enables clicking
             return self.model.getGoalList() # Get the goal list from model
         else: # Otherwise...
             return ["ERROR", "ERROR", "ERROR"] # Report an error
