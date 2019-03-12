@@ -79,8 +79,9 @@ class Canvas(FigureCanvas):
             for rect, y in zip(p1, [(i+1)*y/60 for y in y_heights]): # get each bar and the y height
                 rect.set_height(y) # update each bar's height 
             return p1 #return the bar container
+
         if len(y_heights) != 0: # if y_heights is empty, don't do animation
-            self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=False)
+            self.anim = animation.FuncAnimation(self.fig, animate_bar,repeat=False,frames=60,interval=10,blit=True)
         # Matplotlib built in animation function which take the animate_bar as the iterating function.
         self.draw() # display the figure
 
@@ -119,7 +120,7 @@ class Canvas(FigureCanvas):
         axes_ring.axis('off') # turn off the axis
         if percentage[0] != 0: # if percentage of finished portion is 0, don't do animation, otherwise, error
             self.anim = animation.FuncAnimation(self.fig, animate_ring, repeat=False, \
-                frames=int(360*percentage[0]/100), interval=10, blit=False)
+                frames=int(360*percentage[0]/100), interval=10, blit=True)
             # Matplotlib built in animation function which take the animate_bar as the iterating function.
         self.draw() # display the figure
 
