@@ -83,7 +83,7 @@ class AddEditViewGoal(QDialog):
                 self.label_status.setText("Status: Complete") #set the status as complete
             else:
                 self.label_status.setText("Status: Incomplete") #else, set the status as incomplete
-            print(goal.getPriority())
+                
             if goal.getPriority() == 3: #if the priority is 3
                 self.radio_priority_low.setChecked(True) #set low as checked
             elif goal.getPriority() == 2: #if the priority is 2
