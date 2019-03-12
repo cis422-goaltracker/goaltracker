@@ -18,7 +18,7 @@ class FlagError(BaseError):
         for val in self.p_values:
             val_string += (" " + str(val) + ",")
         
-        return("Flag " + str(self.flag)" " + "has expected values:" + val_string + ". But had the value: " + str(self.value))
+        return("Flag " + str(self.flag)+" " + "has expected values:" + val_string + ". But had the value: " + str(self.value))
 
 class GoalNotFoundError(BaseError):
     def __init__(self, Id: int, subgoal = False):

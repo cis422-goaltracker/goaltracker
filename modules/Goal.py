@@ -7,6 +7,7 @@
 #System Imports
 from datetime import datetime, timedelta
 import copy
+from GErrors import FlagError
 
 class Goal(object):
     """CONSTRUCTORS FOR GOAL"""
@@ -49,7 +50,7 @@ class Goal(object):
             return (self.category.lower() < other.category.lower()) #sort by category
         if self.sortingMethod == "priority": #if the sorting method is priority
             return (self.priority < other.priority) #sort by priority
-        return("ERROR: This should never happen (Sort error)") #returns an error
+        raise FlagError("sorting_method", "category, priority", self.sortingMethod)
 
     """METHODS FOR GOAL"""
     '''Goal Operations'''
