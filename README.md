@@ -151,7 +151,7 @@ Subgoal Buttons
 ### OverDue Goals:
 Goals turn into overdue goals when the date they are due has passed. If a goal is overdue, you have the option to "Reschedule" your goal to a later date. This can be done by pressing the "Reschedule" button, which will bring open the edit window so you can give youself more time. 
 
-![alt text](Image of Overdue goal)
+![reschedule](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/reschedule.png)
 
 ### View Analysis:
 View Analysis is something that we provie the user to help better understand productivity habits and offer encouraging helpful tips toward future productivity. 
@@ -161,11 +161,11 @@ For full insight, select a completed goal and select the "ViewAnalysis" button
 This opens a window that displays a graph of how much time was put into the goal per day.
 On top of this, there are several insights that have been made for the user.
 
-![alt text](Image of ViewAnalysis comp process)
+![completedgoal](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/completed.png)
 
 If you select a goal that has not been completed, it will prompt you to come back once the goal has been completed, but in the meantime, offers general insights on goal completion habits. 
 
-![alt text](Image of ViewAnalysis not com process)
+![uncompletedgoal](https://github.com/cis422-goaltracker/goaltracker/blob/master/images/uncompleted.png)
 
 ## Contributing
 Pull requests are welcome after April 1st, 2019. For major changes, please open an issue first to discuss what you would like to change.
