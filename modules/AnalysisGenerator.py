@@ -18,23 +18,24 @@ class AnalysisGenerator(object):
     """CONSTRUCTOR FOR ANALYSISGENERATOR"""
     def __init__(self, _gid, _model):
         '''
-        @param:
+        @param: _goalid (integer)
+        @param: _model(Model)
 
-        @return:
+        @return: None
 
-        @purpose:
+        @purpose: Initializes the AnalysisGenerator.
         '''
-        self.gid = _gid
-        self.model = _model
+        self.gid = _gid         #Initializes the goal id
+        self.model = _model     #Initializes the model
 
     """METHODS FOR ANALYSISGENERATOR"""
     def getActiveTime(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: number (day period)
 
-        @purpose:
+        @purpose: Calculate the time you spend
         '''
         goal = self.model.getGoal(self.gid) #gets the goal form the model
         if goal.isComplete(): #if goal is complete
@@ -45,11 +46,11 @@ class AnalysisGenerator(object):
 
     def trackProgress(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: (float)  
 
-        @purpose:
+        @purpose: track how many subgoals you already finished 
         '''
         goal = self.model.getGoal(self.gid) #gets the goal from the model
         subgoallist = goal.getSubGoalList() #grabs the dictionary of subgoals
@@ -64,11 +65,11 @@ class AnalysisGenerator(object):
 
     def getFasterSlower(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: (boolean) when the goal has no due date / (int) the number days from anticipated finish date
 
-        @purpose:
+        @purpose: get days you work faster or slower than anticipated
         '''
         goal = self.model.getGoal(self.gid) #gets the goal from the model
         if goal.hasDueDate() == False:  #if the goal does not have a due date
@@ -80,11 +81,11 @@ class AnalysisGenerator(object):
 
     def getAverageTime(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: (float)
 
-        @purpose:
+        @purpose: get the average time for each goal
         '''
         goal = self.model.getGoal(self.gid) #get goal from model
         effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
@@ -96,7 +97,7 @@ class AnalysisGenerator(object):
             starttime= pair[1] #get end time
 
             complete = fintime - starttime #find total amoutn of time
-            date = fintime.date() #get the data
+            date = fintime.date() #get the date
 
             if not (date in ret): #if the date does not exist in the return dictionary
                 ret[date] = complete #add it
@@ -123,11 +124,11 @@ class AnalysisGenerator(object):
 
     def getBeforeDuedate(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: (float)
 
-        @purpose:
+        @purpose: Get the percentage of goals completed before the duedate
         '''
         reschedulecount = 0 #creates counter for number of goals rescheduled
         completedcount = 0  #creates counter for completed goals
@@ -149,11 +150,11 @@ class AnalysisGenerator(object):
 
     def getAfterDuedate(self):
         '''
-        @param:
+        @param: None
 
-        @return:
+        @return: (float)
 
-        @purpose:
+        @purpose:  Get the percentage of goals completed after the initial duedate
         '''
         reschedulecount = 0 #creates counter for number of goals rescheduled
         completedcount = 0  #creates counter for completed goals
@@ -174,11 +175,11 @@ class AnalysisGenerator(object):
         
     def tranformDatesList(self, test = False):
         '''
-        @param:
+        @param: Boolean
 
-        @return:
+        @return: (List)
 
-        @purpose:
+        @purpose: transform efforttracking data to a date string list
         '''
         goal = self.model.getGoal(self.gid) #get goal from model
         effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
@@ -211,11 +212,11 @@ class AnalysisGenerator(object):
 
     def tranformValuesList(self, test = False):
         '''
-        @param:
+        @param: Boolean
 
-        @return:
+        @return: (list)
 
-        @purpose:
+        @purpose: transform efforttracking data to a value list
         '''
         goal = self.model.getGoal(self.gid) #get goal from model
         effortTrackingData = goal.getEffortTrackingData() #get effort tracking data for that goal
@@ -259,14 +260,16 @@ class AnalysisGenerator(object):
 
     def sortDict(self, adict):
         '''
-        @param:
+        @param: adict(dictionary)
 
-        @return:
+        @return: (dictionary)
 
-        @purpose:
+        @purpose: sort dictionary
         '''
-        temp = sorted(adict.items())
-        ret = {}
-        for tup in temp:
-            ret[tup[0]] = tup[1]
-        return ret
+        temp = sorted(adict.items()) #sort items in ascending order
+        ret = {}  #new dictionary
+        for tup in temp: #for item in sorted dictionary
+            ret[tup[0]] = tup[1] #assign value
+        return ret   #return sorted dictionary
+
+
