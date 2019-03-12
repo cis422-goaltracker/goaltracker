@@ -7,7 +7,7 @@
 #System Imports
 from datetime import datetime, timedelta
 import copy
-from GErrors import FlagError
+from GErrors import FlagError, GoalNotFoundError, DueDateExistenceError
 
 class Goal(object):
     """CONSTRUCTORS FOR GOAL"""
@@ -191,7 +191,7 @@ class Goal(object):
         for index, subgoal in enumerate(self.subGoalList): #cycles through subgoal list
             if subgoal.getId() == _sgid: #if subgoal id matches the passed subgoal id
                 return index #return the index
-        return -1 #return error code -1
+        raise GoalNotFoundError(sgid, subgoal = True)
 
     '''Effort Tracker Operations'''
     def addEffortTrack(self, _finishTime, _startTime):
@@ -304,6 +304,8 @@ class Goal(object):
 
         @purpose: returns goal due date
         '''
+        if self.dueDate == None:
+            raise DueDateExistenceError(self.id)
         return self.dueDate #returns the Goal Due Date
 
     def getInitialDueDate(self):

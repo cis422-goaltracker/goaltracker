@@ -27,7 +27,7 @@ class GoalNotFoundError(BaseError):
     def __repr__(self):
         string = "Goal not found with id " + str(self.ID)
         if self.subgoal:
-            string = "Sub" + str
+            string = "Sub" + string
         return(string)
         
 class DueDateExistenceError(BaseError):
