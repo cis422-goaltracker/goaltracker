@@ -39,11 +39,11 @@ class AnalysisGenerator(object):
         '''
         goal = self.model.getGoal(self.gid) #gets the goal form the model
         if goal.isComplete(): #if goal is complete
-            delta = goal.getFinishDate() - goal.getStartDate()
+            delta =goal.getStartDate() - goal.getFinishDate() 
             return (delta).total_seconds() / 86400 #find the difference between finish and start date
             
         else:
-            delta = datetime.datetime.now() - goal.getStartDate()
+            delta = goal.getStartDate() - datetime.datetime.now()
             return (delta).total_seconds() / 86400 #find the difference between the current date and start date
 
     def trackProgress(self):
