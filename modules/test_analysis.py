@@ -32,10 +32,13 @@ for i in range(3):
     m.editGoal(gid, goalsinfo[gid-1])
 for i in range(3):
     m.manuallyInputEffort(gid, nows[i], laters[i])
-
-m.goalList[2].startDate = nows[0]
-ag = AnalysisGenerator(gid, m)
-
-print(ag.getActiveTime())
+m.editSubGoal(gid, m.addSubGoal(gid), {"name" : "test_a"})
+m.editSubGoal(gid, m.addSubGoal(gid), {"name" : "test_b"})
+m.completeSubGoal(gid, 2)
+def test_analysis():
+    m.goalList[2].startDate = nows[0]
+    ag = AnalysisGenerator(gid, m)
+    assert round(ag.getActiveTime(), 1) == 2.5
+    assert ag.trackProgress() == .5
     
  
