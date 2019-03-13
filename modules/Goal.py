@@ -304,8 +304,6 @@ class Goal(object):
 
         @purpose: returns goal due date
         '''
-        if self.dueDate == None:
-            raise DueDateExistenceError(self.id)
         return self.dueDate #returns the Goal Due Date
 
     def getInitialDueDate(self):
