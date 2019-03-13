@@ -22,7 +22,7 @@ agoalInformation = {"name": "atest", "category" : "atest_category", "priority" :
 bgoalInformation = {"name": "btest", "category" : "btest_category", "priority" : 2,  "memo" : "testb", "dueDate" : bdue}
 cgoalInformation = {"name": "ctest", "category" : "ctest_category", "priority" : 3,  "memo" : "testc", "dueDate" : cdue}
 
-nows = [dt.now() - timedelta(days = 10, hours = 14),
+nows = [dt.now() - timedelta(days = 2, hours = 12),
         dt.now() - timedelta(days = 2, hours = 5),
         dt.now() - timedelta(hours = 2)]
 laters = [nows[0] + timedelta(hours=5), nows[1] + timedelta(hours = 7), nows[2] + timedelta(hours = 1)]
